@@ -186,7 +186,7 @@ export function EcuSessionManager({
 
           <div>
             <span className="eyebrow">
-              ECU SESSION MANAGER · V7.8
+              ECU SESSION MANAGER
             </span>
 
             <h3>
@@ -408,8 +408,7 @@ export function EcuSessionManager({
         )}
       </div>
 
-      <div className="ecu-session-footer">
-        v7.8 manages read-only ECU session state only. Memory
+      <div className="ecu-session-footer"> manages read-only ECU session state only. Memory
         writes, flash operations, security access and programming
         sessions remain locked.
       </div>

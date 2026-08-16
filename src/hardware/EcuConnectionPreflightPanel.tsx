@@ -25,7 +25,7 @@ export function EcuConnectionPreflightPanel({
           <ClipboardCheck size={16} />
           <div>
             <span className="eyebrow">
-              ECU CONNECTION READINESS & PREFLIGHT · V9.6
+              ECU CONNECTION READINESS & PREFLIGHT
             </span>
             <h3>Session Safety Gate</h3>
           </div>
@@ -77,8 +77,7 @@ export function EcuConnectionPreflightPanel({
         ))}
       </div>
 
-      <div className="ecu-preflight-footer">
-        v9.6 is a readiness gate for the existing read-only workflow.
+      <div className="ecu-preflight-footer"> is a readiness gate for the existing read-only workflow.
         It does not enable ECU programming, arbitrary CAN transmission,
         security access, or flashing.
       </div>

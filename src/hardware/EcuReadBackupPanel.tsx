@@ -160,7 +160,7 @@ export function EcuReadBackupPanel({
         setProgress(0);
         addLog(
           "warning",
-          "No ROM image is currently available for backup. v7.1 does not issue active ECU memory-read commands yet.",
+          "No ROM image is currently available for backup. does not issue active ECU memory-read commands yet.",
         );
         return;
       }
@@ -222,7 +222,7 @@ export function EcuReadBackupPanel({
           <HardDriveDownload size={16}/>
           <div>
             <span className="eyebrow">
-              ECU READ & BACKUP · V7.1
+              ECU READ & BACKUP
             </span>
             <h3>
               Read-Only Backup Workflow
@@ -266,8 +266,7 @@ export function EcuReadBackupPanel({
         </button>
       </div>
 
-      <div className="ecu-read-note">
-        v7.1 verifies provider/link readiness and creates a
+      <div className="ecu-read-note"> verifies provider/link readiness and creates a
         verified backup from a ROM image already available to
         NEXUS. It still does not send active ECU memory-read,
         diagnostic-session, seed/key or ECU programming commands.

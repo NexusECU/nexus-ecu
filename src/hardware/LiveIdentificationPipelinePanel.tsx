@@ -61,7 +61,7 @@ export function LiveIdentificationPipelinePanel({
 
           <div>
             <span className="eyebrow">
-              REAL ECU IDENTIFICATION PIPELINE · V8.2
+              REAL ECU IDENTIFICATION PIPELINE
             </span>
 
             <h3>
@@ -204,8 +204,7 @@ export function LiveIdentificationPipelinePanel({
           )}
       </div>
 
-      <div className="live-id-pipeline-note">
-        v8.2 decodes identification responses already present
+      <div className="live-id-pipeline-note"> decodes identification responses already present
         on the receive stream. It does not add arbitrary CAN
         transmit, security access, memory-read or programming
         commands.

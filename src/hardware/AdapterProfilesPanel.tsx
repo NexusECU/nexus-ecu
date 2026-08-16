@@ -82,7 +82,7 @@ export function AdapterProfilesPanel({
 
         return ADAPTER_PROFILES.filter(
           profile =>
-            `${profile.displayName} ${profile.family} ${profile.protocols.join(" ")} ${profile.platforms.join(" ")}`
+            `${profile.displayName} ${profile.family} ${profile.protocols.join("")} ${profile.platforms.join("")}`
               .toLowerCase()
               .includes(
                 needle,
@@ -104,7 +104,7 @@ export function AdapterProfilesPanel({
 
           <div>
             <span className="eyebrow">
-              SUPPORTED ADAPTER PROFILES · V7.5
+              SUPPORTED ADAPTER PROFILES
             </span>
 
             <h3>

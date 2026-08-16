@@ -8,13 +8,19 @@ import {
 import nexusLogo from "../assets/nexus-logo.png";
 
 import {
+  Activity,
+  BookOpen,
+  CarFront,
   CircleHelp,
   Cpu,
+  Gauge,
+  Home,
   Info,
   Keyboard,
   Save,
-  Settings,
   ShieldCheck,
+  SlidersHorizontal,
+  Wrench,
   X,
 } from "lucide-react";
 
@@ -47,6 +53,17 @@ import {
 
 import "./desktop-shell.css";
 
+export type NexusHeaderWorkspace =
+  | "home"
+  | "project"
+  | "hardware"
+  | "ecu"
+  | "diagnostics"
+  | "tuning"
+  | "logging"
+  | "safety"
+  | "settings";
+
 type DesktopShellProps = {
   dirty: boolean;
 
@@ -75,6 +92,17 @@ type DesktopShellProps = {
     settings:
       DesktopSettings,
   ) => void;
+
+  activeHeaderWorkspace:
+    NexusHeaderWorkspace;
+
+  onHeaderWorkspace: (
+    workspace:
+      NexusHeaderWorkspace,
+  ) => void;
+
+  simplifiedMode?:
+    boolean;
 };
 
 export function DesktopShell({
@@ -87,6 +115,9 @@ export function DesktopShell({
   onSaveAs,
   onWorkspace,
   onSettingsChanged,
+  activeHeaderWorkspace,
+  onHeaderWorkspace,
+  simplifiedMode = false,
 }: DesktopShellProps) {
   const [
     settings,
@@ -114,10 +145,6 @@ export function DesktopShell({
   const desktop =
     isTauri();
 
-  const platformLabel =
-    desktop
-      ? "TAURI DESKTOP"
-      : "WEB PREVIEW";
 
   /*
    * App.tsx updates ECU telemetry very frequently.
@@ -233,6 +260,17 @@ export function DesktopShell({
         key === "n"
       ) {
         event.preventDefault();
+
+        if (
+          activeHeaderWorkspace !==
+          "project"
+        ) {
+          onHeaderWorkspace(
+            "project",
+          );
+          return;
+        }
+
         onNewRef.current();
         return;
       }
@@ -422,8 +460,19 @@ export function DesktopShell({
                     accelerator:
                       "Ctrl+N",
                     action:
-                      () =>
-                        onNewRef.current(),
+                      () => {
+                        if (
+                          activeHeaderWorkspace !==
+                          "project"
+                        ) {
+                          onHeaderWorkspace(
+                            "project",
+                          );
+                          return;
+                        }
+
+                        onNewRef.current();
+                      },
                   },
                   {
                     id:
@@ -574,6 +623,109 @@ export function DesktopShell({
     };
   }, []);
 
+
+  const headerTabs:
+    Array<{
+      key:
+        NexusHeaderWorkspace;
+
+      label:
+        string;
+
+      icon:
+        React.ReactNode;
+    }> = [
+      {
+        key:
+          "home",
+        label:
+          "Home",
+        icon:
+          <Home size={12} />,
+      },
+      {
+        key:
+          "project",
+        label:
+          "Project",
+        icon:
+          <CarFront size={12} />,
+      },
+      {
+        key:
+          "hardware",
+        label:
+          "Hardware",
+        icon:
+          <Wrench size={12} />,
+      },
+      {
+        key:
+          "ecu",
+        label:
+          "ECU",
+        icon:
+          <Cpu size={12} />,
+      },
+      {
+        key:
+          "diagnostics",
+        label:
+          "Diagnostics",
+        icon:
+          <Activity size={12} />,
+      },
+      {
+        key:
+          "tuning",
+        label:
+          "Tuning",
+        icon:
+          <SlidersHorizontal size={12} />,
+      },
+      {
+        key:
+          "logging",
+        label:
+          "Logging",
+        icon:
+          <Gauge size={12} />,
+      },
+      {
+        key:
+          "safety",
+        label:
+          "Safety",
+        icon:
+          <ShieldCheck size={12} />,
+      },
+      {
+        key:
+          "settings",
+        label:
+          "Settings",
+        icon:
+          <CircleHelp size={12} />,
+      },
+    ];
+
+  const visibleHeaderTabs =
+    simplifiedMode
+      ? headerTabs.filter(
+          tab =>
+            [
+              "home",
+              "project",
+              "hardware",
+              "diagnostics",
+              "logging",
+              "settings",
+            ].includes(
+              tab.key,
+            ),
+        )
+      : headerTabs;
+
   const autosaveText =
     useMemo(
       () =>
@@ -623,7 +775,7 @@ export function DesktopShell({
             : ""
         }`}
       >
-        <div>
+        <div className="desktop-status-brand">
           <Cpu
             size={13}
           />
@@ -637,11 +789,37 @@ export function DesktopShell({
           </span>
         </div>
 
-        <div>
-          <span>
-            {platformLabel}
-          </span>
+        <nav className="desktop-workspace-tabs">
+          {visibleHeaderTabs.map(
+            tab => (
+              <button
+                type="button"
+                key={
+                  tab.key
+                }
+                className={
+                  activeHeaderWorkspace ===
+                  tab.key
+                    ? "active"
+                    : ""
+                }
+                onClick={() => {
+                  onHeaderWorkspace(
+                    tab.key,
+                  );
+                }}
+              >
+                {tab.icon}
 
+                <span>
+                  {tab.label}
+                </span>
+              </button>
+            ),
+          )}
+        </nav>
+
+        <div className="desktop-status-right">
           <span>
             {autosaveText}
           </span>
@@ -651,22 +829,23 @@ export function DesktopShell({
               ? "UNSAVED CHANGES"
               : "PROJECT SAVED"}
           </span>
-        </div>
 
-        <div>
           <button
             type="button"
+            className="desktop-tutorial-button"
             onClick={() =>
-              setSettingsOpen(
-                true,
+              window.dispatchEvent(
+                new CustomEvent(
+                  "nexus:start-tutorial",
+                ),
               )
             }
           >
-            <Settings
-              size={13}
+            <BookOpen
+              size={12}
             />
 
-            SETTINGS
+            TUTORIAL
           </button>
 
           <button
@@ -696,7 +875,7 @@ export function DesktopShell({
                 </span>
 
                 <h2>
-                  NEXUS ECU Settings
+                  Application Settings
                 </h2>
               </div>
 

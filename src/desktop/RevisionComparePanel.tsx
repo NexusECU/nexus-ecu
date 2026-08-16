@@ -447,7 +447,7 @@ export function RevisionComparePanel({
       <div className="revision-compare-header">
         <div>
           <span className="eyebrow">
-            REVISION ANALYSIS · V5.6
+            REVISION ANALYSIS
           </span>
 
           <h3>
@@ -698,8 +698,8 @@ export function RevisionComparePanel({
 
         <span>
           {left.name}
-          {" "}
-          →{" "}
+          {""}
+          →{""}
           {right.name}
         </span>
       </div>
@@ -816,14 +816,14 @@ export function RevisionComparePanel({
                               undefined && (
                               <>
                                 <small>
-                                  A{" "}
+                                  A{""}
                                   {formatValue(
                                     before,
                                   )}
                                 </small>
 
                                 <em>
-                                  Δ{" "}
+                                  Δ{""}
                                   {delta >
                                   0
                                     ? "+"

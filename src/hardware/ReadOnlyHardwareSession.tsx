@@ -146,7 +146,7 @@ export function ReadOnlyHardwareSession({
 
           <div>
             <span className="eyebrow">
-              READ-ONLY HARDWARE SESSION · V7.0
+              READ-ONLY HARDWARE SESSION
             </span>
 
             <h3>
@@ -196,7 +196,7 @@ export function ReadOnlyHardwareSession({
 
         <span>
           PROVIDER
-          {" "}
+          {""}
           <strong>
             {provider?.shortName ??
               providerId.toUpperCase()}
@@ -205,7 +205,7 @@ export function ReadOnlyHardwareSession({
 
         <span>
           SESSION
-          {" "}
+          {""}
           <strong>
             {sessionActive
               ? `${durationSeconds}s`
@@ -437,9 +437,7 @@ export function ReadOnlyHardwareSession({
       <div className="readonly-session-note">
         <Cable
           size={13}
-        />
-
-        v7.0 does not actively request VIN, calibration IDs,
+        /> does not actively request VIN, calibration IDs,
         diagnostic sessions or memory reads. Identity shown
         here is based only on provider status and traffic
         NEXUS has actually observed.

@@ -255,6 +255,18 @@ export function UnifiedEcuWorkspace({
     initialTab,
   );
 
+
+  useEffect(
+    () => {
+      setActiveTab(
+        initialTab,
+      );
+    },
+    [
+      initialTab,
+    ],
+  );
+
   const diagnosticResponderReady =
     frames.some(
       frame =>

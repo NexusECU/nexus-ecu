@@ -137,7 +137,7 @@ export function DataLogger({samples,recording,onStart,onStop,onClear,onExport,on
   };
 
   return <section className="logger-v13 panel">
-    <div className="logger-v13-header"><div><span className="eyebrow">LIVE DATA & LOGGING / V6.4</span><h2>NEXUS Logging Workspace</h2><p className="profile-description">Configure channels, record sessions, place markers, replay captures and trace telemetry directly back into calibration maps.</p></div><div className={`logger-v13-state ${recording?"recording":""}`}><span className="status-dot online" />{status}</div></div>
+    <div className="logger-v13-header"><div><span className="eyebrow">LIVE DATA & LOGGING</span><h2>NEXUS Logging Workspace</h2><p className="profile-description">Configure channels, record sessions, place markers, replay captures and trace telemetry directly back into calibration maps.</p></div><div className={`logger-v13-state ${recording?"recording":""}`}><span className="status-dot online" />{status}</div></div>
 
     <div className="logger-v13-actions">
       {recording?<button className="logger-v13-button danger" onClick={onStop}><CircleStop size={15}/>STOP LOG</button>:<button className="logger-v13-button primary" onClick={onStart}><Play size={15}/>START LOG</button>}

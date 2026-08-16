@@ -1319,3 +1319,276 @@ footer span:last-child {
     grid-template-columns: 1fr;
   }
 }
+
+/* NEXUS ECU workspace migration */
+.nexus-v101-legacy-app-hidden {
+  display: none;
+}
+
+.nexus-v101-home {
+  display: grid;
+  gap: 10px;
+}
+
+.nexus-v101-hero,
+.nexus-v101-placeholder {
+  border: 1px solid rgba(96, 165, 250, 0.16);
+  border-radius: 8px;
+  background: #080d13;
+  padding: 16px;
+  color: #fff;
+}
+
+.nexus-v101-hero h2,
+.nexus-v101-placeholder h2 {
+  margin: 4px 0 0;
+  font-size: 18px;
+}
+
+.nexus-v101-hero p,
+.nexus-v101-placeholder p {
+  margin: 7px 0 0;
+  color: rgba(255,255,255,.46);
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.nexus-v101-home-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.nexus-v101-home-actions button {
+  min-height: 31px;
+  border: 1px solid rgba(59,130,246,.25);
+  border-radius: 4px;
+  background: rgba(59,130,246,.08);
+  color: #dbeafe;
+  font: inherit;
+  font-size: 7px;
+  font-weight: 900;
+  padding: 0 9px;
+}
+
+.nexus-v101-home-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px;
+}
+
+.nexus-v101-home-grid > div {
+  padding: 10px;
+  border: 1px solid rgba(255,255,255,.05);
+  border-radius: 6px;
+  background: #0b1016;
+}
+
+.nexus-v101-home-grid strong,
+.nexus-v101-home-grid span {
+  display: block;
+}
+
+.nexus-v101-home-grid strong {
+  font-size: 7px;
+}
+
+.nexus-v101-home-grid span {
+  margin-top: 4px;
+  color: rgba(255,255,255,.34);
+  font-size: 7px;
+  line-height: 1.4;
+}
+
+.nexus-v101-legacy-workspace {
+  display: grid;
+  gap: 7px;
+}
+
+.nexus-v101-workspace-banner {
+  padding: 6px 8px;
+  border: 1px solid rgba(59,130,246,.15);
+  border-radius: 4px;
+  background: rgba(59,130,246,.05);
+  color: #93c5fd;
+  font-size: 7px;
+  font-weight: 900;
+}
+
+@media (max-width: 900px) {
+  .nexus-v101-home-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+/* NEXUS ECU v10.1 UI cleanup */
+[data-label="TAURI DESKTOP"],
+.tauri-desktop-badge,
+.simulation-mode-badge,
+.simulation-footer-label {
+  display: none !important;
+}
+
+
+/* NEXUS ECU v10.1 integrated header workspaces */
+.app {
+  padding-left: 0;
+}
+
+.nexus-primary-project-section,
+.nexus-primary-hardware-section,
+.nexus-primary-settings-section {
+  display: none;
+}
+
+.nexus-primary-workspace-project .nexus-primary-project-section {
+  display: block;
+}
+
+.nexus-primary-workspace-hardware .nexus-primary-hardware-section,
+.nexus-primary-workspace-ecu .nexus-primary-hardware-section {
+  display: block;
+}
+
+.nexus-primary-workspace-settings .nexus-primary-settings-section {
+  display: block;
+}
+
+.nexus-primary-workspace-project .nexus-primary-hardware-section,
+.nexus-primary-workspace-project .hero,
+.nexus-primary-workspace-project .workspace-nav,
+.nexus-primary-workspace-project .workspace-panel,
+.nexus-primary-workspace-project .workspace-visible,
+.nexus-primary-workspace-hardware .nexus-primary-project-section,
+.nexus-primary-workspace-hardware .hero,
+.nexus-primary-workspace-hardware .workspace-nav,
+.nexus-primary-workspace-hardware .workspace-panel,
+.nexus-primary-workspace-hardware .workspace-visible,
+.nexus-primary-workspace-ecu .nexus-primary-project-section,
+.nexus-primary-workspace-ecu .hero,
+.nexus-primary-workspace-ecu .workspace-nav,
+.nexus-primary-workspace-ecu .workspace-panel,
+.nexus-primary-workspace-ecu .workspace-visible,
+.nexus-primary-workspace-settings .nexus-primary-project-section,
+.nexus-primary-workspace-settings .nexus-primary-hardware-section,
+.nexus-primary-workspace-settings .hero,
+.nexus-primary-workspace-settings .workspace-nav,
+.nexus-primary-workspace-settings .workspace-panel,
+.nexus-primary-workspace-settings .workspace-visible {
+  display: none !important;
+}
+
+.nexus-primary-workspace-home .nexus-primary-project-section,
+.nexus-primary-workspace-home .nexus-primary-hardware-section,
+.nexus-primary-workspace-home .nexus-primary-settings-section {
+  display: none;
+}
+
+
+
+/* NEXUS ECU v10.1 corrected workspace routing */
+.nexus-primary-project-section,
+.nexus-primary-hardware-section,
+.nexus-primary-settings-section,
+.nexus-primary-logging-section {
+  display: none !important;
+}
+
+.nexus-primary-workspace-project .nexus-primary-project-section {
+  display: block !important;
+}
+
+.nexus-primary-workspace-hardware .nexus-primary-hardware-section,
+.nexus-primary-workspace-ecu .nexus-primary-hardware-section,
+.nexus-primary-workspace-diagnostics .nexus-primary-hardware-section,
+.nexus-primary-workspace-safety .nexus-primary-hardware-section {
+  display: block !important;
+}
+
+.nexus-primary-workspace-logging .nexus-primary-logging-section {
+  display: block !important;
+}
+
+.nexus-primary-workspace-settings .nexus-primary-settings-section {
+  display: block !important;
+}
+
+/* Focused app workspaces should not show the old long-form engine sections. */
+.nexus-primary-workspace-project .hero,
+.nexus-primary-workspace-project .workspace-nav,
+.nexus-primary-workspace-project .workspace-summary,
+.nexus-primary-workspace-project .workspace-visible,
+.nexus-primary-workspace-hardware .hero,
+.nexus-primary-workspace-hardware .workspace-nav,
+.nexus-primary-workspace-hardware .workspace-summary,
+.nexus-primary-workspace-hardware .workspace-visible,
+.nexus-primary-workspace-ecu .hero,
+.nexus-primary-workspace-ecu .workspace-nav,
+.nexus-primary-workspace-ecu .workspace-summary,
+.nexus-primary-workspace-ecu .workspace-visible,
+.nexus-primary-workspace-diagnostics .hero,
+.nexus-primary-workspace-diagnostics .workspace-nav,
+.nexus-primary-workspace-diagnostics .workspace-summary,
+.nexus-primary-workspace-diagnostics .workspace-visible,
+.nexus-primary-workspace-logging .hero,
+.nexus-primary-workspace-logging .workspace-nav,
+.nexus-primary-workspace-logging .workspace-summary,
+.nexus-primary-workspace-logging .workspace-visible,
+.nexus-primary-workspace-safety .hero,
+.nexus-primary-workspace-safety .workspace-nav,
+.nexus-primary-workspace-safety .workspace-summary,
+.nexus-primary-workspace-safety .workspace-visible,
+.nexus-primary-workspace-settings .hero,
+.nexus-primary-workspace-settings .workspace-nav,
+.nexus-primary-workspace-settings .workspace-summary,
+.nexus-primary-workspace-settings .workspace-visible {
+  display: none !important;
+}
+
+/* Tuning uses the real existing calibration workspace. */
+.nexus-primary-workspace-tuning .nexus-primary-project-section,
+.nexus-primary-workspace-tuning .nexus-primary-hardware-section,
+.nexus-primary-workspace-tuning .nexus-primary-settings-section,
+.nexus-primary-workspace-tuning .nexus-primary-logging-section {
+  display: none !important;
+}
+
+/* Home keeps the real overview only. */
+.nexus-primary-workspace-home .nexus-primary-project-section,
+.nexus-primary-workspace-home .nexus-primary-hardware-section,
+.nexus-primary-workspace-home .nexus-primary-settings-section,
+.nexus-primary-workspace-home .nexus-primary-logging-section {
+  display: none !important;
+}
+
+
+/* v10.2 explicit separated Hardware / ECU / Diagnostics workspaces */
+.nexus-primary-hardware-section,
+.nexus-primary-ecu-section,
+.nexus-primary-diagnostics-section {
+  display: none !important;
+}
+
+.nexus-primary-workspace-hardware .nexus-primary-hardware-section {
+  display: block !important;
+}
+
+.nexus-primary-workspace-ecu .nexus-primary-ecu-section {
+  display: block !important;
+}
+
+.nexus-primary-workspace-diagnostics .nexus-primary-diagnostics-section {
+  display: block !important;
+}
+
+/* Ensure the wrong sibling workspace cannot leak through older routing rules. */
+.nexus-primary-workspace-hardware .nexus-primary-ecu-section,
+.nexus-primary-workspace-hardware .nexus-primary-diagnostics-section,
+.nexus-primary-workspace-ecu .nexus-primary-hardware-section,
+.nexus-primary-workspace-ecu .nexus-primary-diagnostics-section,
+.nexus-primary-workspace-diagnostics .nexus-primary-hardware-section,
+.nexus-primary-workspace-diagnostics .nexus-primary-ecu-section {
+  display: none !important;
+}

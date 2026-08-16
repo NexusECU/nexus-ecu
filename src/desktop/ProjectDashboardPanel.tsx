@@ -113,7 +113,7 @@ export function ProjectDashboardPanel({
     return (
       <section className="project-dashboard">
         <div className="project-dashboard-empty">
-          Open or create a vehicle project to view the v9.0
+          Open or create a vehicle project to view the
           project dashboard.
         </div>
       </section>
@@ -136,7 +136,7 @@ export function ProjectDashboardPanel({
 
           <div>
             <span className="eyebrow">
-              PROJECT DASHBOARD · V9.0
+              PROJECT DASHBOARD
             </span>
 
             <h2>
@@ -422,8 +422,7 @@ export function ProjectDashboardPanel({
         </button>
       </div>
 
-      <div className="project-dashboard-footer">
-        v9.0 provides a unified project overview. Hardware
+      <div className="project-dashboard-footer"> provides a unified project overview. Hardware
         reconnect, ECU reads, writes and programming remain
         governed by the existing session and capability gates.
       </div>

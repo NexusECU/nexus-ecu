@@ -250,7 +250,7 @@ export function EcuSessionLifecyclePanel({
 
           <div>
             <span className="eyebrow">
-              ECU SESSION LIFECYCLE · V9.2
+              ECU SESSION LIFECYCLE
             </span>
 
             <h3>
@@ -486,8 +486,7 @@ export function EcuSessionLifecyclePanel({
         )}
       </div>
 
-      <div className="ecu-session-lifecycle-footer">
-        v9.2 formalizes read-only session state only. It does
+      <div className="ecu-session-lifecycle-footer"> formalizes read-only session state only. It does
         not transmit diagnostic-session control, security
         access, memory-write or programming commands.
       </div>

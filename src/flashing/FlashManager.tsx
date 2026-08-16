@@ -616,7 +616,7 @@ export function FlashManager({
       <div className="flash-header">
         <div>
           <span className="eyebrow">
-            ECU FLASHING / V1.4
+            ECU FLASHING
           </span>
 
           <h2>
@@ -811,7 +811,7 @@ export function FlashManager({
 
           <span>
             CHECKSUM:
-            {" "}
+            {""}
             {currentChecksum}
           </span>
         </div>

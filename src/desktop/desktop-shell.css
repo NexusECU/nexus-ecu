@@ -399,3 +399,116 @@
     opacity: 0;
   }
 }
+
+
+/* NEXUS ECU v10.1 — real integrated header tabs */
+.desktop-status-strip {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.desktop-status-brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.desktop-workspace-tabs {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.desktop-workspace-tabs button {
+  min-height: 26px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+  padding: 0 7px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.46);
+  font: inherit;
+  font-size: 7px;
+  font-weight: 800;
+}
+
+.desktop-workspace-tabs button:hover {
+  background: rgba(255, 255, 255, 0.035);
+  color: #fff;
+}
+
+.desktop-workspace-tabs button.active {
+  border-color: rgba(59, 130, 246, 0.24);
+  background: rgba(59, 130, 246, 0.09);
+  color: #dbeafe;
+}
+
+.desktop-status-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.desktop-status-right > span {
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 7px;
+  font-weight: 800;
+}
+
+.desktop-status-right button,
+.desktop-tutorial-button {
+  min-height: 26px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 7px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.02);
+  color: rgba(255, 255, 255, 0.5);
+  font: inherit;
+  font-size: 7px;
+  font-weight: 800;
+}
+
+.desktop-tutorial-button {
+  border-color: rgba(59, 130, 246, 0.14) !important;
+  color: #93c5fd !important;
+}
+
+@media (max-width: 1250px) {
+  .desktop-workspace-tabs button span {
+    display: none;
+  }
+
+  .desktop-workspace-tabs button {
+    width: 28px;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .desktop-tutorial-button {
+    display: none !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .desktop-status-strip {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .desktop-status-right {
+    grid-column: 1 / -1;
+    justify-content: flex-end;
+  }
+}

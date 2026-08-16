@@ -1,4 +1,4 @@
-/* NEXUS ECU v3.0 Hardware Communication Foundation */
+/* NEXUS ECU Hardware Communication Foundation */
 
 .hardware-manager {
   margin-bottom: 12px;
@@ -411,7 +411,7 @@
 }
 
 
-/* v8.0: legacy ECU panels remain mounted in source but are hidden
+/*: legacy ECU panels remain mounted in source but are hidden
    because UnifiedEcuWorkspace now presents them via tabs. */
 .legacy-hardware-panels-v8 {
   display: none !important;

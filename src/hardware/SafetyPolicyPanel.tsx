@@ -27,7 +27,7 @@ export function SafetyPolicyPanel({
 
           <div>
             <span className="eyebrow">
-              SAFETY GATES & PRODUCTION HARDENING · V9.9
+              SAFETY GATES & PRODUCTION HARDENING
             </span>
 
             <h3>
@@ -114,8 +114,7 @@ export function SafetyPolicyPanel({
         </div>
       )}
 
-      <div className="safety-policy-footer">
-        v9.9 centralizes production safety decisions. The policy
+      <div className="safety-policy-footer"> centralizes production safety decisions. The policy
         may block workflows, but it never enables ECU programming,
         arbitrary CAN transmission, security access, or flashing.
       </div>

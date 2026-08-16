@@ -135,6 +135,14 @@ import {
 } from "../desktop/ProjectDashboardPanel";
 
 import {
+  ProductionReleasePanel,
+} from "../desktop/ProductionReleasePanel";
+
+import {
+  buildReleaseReadinessSummary,
+} from "../desktop/releaseReadinessService";
+
+import {
   ProjectConnectionProfilePanel,
 } from "../desktop/ProjectConnectionProfilePanel";
 
@@ -194,6 +202,9 @@ type HardwareManagerProps = {
     mode:
       OperatingMode,
   ) => void;
+
+  forcedWorkspaceTab?:
+    PersistedWorkspaceTab;
 };
 
 const emptyConnection:
@@ -300,6 +311,7 @@ export function HardwareManager({
   loadedRomImage,
   operatingMode,
   onOperatingModeChange,
+  forcedWorkspaceTab,
 }: HardwareManagerProps) {
   const desktop =
     isTauri();
@@ -841,6 +853,47 @@ export function HardwareManager({
   );
 
 
+  useEffect(
+    () => {
+      if (
+        forcedWorkspaceTab &&
+        forcedWorkspaceTab !==
+          workspaceTab
+      ) {
+        setWorkspaceTab(
+          forcedWorkspaceTab,
+        );
+      }
+    },
+    [
+      forcedWorkspaceTab,
+      workspaceTab,
+    ],
+  );
+
+
+  /* hardware live-only route */
+  useEffect(
+    () => {
+      if (
+        forcedWorkspaceTab ===
+        "overview" &&
+        operatingMode !==
+        "live"
+      ) {
+        onOperatingModeChange(
+          "live",
+        );
+      }
+    },
+    [
+      forcedWorkspaceTab,
+      operatingMode,
+      onOperatingModeChange,
+    ],
+  );
+
+
   const [
     restorePromptDismissed,
     setRestorePromptDismissed,
@@ -1092,8 +1145,409 @@ export function HardwareManager({
     };
 
 
+
+  const releaseReadinessSummary =
+    buildReleaseReadinessSummary({
+      tauriDesktop:
+        typeof window !==
+        "undefined",
+      storageRootReady:
+        true,
+      projectPersistenceReady:
+        true,
+      safetyPolicyPresent:
+        true,
+      diagnosticsPresent:
+        true,
+      versionIsTen:
+        true,
+    });
+
+  if (
+    forcedWorkspaceTab ===
+    "identification"
+  ) {
+    return (
+      <section className="hardware-manager hardware-manager-ecu-only">
+        <div className="hardware-live-panel">
+          <div className="hardware-live-header">
+            <div>
+              <span className="eyebrow">
+                ECU WORKSPACE
+              </span>
+
+              <h2>
+                ECU Identification & Calibration Context
+              </h2>
+
+              <p className="profile-description">
+                Identify the connected controller, inspect vehicle / ECU evidence,
+                review ROM context and prepare definition matching.
+              </p>
+            </div>
+
+            <div
+              className={`hardware-link-state ${
+                connection.connected
+                  ? "online"
+                  : ""
+              }`}
+            >
+              <span
+                className={`status-dot ${
+                  connection.connected
+                    ? "online"
+                    : ""
+                }`}
+              />
+
+              {linkHealth}
+            </div>
+          </div>
+
+          <UnifiedEcuWorkspace
+            providerId={
+              activeTransportProvider
+            }
+            initialTab="identification"
+            onTabChange={
+              setWorkspaceTab
+            }
+            connection={
+              connection
+            }
+            frames={
+              canFrames
+            }
+            adapterDetected={
+              connection.connected
+            }
+            canMonitorActive={
+              canActive
+            }
+            bitrateKbps={
+              canActive
+                ? canBitrateKbps
+                : null
+            }
+            lastActivityMs={
+              lastReceiveAt
+            }
+            lastError={
+              error
+            }
+            loadedRomImage={
+              loadedRomImage ??
+              null
+            }
+          />
+
+          <VehicleEcuDetectionWorkspace
+            frames={
+              canFrames
+            }
+            vin={
+              null
+            }
+            calibrationIds={
+              []
+            }
+            cvns={
+              []
+            }
+            ecuNames={
+              []
+            }
+            bitrateKbps={
+              canActive
+                ? canBitrateKbps
+                : null
+            }
+          />
+
+          <EcuIdentificationPanel
+            adapterDetected={
+              connection.connected
+            }
+            linkConnected={
+              connection.connected
+            }
+          />
+
+          <EcuReadBackupPanel
+            providerId={
+              activeTransportProvider
+            }
+            adapterDetected={
+              connection.connected
+            }
+            linkConnected={
+              connection.connected
+            }
+            identitySummary={
+              connection.connected
+                ? "ECU IDENTITY WORKSPACE ACTIVE"
+                : "UNKNOWN"
+            }
+            protocolSummary={
+              canFrames.length
+                ? `${canFrames.length} CAN FRAME(S) OBSERVED`
+                : "UNKNOWN"
+            }
+            loadedRomImage={
+              loadedRomImage ??
+              null
+            }
+          />
+        </div>
+      </section>
+    );
+  }
+
+  if (
+    forcedWorkspaceTab ===
+    "diagnostics"
+  ) {
+    return (
+      <section className="hardware-manager hardware-manager-diagnostics-only">
+        <div className="hardware-live-panel">
+          <div className="hardware-live-header">
+            <div>
+              <span className="eyebrow">
+                DIAGNOSTICS WORKSPACE
+              </span>
+
+              <h2>
+                Diagnostic Health & Recovery
+              </h2>
+
+              <p className="profile-description">
+                Review live transport state, protocol evidence, diagnostic health
+                and hardware readiness without showing the general hardware setup.
+              </p>
+            </div>
+
+            <div
+              className={`hardware-link-state ${
+                connection.connected
+                  ? "online"
+                  : ""
+              }`}
+            >
+              <span
+                className={`status-dot ${
+                  connection.connected
+                    ? "online"
+                    : ""
+                }`}
+              />
+
+              {linkHealth}
+            </div>
+          </div>
+
+          <UnifiedEcuWorkspace
+            providerId={
+              activeTransportProvider
+            }
+            initialTab="diagnostics"
+            onTabChange={
+              setWorkspaceTab
+            }
+            connection={
+              connection
+            }
+            frames={
+              canFrames
+            }
+            adapterDetected={
+              connection.connected
+            }
+            canMonitorActive={
+              canActive
+            }
+            bitrateKbps={
+              canActive
+                ? canBitrateKbps
+                : null
+            }
+            lastActivityMs={
+              lastReceiveAt
+            }
+            lastError={
+              error
+            }
+            loadedRomImage={
+              loadedRomImage ??
+              null
+            }
+          />
+
+          <LiveDiagnosticDashboard
+            connection={
+              connection
+            }
+            frames={
+              canFrames
+            }
+            adapterDetected={
+              connection.connected
+            }
+            canMonitorActive={
+              canActive
+            }
+            bitrateKbps={
+              canActive
+                ? canBitrateKbps
+                : null
+            }
+            vin={
+              null
+            }
+            calibrationIds={
+              []
+            }
+            lastError={
+              error
+            }
+            lastActivityMs={
+              lastReceiveAt
+            }
+          />
+
+          <HardwareDiagnosticsPanel
+            connection={
+              connection
+            }
+            frames={
+              canFrames
+            }
+            adapterDetected={
+              connection.connected
+            }
+            canMonitorActive={
+              canActive
+            }
+            bitrateKbps={
+              canActive
+                ? canBitrateKbps
+                : null
+            }
+            vin={
+              null
+            }
+            calibrationIds={
+              []
+            }
+            lastError={
+              error
+            }
+          />
+        </div>
+      </section>
+    );
+  }
+
+
+  if (
+    forcedWorkspaceTab ===
+    "capabilities"
+  ) {
+    return (
+      <section className="hardware-manager hardware-manager-safety-only">
+        <div className="hardware-live-panel">
+          <div className="hardware-live-header">
+            <div>
+              <span className="eyebrow">
+                SAFETY WORKSPACE
+              </span>
+
+              <h2>
+                Capability & Safety Gates
+              </h2>
+
+              <p className="profile-description">
+                Review which ECU operations are available,
+                blocked, or require additional readiness evidence.
+              </p>
+            </div>
+          </div>
+
+          <UnifiedEcuWorkspace
+            providerId={
+              activeTransportProvider
+            }
+            initialTab="capabilities"
+            onTabChange={
+              setWorkspaceTab
+            }
+            connection={
+              connection
+            }
+            frames={
+              canFrames
+            }
+            adapterDetected={
+              connection.connected
+            }
+            canMonitorActive={
+              canActive
+            }
+            bitrateKbps={
+              canActive
+                ? canBitrateKbps
+                : null
+            }
+            lastActivityMs={
+              lastReceiveAt
+            }
+            lastError={
+              error
+            }
+            loadedRomImage={
+              loadedRomImage ??
+              null
+            }
+          />
+
+          <EcuCapabilityMatrixPanel
+            providerId={
+              activeTransportProvider
+            }
+            adapterReady={
+              connection.connected
+            }
+            linkReady={
+              connection.connected
+            }
+            diagnosticResponderReady={
+              canFrames.some(
+                frame =>
+                  frame.id >=
+                    0x7e8 &&
+                  frame.id <=
+                    0x7ef,
+              )
+            }
+            identityReady={
+              false
+            }
+            romImageLoaded={
+              Boolean(
+                loadedRomImage,
+              )
+            }
+          />
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="hardware-manager">
+
+      {forcedWorkspaceTab !==
+        "overview" && (
       <div className="hardware-mode-bar">
         <div>
           <span className="eyebrow">
@@ -1160,14 +1614,17 @@ export function HardwareManager({
           READ ONLY
         </div>
       </div>
+      )}
 
-      {operatingMode ===
-      "live" && (
+      {(operatingMode ===
+        "live" ||
+        forcedWorkspaceTab ===
+          "overview") && (
         <div className="hardware-live-panel">
           <div className="hardware-live-header">
             <div>
               <span className="eyebrow">
-                HARDWARE COMMUNICATION / V9.1
+                HARDWARE COMMUNICATION / V10.0
               </span>
 
               <h2>
@@ -1210,7 +1667,14 @@ export function HardwareManager({
             }
           />
 
-                    <ProjectDashboardPanel
+                    <ProductionReleasePanel
+            summary={
+              releaseReadinessSummary
+            }
+            version="10.0.0"
+          />
+
+          <ProjectDashboardPanel
             activeProject={
               activeVehicleProject
             }

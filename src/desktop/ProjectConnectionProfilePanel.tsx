@@ -240,7 +240,7 @@ export function ProjectConnectionProfilePanel({
 
           <div>
             <span className="eyebrow">
-              ECU CONNECTION PROFILE · V9.1
+              ECU CONNECTION PROFILE
             </span>
 
             <h3>
@@ -411,8 +411,7 @@ export function ProjectConnectionProfilePanel({
         </button>
       </div>
 
-      <div className="project-connection-profile-note">
-        v9.1 remembers the known-good connection configuration
+      <div className="project-connection-profile-note"> remembers the known-good connection configuration
         per vehicle project. Reconnect is user-initiated; NEXUS
         does not silently open a COM/J2534 interface when a
         project is loaded.

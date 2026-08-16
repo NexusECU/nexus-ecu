@@ -93,7 +93,7 @@ export function EcuCapabilityMatrixPanel({
 
           <div>
             <span className="eyebrow">
-              ECU READINESS & CAPABILITY MATRIX · V7.9
+              ECU READINESS & CAPABILITY MATRIX
             </span>
 
             <h3>
@@ -191,7 +191,7 @@ export function EcuCapabilityMatrixPanel({
           size={12}
         />
 
-        This matrix is the authoritative v7.9 operation gate.
+        This matrix is the authoritative operation gate.
         ECU write/flash and recovery remain unavailable until a
         later explicitly supported release.
       </div>
@@ -236,7 +236,7 @@ function State({
       {state
         .replace(
           "-",
-          " ",
+          "",
         )
         .toUpperCase()}
     </div>

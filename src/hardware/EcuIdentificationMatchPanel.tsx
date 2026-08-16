@@ -58,7 +58,7 @@ export function EcuIdentificationMatchPanel({
 
           <div>
             <span className="eyebrow">
-              ECU IDENTIFICATION & CAPABILITY MATCHING · V9.4
+              ECU IDENTIFICATION & CAPABILITY MATCHING
             </span>
 
             <h3>
@@ -245,8 +245,7 @@ export function EcuIdentificationMatchPanel({
           )}
       </div>
 
-      <div className="ecu-identification-match-footer">
-        v9.4 matches observed ECU identity against NEXUS
+      <div className="ecu-identification-match-footer"> matches observed ECU identity against NEXUS
         calibration definitions. A match is advisory and does
         not bypass provider/session safety gates.
       </div>

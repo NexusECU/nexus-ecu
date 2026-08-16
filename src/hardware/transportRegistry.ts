@@ -30,7 +30,7 @@ export const transportProviders:
           read: true,
           write: false,
           notes:
-            "NEXUS v7.0 keeps generic serial software receive-only.",
+            "NEXUS keeps generic serial software receive-only.",
         },
       ],
     },

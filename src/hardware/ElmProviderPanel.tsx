@@ -234,7 +234,7 @@ export function ElmProviderPanel({
       <div className="elm-provider-header">
         <div>
           <span className="eyebrow">
-            ELM / STN OBD PROVIDER · V4.3
+            ELM / STN OBD PROVIDER
           </span>
 
           <h3>
@@ -439,7 +439,7 @@ export function ElmProviderPanel({
               <div>
                 <strong>
                   {adapter.adapterFamily}
-                  {" "}
+                  {""}
                   INTERFACE
                 </strong>
 

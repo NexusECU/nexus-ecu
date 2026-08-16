@@ -138,7 +138,7 @@ export const ecuModes: Record<
     id: "test",
     name: "Test",
     description:
-      "Development and ECU simulation mode.",
+      "Development and ECU .",
     throttleResponse: 1,
     rpmResponse: 1,
     boostMultiplier: 1,

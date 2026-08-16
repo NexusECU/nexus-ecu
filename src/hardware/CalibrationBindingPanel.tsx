@@ -27,7 +27,7 @@ export function CalibrationBindingPanel({
 
           <div>
             <span className="eyebrow">
-              ROM & DEFINITION BINDING HARDENING · V9.7
+              ROM & DEFINITION BINDING HARDENING
             </span>
 
             <h3>
@@ -112,8 +112,7 @@ export function CalibrationBindingPanel({
         </div>
       )}
 
-      <div className="calibration-binding-footer">
-        v9.7 treats identity/definition/ROM agreement as a required
+      <div className="calibration-binding-footer"> treats identity/definition/ROM agreement as a required
         calibration-context check. A verified binding does not itself
         authorize ECU write, flash, or programming operations.
       </div>

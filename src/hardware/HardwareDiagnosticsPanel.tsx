@@ -95,7 +95,7 @@ export function HardwareDiagnosticsPanel({
 
           <div>
             <span className="eyebrow">
-              HARDWARE TEST & DIAGNOSTICS · V7.3
+              HARDWARE TEST & DIAGNOSTICS
             </span>
 
             <h3>

@@ -1,4 +1,4 @@
-/* NEXUS ECU v1.2 - professional calibration workspace */
+/* NEXUS ECU - professional calibration workspace */
 
 .tuning-workspace {
   display: grid;
@@ -478,7 +478,7 @@
 }
 
 
-/* NEXUS ECU v1.6 - live cell tracing + log overlay */
+/* NEXUS ECU - live cell tracing + log overlay */
 
 .tune-trace-strip {
   display: grid;
@@ -585,7 +585,7 @@
 }
 
 
-/* NEXUS ECU v5.1 - professional table interaction */
+/* NEXUS ECU - professional table interaction */
 .tune-editor:focus {
   outline: none;
 }
@@ -656,7 +656,7 @@
 }
 
 
-/* NEXUS ECU v5.2 — ECU calibration worksheet appearance */
+/* NEXUS ECU — ECU calibration worksheet appearance */
 
 .tune-table-shell {
   min-height: 520px;
@@ -973,7 +973,7 @@
 
 
 /* ============================================================
-   NEXUS ECU v5.3 — ECUFlash-inspired calibration workspace
+   NEXUS ECU — ECUFlash-inspired calibration workspace
    Classic Windows-style layout for Tuning only.
    ============================================================ */
 
@@ -1514,7 +1514,7 @@
 }
 
 
-/* NEXUS ECU v5.4 — advanced ECUFlash-style editing */
+/* NEXUS ECU — advanced ECUFlash-style editing */
 
 .ecuflash-command-bar {
   min-height: 34px;
@@ -1617,7 +1617,7 @@
 }
 
 
-/* NEXUS ECU v5.5 — axis editing + compare mode */
+/* NEXUS ECU — axis editing + compare mode */
 
 .ecuflash-command-bar button.active {
   border-color: #1f5f9e;

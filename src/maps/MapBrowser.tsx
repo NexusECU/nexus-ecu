@@ -176,7 +176,7 @@ export function MapBrowser({
                       {map.yAxis.values.length}
                       ×
                       {map.xAxis.values.length}
-                      {" "}
+                      {""}
                       table
                     </small>
                   </span>

@@ -100,11 +100,24 @@ import { ProjectManager } from "./desktop/ProjectManager";
 import type {
   RevisionCompareCell,
 } from "./desktop/RevisionComparePanel";
-import { DesktopShell } from "./desktop/DesktopShell";
+import {
+  DesktopShell,
+  type NexusHeaderWorkspace,
+} from "./desktop/DesktopShell";
 
 import {
-  HardwareManager,
-} from "./hardware/HardwareManager";
+  HardwareOverviewWorkspace,
+} from "./hardware/HardwareOverviewWorkspace";
+
+import {
+  EcuWorkspace,
+} from "./hardware/EcuWorkspace";
+
+import {
+  DiagnosticsWorkspace,
+} from "./hardware/DiagnosticsWorkspace";
+
+import "./hardware/separated-workspaces.css";
 
 import type {
   OperatingMode,
@@ -153,6 +166,35 @@ import type {
 } from "./types/ecu";
 
 import "./App.css";
+
+import {
+  FirstRunOnboarding,
+} from "./desktop/FirstRunOnboarding";
+
+import {
+  NexusPrimaryTutorial,
+} from "./desktop/NexusPrimaryTutorial";
+
+import {
+  NexusSettingsWorkspace,
+} from "./desktop/NexusSettingsWorkspace";
+
+import "./desktop/nexus-primary-tutorial.css";
+import "./desktop/simple-mode-settings.css";
+import "./desktop/view-mode.css";
+import {
+  loadExperienceSettings,
+  type NexusExperienceMode,
+} from "./desktop/experienceSettings";
+
+import {
+  SimplifiedHomePage,
+} from "./desktop/SimplifiedHomePage";
+
+import "./desktop/simplified-mode.css";
+
+import "./desktop/access-mode-settings.css";
+import "./desktop/nexus-settings-workspace.css";
 import "./ui-cleanup.css";
 import "./maps/tuning-workspace.css";
 import "./maps/definition-browser.css";
@@ -523,6 +565,104 @@ function cloneMaps(
 }
 
 function App() {
+  const [
+    primaryWorkspace,
+    setPrimaryWorkspace,
+  ] = useState<
+    NexusHeaderWorkspace
+  >(
+    "home",
+  );
+
+
+  const [
+    experienceMode,
+    setExperienceMode,
+  ] = useState<
+    NexusExperienceMode
+  >(
+    () =>
+      loadExperienceSettings()
+        .mode,
+  );
+
+  useEffect(
+    () => {
+      const syncExperience =
+        (
+          event:
+            Event,
+        ) => {
+          const custom =
+            event as CustomEvent;
+
+          const nextMode =
+            custom.detail?.mode;
+
+          if (
+            nextMode ===
+              "simplified" ||
+            nextMode ===
+              "advanced"
+          ) {
+            setExperienceMode(
+              nextMode,
+            );
+
+            if (
+              nextMode ===
+              "simplified"
+            ) {
+              setPrimaryWorkspace(
+                "home",
+              );
+            }
+          }
+        };
+
+      window.addEventListener(
+        "nexus:experience-settings",
+        syncExperience,
+      );
+
+      return () =>
+        window.removeEventListener(
+          "nexus:experience-settings",
+          syncExperience,
+        );
+    },
+    [],
+  );
+
+  const simplifiedMode =
+    experienceMode ===
+    "simplified";
+
+
+
+  useEffect(
+    () => {
+      if (
+        primaryWorkspace ===
+        "tuning"
+      ) {
+        setActiveWorkspace(
+          "tuning",
+        );
+      } else if (
+        primaryWorkspace ===
+        "home"
+      ) {
+        setActiveWorkspace(
+          "overview",
+        );
+      }
+    },
+    [
+      primaryWorkspace,
+    ],
+  );
+
   const ecuRef =
     useRef<EcuController | null>(null);
 
@@ -1119,43 +1259,6 @@ function App() {
     };
   }, []);
 
-  const changeOperatingMode = (
-    mode: OperatingMode,
-  ) => {
-    if (
-      mode ===
-      operatingMode
-    ) {
-      return;
-    }
-
-    if (
-      mode ===
-      "live"
-    ) {
-      ecuRef.current?.stopEngine();
-
-      loggingRef.current =
-        false;
-
-      setLogging(
-        false,
-      );
-
-      setState(
-        ecuRef.current?.getState() ??
-          createInitialState(),
-      );
-
-      setActiveWorkspace(
-        "setup",
-      );
-    }
-
-    setOperatingMode(
-      mode,
-    );
-  };
 
   const startEngine = () => {
     if (
@@ -2668,7 +2771,20 @@ function App() {
     }`;
 
   return (
-    <div className="app">
+    <div
+      className={`app nexus-primary-workspace-${primaryWorkspace} ${
+        simplifiedMode
+          ? "nexus-experience-simplified"
+          : "nexus-experience-advanced"
+      }`}
+    >
+      <FirstRunOnboarding />
+
+      <NexusPrimaryTutorial
+        onWorkspaceChange={
+          setPrimaryWorkspace
+        }
+      />
       <header className="topbar">
         <div>
           <div className="brand">
@@ -2699,6 +2815,39 @@ function App() {
       </header>
 
       <main className="content">
+        {simplifiedMode &&
+        primaryWorkspace ===
+          "home" && (
+          <SimplifiedHomePage
+            onOpenProject={() =>
+              setPrimaryWorkspace(
+                "project",
+              )
+            }
+            onOpenHardware={() =>
+              setPrimaryWorkspace(
+                "hardware",
+              )
+            }
+            onOpenDiagnostics={() =>
+              setPrimaryWorkspace(
+                "diagnostics",
+              )
+            }
+            onOpenLogging={() =>
+              setPrimaryWorkspace(
+                "logging",
+              )
+            }
+            onOpenSettings={() =>
+              setPrimaryWorkspace(
+                "settings",
+              )
+            }
+          />
+        )}
+
+
         <DesktopShell
           dirty={
             projectDirty
@@ -2730,6 +2879,15 @@ function App() {
           }
           onSettingsChanged={
             setDesktopSettings
+          }
+          activeHeaderWorkspace={
+            primaryWorkspace
+          }
+          onHeaderWorkspace={
+            setPrimaryWorkspace
+          }
+          simplifiedMode={
+            simplifiedMode
           }
         />
 
@@ -2779,6 +2937,7 @@ function App() {
           </div>
         )}
 
+        <div className="nexus-primary-project-section">
         <ProjectManager
           project={
             currentProject
@@ -2802,18 +2961,80 @@ function App() {
             applyRevisionCells
           }
         />
+        </div>
 
-        <HardwareManager
+        <div className="nexus-primary-hardware-section">
+          <HardwareOverviewWorkspace
             loadedRomImage={
               loadedRomImage
             }
-          operatingMode={
-            operatingMode
-          }
-          onOperatingModeChange={
-            changeOperatingMode
-          }
-        />
+            operatingMode={
+              operatingMode
+            }
+            onOperatingModeChange={
+              setOperatingMode
+            }
+          />
+        </div>
+
+        <div className="nexus-primary-ecu-section">
+          <EcuWorkspace
+            loadedRomImage={
+              loadedRomImage
+            }
+            operatingMode={
+              operatingMode
+            }
+            onOperatingModeChange={
+              setOperatingMode
+            }
+          />
+        </div>
+
+        <div className="nexus-primary-diagnostics-section">
+          <DiagnosticsWorkspace
+            loadedRomImage={
+              loadedRomImage
+            }
+            operatingMode={
+              operatingMode
+            }
+            onOperatingModeChange={
+              setOperatingMode
+            }
+          />
+        </div>
+
+        <div className="nexus-primary-settings-section">
+          <NexusSettingsWorkspace />
+        </div>
+
+
+        <div className="nexus-primary-logging-section">
+          <DataLogger
+            samples={
+              logSamples
+            }
+            recording={
+              logging
+            }
+            onStart={
+              startLogging
+            }
+            onStop={
+              stopLogging
+            }
+            onClear={
+              clearLogging
+            }
+            onExport={
+              exportLogging
+            }
+            onInspectSample={
+              inspectLogSampleInMap
+            }
+          />
+        </div>
 
         <section className="hero">
           <div>
@@ -8387,7 +8608,7 @@ function App() {
 
         <span>
           <Settings size={15} />
-          SIMULATION MODE
+          
         </span>
       </footer>
     </div>

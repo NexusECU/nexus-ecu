@@ -1,0 +1,63 @@
+.nexus-top-navigation{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  flex:1 1 auto;
+  min-width:0;
+  margin-left:12px;
+}
+.nexus-top-tabs{
+  display:flex;
+  align-items:center;
+  gap:3px;
+  min-width:0;
+  overflow-x:auto;
+  scrollbar-width:thin;
+}
+.nexus-top-tabs button,
+.nexus-top-tutorial{
+  min-height:26px;
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  flex:0 0 auto;
+  padding:0 7px;
+  border:1px solid transparent;
+  border-radius:4px;
+  background:transparent;
+  color:rgba(255,255,255,.48);
+  font:inherit;
+  font-size:7px;
+  font-weight:800;
+}
+.nexus-top-tabs button:hover,
+.nexus-top-tutorial:hover{
+  background:rgba(255,255,255,.035);
+  color:#fff;
+}
+.nexus-top-tabs button.active{
+  border-color:rgba(59,130,246,.22);
+  background:rgba(59,130,246,.08);
+  color:#dbeafe;
+}
+.nexus-top-tutorial{
+  margin-left:6px;
+  border-color:rgba(59,130,246,.14);
+  color:#93c5fd;
+}
+@media(max-width:1180px){
+  .nexus-top-navigation{
+    margin-left:8px;
+  }
+  .nexus-top-tabs button{
+    padding:0 6px;
+  }
+}
+@media(max-width:980px){
+  .nexus-top-tabs button span{
+    display:none;
+  }
+  .nexus-top-tutorial{
+    display:none;
+  }
+}

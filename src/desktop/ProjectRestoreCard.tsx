@@ -68,7 +68,7 @@ export function ProjectRestoreCard({
 
           <div>
             <span className="eyebrow">
-              PROJECT RESTORE · V8.4
+              PROJECT RESTORE
             </span>
 
             <h3>
@@ -79,7 +79,7 @@ export function ProjectRestoreCard({
 
         <strong>
           SAVED
-          {" "}
+          {""}
           {new Date(
             preview.state.updatedAt,
           ).toLocaleString()}

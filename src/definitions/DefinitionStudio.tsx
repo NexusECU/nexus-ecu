@@ -489,7 +489,7 @@ export function DefinitionStudio({
 
           <div>
             <span className="eyebrow">
-              DEFINITION STUDIO · V6.1
+              DEFINITION STUDIO
             </span>
 
             <h3>
@@ -521,11 +521,11 @@ export function DefinitionStudio({
           )}
 
           {errors.length}
-          {" "}
+          {""}
           ERRORS ·
-          {" "}
+          {""}
           {warnings.length}
-          {" "}
+          {""}
           WARNINGS
         </div>
       </div>

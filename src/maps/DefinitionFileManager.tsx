@@ -156,7 +156,7 @@ export function DefinitionFileManager({
 
           <div>
             <span className="eyebrow">
-              EXTERNAL ROM DEFINITIONS · V5.8
+              EXTERNAL ROM DEFINITIONS
             </span>
 
             <h3>

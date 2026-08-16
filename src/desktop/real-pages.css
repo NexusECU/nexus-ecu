@@ -1,0 +1,30 @@
+
+
+/* NEXUS v10.2 true top-level pages */
+.nexus-page {
+  width: 100%;
+  min-width: 0;
+}
+
+.nexus-page-home .workspace-nav,
+.nexus-page-tuning .workspace-nav {
+  display: none !important;
+}
+
+.nexus-page-tuning .hero {
+  display: none !important;
+}
+
+.nexus-page-tuning .workspace-summary {
+  margin-top: 0;
+}
+
+/* Top-level routing now happens in JSX, not CSS display tricks. */
+.nexus-primary-project-section,
+.nexus-primary-hardware-section,
+.nexus-primary-ecu-section,
+.nexus-primary-diagnostics-section,
+.nexus-primary-settings-section,
+.nexus-primary-logging-section {
+  display: revert;
+}

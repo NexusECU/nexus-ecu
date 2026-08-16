@@ -207,7 +207,7 @@ export function ProjectHistoryPanel({
 
           <div>
             <span className="eyebrow">
-              PROJECT HISTORY & ROM BACKUPS · V8.6
+              PROJECT HISTORY & ROM BACKUPS
             </span>
 
             <h3>
@@ -218,7 +218,7 @@ export function ProjectHistoryPanel({
 
         <strong>
           {history.length}
-          {" "}
+          {""}
           EVENT
           {history.length === 1
             ? ""
@@ -461,7 +461,7 @@ export function ProjectHistoryPanel({
 
                     <span>
                       {backup.sizeBytes.toLocaleString()}
-                      {" "}
+                      {""}
                       bytes
                     </span>
 
@@ -490,8 +490,7 @@ export function ProjectHistoryPanel({
         </div>
       </div>
 
-      <div className="project-history-footer">
-        v8.6 stores backup metadata and session restore points.
+      <div className="project-history-footer"> stores backup metadata and session restore points.
         It does not duplicate ROM binary bytes into browser
         storage and does not perform ECU reads or writes.
       </div>

@@ -262,7 +262,7 @@ export function ProjectFileStoragePanel({
 
           <div>
             <span className="eyebrow">
-              PROJECT FILE STORAGE · V8.7
+              PROJECT FILE STORAGE
             </span>
 
             <h3>
@@ -401,8 +401,7 @@ export function ProjectFileStoragePanel({
          └─ *.bin`}</pre>
       </div>
 
-      <div className="project-file-storage-note">
-        v8.8 writes the currently loaded ROM image to the
+      <div className="project-file-storage-note"> writes the currently loaded ROM image to the
         active project’s rom-backups folder, hashes it with
         SHA-256 in the Rust backend, and updates the project
         manifest. ECU memory-read, security access and write/

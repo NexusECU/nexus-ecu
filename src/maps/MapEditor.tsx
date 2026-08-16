@@ -2142,13 +2142,13 @@ export function MapEditor({
           {map.yAxis.values.length}
           ×
           {map.xAxis.values.length}
-          {" "}
+          {""}
           table
         </span>
       </div>
 
       <div className="advanced-calibration-visible-banner">
-        ADVANCED CALIBRATION TOOLS · V6.3
+        ADVANCED CALIBRATION TOOLS
       </div>
 
       <AdvancedCalibrationTools
@@ -2326,7 +2326,7 @@ export function MapEditor({
 
           <strong>
             {selectionCount}
-            {" "}
+            {""}
             CELL
             {selectionCount ===
             1
@@ -3006,11 +3006,11 @@ export function MapEditor({
 
           <strong>
             RPM:
-            {" "}
+            {""}
             {selectedRpm.toLocaleString()}
             {" | "}
             LOAD:
-            {" "}
+            {""}
             {selectedLoad}%
           </strong>
         </div>
@@ -3025,7 +3025,7 @@ export function MapEditor({
               map,
               selectedValue,
             )}
-            {" "}
+            {""}
             {mapUnit(
               map,
             )}
@@ -3047,7 +3047,7 @@ export function MapEditor({
             {bounds.rowStart + 1}
             :
             {bounds.rowEnd + 1}
-            {" "}
+            {""}
             C
             {bounds.columnStart + 1}
             :
@@ -3070,7 +3070,7 @@ export function MapEditor({
               map,
               selectionMax,
             )}
-            {" "}
+            {""}
             {mapUnit(
               map,
             )}
@@ -3087,7 +3087,7 @@ export function MapEditor({
               map,
               selectionAverage,
             )}
-            {" "}
+            {""}
             {mapUnit(
               map,
             )}

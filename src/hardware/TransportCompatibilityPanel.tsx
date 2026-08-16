@@ -91,7 +91,7 @@ export function TransportCompatibilityPanel({
       <div className="transport-compat-header">
         <div>
           <span className="eyebrow">
-            UNIVERSAL VEHICLE INTERFACE / V4.0
+            UNIVERSAL VEHICLE INTERFACE
           </span>
 
           <h2>

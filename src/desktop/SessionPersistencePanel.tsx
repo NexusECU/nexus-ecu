@@ -91,7 +91,7 @@ export function SessionPersistencePanel({
 
           <div>
             <span className="eyebrow">
-              SESSION PERSISTENCE · V8.3
+              SESSION PERSISTENCE
             </span>
 
             <h3>
@@ -239,8 +239,7 @@ export function SessionPersistencePanel({
         )}
       </div>
 
-      <div className="session-persistence-note">
-        v8.3 stores project/session metadata only. It does not
+      <div className="session-persistence-note"> stores project/session metadata only. It does not
         automatically reconnect hardware, reopen a COM port, or
         execute ECU commands when NEXUS starts.
       </div>

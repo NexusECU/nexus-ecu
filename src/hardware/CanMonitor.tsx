@@ -85,7 +85,7 @@ function exportCanCsv(
           .map(
             hexByte,
           )
-          .join(" "),
+          .join(""),
         `"${frame.raw}"`,
       ].join(","),
     );
@@ -387,7 +387,7 @@ export function CanMonitor({
                             ).toFixed(
                               0,
                             )
-                          : "0"}{" "}
+                          : "0"}{""}
                         ms
                       </td>
 
@@ -417,7 +417,7 @@ export function CanMonitor({
                                 hexByte,
                               )
                               .join(
-                                " ",
+                                "",
                               )}
                       </td>
                     </tr>

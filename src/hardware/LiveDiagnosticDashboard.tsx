@@ -332,7 +332,7 @@ export function LiveDiagnosticDashboard({
 
           <div>
             <span className="eyebrow">
-              LIVE DIAGNOSTIC DASHBOARD · V7.4
+              LIVE DIAGNOSTIC DASHBOARD
             </span>
 
             <h3>

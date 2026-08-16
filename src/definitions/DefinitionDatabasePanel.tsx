@@ -217,7 +217,7 @@ export function DefinitionDatabasePanel({
 
           <div>
             <span className="eyebrow">
-              ROM DATABASE & DISCOVERY · V6.5
+              ROM DATABASE & DISCOVERY
             </span>
 
             <h3>
@@ -374,7 +374,7 @@ export function DefinitionDatabasePanel({
 
         <span>
           {candidates.length}
-          {" "}
+          {""}
           CANDIDATES
         </span>
       </div>
@@ -497,7 +497,7 @@ export function DefinitionDatabasePanel({
       {activeFile && (
         <div className="definition-database-active">
           ACTIVE DEFINITION:
-          {" "}
+          {""}
           <strong>
             {activeFile.name}
           </strong>

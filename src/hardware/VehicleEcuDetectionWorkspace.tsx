@@ -85,7 +85,7 @@ export function VehicleEcuDetectionWorkspace({
 
           <div>
             <span className="eyebrow">
-              VEHICLE & ECU DETECTION · V7.7
+              VEHICLE & ECU DETECTION
             </span>
 
             <h3>

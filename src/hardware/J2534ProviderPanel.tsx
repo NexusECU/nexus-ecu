@@ -237,7 +237,7 @@ export function J2534ProviderPanel({
       <div className="j2534-header">
         <div>
           <span className="eyebrow">
-            WINDOWS PASS-THRU / V4.2
+            WINDOWS PASS-THRU
           </span>
 
           <h3>
@@ -554,7 +554,7 @@ export function J2534ProviderPanel({
                   {device.configApplication && (
                     <div className="j2534-config-app">
                       CONFIG APP:
-                      {" "}
+                      {""}
                       {device.configApplication}
                     </div>
                   )}

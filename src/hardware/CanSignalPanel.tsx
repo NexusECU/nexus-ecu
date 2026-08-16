@@ -110,7 +110,7 @@ export function CanSignalPanel({
       <div className="can-signals-header">
         <div>
           <span className="eyebrow">
-            PASSIVE SIGNAL DECODING / V3.2
+            PASSIVE SIGNAL DECODING
           </span>
 
           <h3>
@@ -282,7 +282,7 @@ export function CanSignalPanel({
       )}
 
       <div className="can-signals-note">
-        NEXUS v3.2 does not send OBD requests. Values appear
+        NEXUS does not send OBD requests. Values appear
         only when another tester/module has caused compatible
         Mode 01 responses to be present on the monitored CAN
         traffic.

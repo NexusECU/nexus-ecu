@@ -237,7 +237,7 @@ export function AdapterConnectionWizard({
 
           <div>
             <span className="eyebrow">
-              ADAPTER CONNECTION WIZARD · V7.6
+              ADAPTER CONNECTION WIZARD
             </span>
 
             <h3>
@@ -452,7 +452,7 @@ export function AdapterConnectionWizard({
                   }
                 >
                   {bitrate}
-                  {" "}
+                  {""}
                   KBIT/S
                 </option>
               ),

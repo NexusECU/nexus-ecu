@@ -87,7 +87,7 @@ export function EcuIdentificationPanel({
           <Fingerprint size={16}/>
           <div>
             <span className="eyebrow">
-              ECU IDENTIFICATION · V7.2
+              ECU IDENTIFICATION
             </span>
             <h3>
               Vehicle / Calibration Identity
@@ -225,8 +225,7 @@ export function EcuIdentificationPanel({
         </div>
       </div>
 
-      <div className="ecu-identification-note">
-        v7.2 prepares and decodes standard OBD-II Service 09
+      <div className="ecu-identification-note"> prepares and decodes standard OBD-II Service 09
         vehicle-information requests. Generic arbitrary CAN
         transmit, diagnostic-session changes, security access,
         memory reads and ECU programming remain unavailable.

@@ -287,7 +287,7 @@ export function RomImageManager({
 
           <div>
             <span className="eyebrow">
-              ROM IMAGE / BINARY · V5.9
+              ROM IMAGE / BINARY
             </span>
 
             <h3>
@@ -357,7 +357,7 @@ export function RomImageManager({
 
               <strong>
                 {image.sizeBytes.toLocaleString()}
-                {" "}
+                {""}
                 bytes
               </strong>
             </div>

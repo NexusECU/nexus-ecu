@@ -438,7 +438,7 @@ export function AutoTunePanel({
       <div className="autotune-header">
         <div>
           <span className="eyebrow">
-            LIVE TUNING / V1.5
+            LIVE TUNING
           </span>
 
           <h2>

@@ -57,7 +57,7 @@ export function DiagnosticRecoveryCenter({
 
           <div>
             <span className="eyebrow">
-              DIAGNOSTICS, LOGGING & RECOVERY · V9.8
+              DIAGNOSTICS, LOGGING & RECOVERY
             </span>
 
             <h3>
@@ -190,7 +190,7 @@ export function DiagnosticRecoveryCenter({
 
                   {event.recoveryAction && (
                     <em>
-                      Recovery:{" "}
+                      Recovery:{""}
                       {event.recoveryAction}
                     </em>
                   )}
@@ -224,8 +224,7 @@ export function DiagnosticRecoveryCenter({
         )}
       </div>
 
-      <div className="diagnostic-recovery-footer">
-        v9.8 centralizes observed faults and recovery guidance.
+      <div className="diagnostic-recovery-footer"> centralizes observed faults and recovery guidance.
         Recovery actions only restore local/session state and
         existing read-only connection flows; they do not bypass
         safety gates or perform ECU programming.

@@ -103,12 +103,12 @@ export function AdvancedCalibrationTools({
         />
 
         <strong>
-          ADVANCED CALIBRATION TOOLS · V6.3
+          ADVANCED CALIBRATION TOOLS
         </strong>
 
         <span>
           {selectionCount}
-          {" "}
+          {""}
           CELL
           {selectionCount === 1
             ? ""
@@ -270,7 +270,7 @@ export function AdvancedCalibrationTools({
 
         <div className="advanced-calibration-stats">
           MIN
-          {" "}
+          {""}
           <strong>
             {minimum.toFixed(
               3,

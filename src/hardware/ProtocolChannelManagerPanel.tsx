@@ -172,7 +172,7 @@ export function ProtocolChannelManagerPanel({
 
           <div>
             <span className="eyebrow">
-              PROTOCOL & CHANNEL MANAGEMENT · V9.3
+              PROTOCOL & CHANNEL MANAGEMENT
             </span>
 
             <h3>
@@ -370,8 +370,7 @@ export function ProtocolChannelManagerPanel({
         )}
       </div>
 
-      <div className="protocol-channel-footer">
-        v9.3 manages protocol/channel state and observed bus
+      <div className="protocol-channel-footer"> manages protocol/channel state and observed bus
         evidence only. Opening a channel here does not add
         arbitrary CAN transmit, diagnostic control, security
         access, memory write or programming operations.

@@ -144,7 +144,7 @@ export function EcuCompatibilityIntelligencePanel({
 
           <div>
             <span className="eyebrow">
-              VEHICLE / ECU COMPATIBILITY INTELLIGENCE · V9.5
+              VEHICLE / ECU COMPATIBILITY INTELLIGENCE
             </span>
 
             <h3>
@@ -318,8 +318,7 @@ export function EcuCompatibilityIntelligencePanel({
         )}
       </div>
 
-      <div className="ecu-compatibility-footer">
-        v9.5 combines identity, definition matching, transport,
+      <div className="ecu-compatibility-footer"> combines identity, definition matching, transport,
         responder evidence, capability state, and ROM context.
         The verdict is advisory and never overrides operation
         safety gates.

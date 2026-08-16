@@ -143,7 +143,7 @@ export function ProjectManager({
     <section className="project-manager panel">
       <div className="project-manager-header">
         <div>
-          <span className="eyebrow">NEXUS PROJECT CONTROL · V5.0</span>
+          <span className="eyebrow">NEXUS PROJECT CONTROL</span>
           <h2>Tune Project & Calibration Management</h2>
           <p>
             Vehicle identity, tuner notes, validation, revisions and calibration

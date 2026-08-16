@@ -230,7 +230,7 @@ export function ProjectBrowserPanel({
 
           <div>
             <span className="eyebrow">
-              PROJECT BROWSER & BACKUP EXPLORER · V8.9
+              PROJECT BROWSER & BACKUP EXPLORER
             </span>
 
             <h3>
@@ -313,14 +313,14 @@ export function ProjectBrowserPanel({
                       {entry.entryType
                         .replace(
                           "-",
-                          " ",
+                          "",
                         )
                         .toUpperCase()}
                     </span>
 
                     <em>
                       {entry.sizeBytes.toLocaleString()}
-                      {" "}
+                      {""}
                       bytes
                       {" · "}
                       {new Date(
@@ -396,8 +396,7 @@ export function ProjectBrowserPanel({
         </div>
       )}
 
-      <div className="project-browser-footer">
-        v8.9 browses files already stored in the active project
+      <div className="project-browser-footer"> browses files already stored in the active project
         directory. It does not modify or transmit ECU memory.
       </div>
     </section>

@@ -117,7 +117,7 @@ export function RomCalibrationEnginePanel({
 
           <div>
             <span className="eyebrow">
-              REAL ROM CALIBRATION ENGINE · V6.0
+              REAL ROM CALIBRATION ENGINE
             </span>
 
             <h3>

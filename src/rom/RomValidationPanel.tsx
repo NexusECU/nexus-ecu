@@ -123,7 +123,7 @@ export function RomValidationPanel({
 
           <div>
             <span className="eyebrow">
-              ROM VALIDATION & SAFETY · V6.2
+              ROM VALIDATION & SAFETY
             </span>
 
             <h3>

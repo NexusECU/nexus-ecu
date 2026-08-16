@@ -225,7 +225,7 @@ export function VehicleProjectProfilesPanel({
 
           <div>
             <span className="eyebrow">
-              VEHICLE & ECU PROJECT PROFILES · V8.5
+              VEHICLE & ECU PROJECT PROFILES
             </span>
 
             <h3>
@@ -236,7 +236,7 @@ export function VehicleProjectProfilesPanel({
 
         <strong>
           {projects.length}
-          {" "}
+          {""}
           PROJECT
           {projects.length === 1
             ? ""

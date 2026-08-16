@@ -103,7 +103,7 @@ export function GuidedVehicleConnectionFlow({
 
           <div>
             <span className="eyebrow">
-              GUIDED VEHICLE CONNECTION · V8.1
+              GUIDED VEHICLE CONNECTION
             </span>
 
             <h3>
