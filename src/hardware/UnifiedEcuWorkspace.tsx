@@ -91,6 +91,14 @@ import {
 } from "./ecuPreflightService";
 
 import {
+  CalibrationBindingPanel,
+} from "./CalibrationBindingPanel";
+
+import {
+  buildCalibrationBindingSummary,
+} from "./calibrationBindingService";
+
+import {
   getAdapterProfile,
 } from "./adapterProfiles";
 
@@ -304,6 +312,20 @@ export function UnifiedEcuWorkspace({
     });
 
 
+
+  const calibrationBindingSummary =
+    buildCalibrationBindingSummary(
+      vin
+        ? `VIN ${vin}`
+        : "Active ECU Project",
+      vin,
+      calibrationIds,
+      definitionMatchSummary.bestMatch,
+      loadedRomImage ??
+      null,
+    );
+
+
   return (
     <section className="unified-ecu-workspace">
       <div className="unified-ecu-header">
@@ -485,6 +507,12 @@ export function UnifiedEcuWorkspace({
             <EcuConnectionPreflightPanel
               summary={
                 preflightSummary
+              }
+            />
+
+            <CalibrationBindingPanel
+              summary={
+                calibrationBindingSummary
               }
             />
 
