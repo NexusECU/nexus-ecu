@@ -127,6 +127,14 @@ import {
 } from "../desktop/ProjectFileStoragePanel";
 
 import {
+  ProjectBrowserPanel,
+} from "../desktop/ProjectBrowserPanel";
+
+import {
+  ProjectDashboardPanel,
+} from "../desktop/ProjectDashboardPanel";
+
+import {
   clearProjectSessionState,
   loadProjectSessionState,
   saveProjectSessionState,
@@ -164,6 +172,8 @@ import "../desktop/project-restore-card.css";
 import "../desktop/vehicle-project-profiles.css";
 import "../desktop/project-history.css";
 import "../desktop/project-file-storage.css";
+import "../desktop/project-browser.css";
+import "../desktop/project-dashboard.css";
 
 type HardwareManagerProps = {
   loadedRomImage?: import("../rom/romTypes").RomImageInfo | null;
@@ -1071,7 +1081,7 @@ export function HardwareManager({
           <div className="hardware-live-header">
             <div>
               <span className="eyebrow">
-                HARDWARE COMMUNICATION / V8.8
+                HARDWARE COMMUNICATION / V9.0
               </span>
 
               <h2>
@@ -1114,7 +1124,51 @@ export function HardwareManager({
             }
           />
 
-                    <VehicleProjectProfilesPanel
+                    <ProjectDashboardPanel
+            activeProject={
+              activeVehicleProject
+            }
+            currentSession={
+              currentPersistedState
+            }
+            adapterConnected={
+              connection.connected
+            }
+            canActive={
+              canActive
+            }
+            frameCount={
+              canFrames.length
+            }
+            onOpenSession={() =>
+              setWorkspaceTab(
+                "session",
+              )
+            }
+            onOpenBackups={() =>
+              setWorkspaceTab(
+                "read-backup",
+              )
+            }
+            onOpenBrowser={() => {
+              const element =
+                document.querySelector(
+                  ".project-browser-panel",
+                );
+
+              element?.scrollIntoView({
+                behavior:
+                  "smooth",
+                block:
+                  "start",
+              });
+            }}
+            onSaveProject={
+              saveCurrentSession
+            }
+          />
+
+          <VehicleProjectProfilesPanel
             currentSession={
               currentPersistedState
             }
@@ -1173,6 +1227,39 @@ export function HardwareManager({
               loadedRomImage ??
               null
             }
+          />
+
+          <ProjectBrowserPanel
+            activeProject={
+              activeVehicleProject
+            }
+            onRestoreSession={(
+              restored,
+            ) => {
+              setPersistedSession(
+                restored,
+              );
+
+              setActiveTransportProvider(
+                restored.hardware.providerId,
+              );
+
+              setSelectedPort(
+                restored.hardware.selectedPort,
+              );
+
+              setBaudRate(
+                restored.hardware.serialBaud,
+              );
+
+              setCanBitrateKbps(
+                restored.hardware.canBitrateKbps,
+              );
+
+              setWorkspaceTab(
+                restored.hardware.workspaceTab,
+              );
+            }}
           />
 
           {persistedSession &&

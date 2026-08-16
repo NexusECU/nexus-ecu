@@ -1578,6 +1578,8 @@ pub fn run() {
                 project_storage::write_project_manifest,
                 project_storage::write_project_restore_point,
                 project_storage::write_project_rom_backup,
+                project_storage::browse_project_files,
+                project_storage::read_project_text_file,
             ],
         )
         .run(
