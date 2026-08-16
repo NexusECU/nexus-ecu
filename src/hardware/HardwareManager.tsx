@@ -135,6 +135,14 @@ import {
 } from "../desktop/ProjectDashboardPanel";
 
 import {
+  ProjectConnectionProfilePanel,
+} from "../desktop/ProjectConnectionProfilePanel";
+
+import type {
+  ProjectConnectionProfile,
+} from "../desktop/projectConnectionProfileTypes";
+
+import {
   clearProjectSessionState,
   loadProjectSessionState,
   saveProjectSessionState,
@@ -174,6 +182,7 @@ import "../desktop/project-history.css";
 import "../desktop/project-file-storage.css";
 import "../desktop/project-browser.css";
 import "../desktop/project-dashboard.css";
+import "../desktop/project-connection-profile.css";
 
 type HardwareManagerProps = {
   loadedRomImage?: import("../rom/romTypes").RomImageInfo | null;
@@ -1006,6 +1015,83 @@ export function HardwareManager({
       );
     };
 
+  const applyProjectConnectionProfile =
+    (
+      profile:
+        ProjectConnectionProfile,
+    ) => {
+      setActiveTransportProvider(
+        profile.providerId,
+      );
+
+      setSelectedPort(
+        profile.serialPort,
+      );
+
+      setBaudRate(
+        profile.serialBaud,
+      );
+
+      setCanBitrateKbps(
+        profile.canBitrateKbps,
+      );
+    };
+
+  const reconnectUsingProjectProfile =
+    async (
+      profile:
+        ProjectConnectionProfile,
+    ) => {
+      applyProjectConnectionProfile(
+        profile,
+      );
+
+      if (
+        profile.providerId !==
+        "raw-serial" &&
+        profile.providerId !==
+        "slcan" &&
+        profile.providerId !==
+        "elm-obd"
+      ) {
+        return;
+      }
+
+      if (
+        !profile.serialPort
+      ) {
+        return;
+      }
+
+      try {
+        setError(
+          null,
+        );
+
+        const next =
+          await connectSerialDevice(
+            profile.serialPort,
+            profile.serialBaud,
+          );
+
+        setConnection(
+          next,
+        );
+      } catch (
+        caught
+      ) {
+        setError(
+          caught instanceof
+          Error
+            ? caught.message
+            : String(
+                caught,
+              ),
+        );
+      }
+    };
+
+
   return (
     <section className="hardware-manager">
       <div className="hardware-mode-bar">
@@ -1081,7 +1167,7 @@ export function HardwareManager({
           <div className="hardware-live-header">
             <div>
               <span className="eyebrow">
-                HARDWARE COMMUNICATION / V9.0
+                HARDWARE COMMUNICATION / V9.1
               </span>
 
               <h2>
@@ -1165,6 +1251,33 @@ export function HardwareManager({
             }}
             onSaveProject={
               saveCurrentSession
+            }
+          />
+
+          <ProjectConnectionProfilePanel
+            activeProject={
+              activeVehicleProject
+            }
+            providerId={
+              activeTransportProvider
+            }
+            serialPort={
+              selectedPort
+            }
+            serialBaud={
+              baudRate
+            }
+            canBitrateKbps={
+              canBitrateKbps
+            }
+            linkConnected={
+              connection.connected
+            }
+            onApplyProfile={
+              applyProjectConnectionProfile
+            }
+            onReconnect={
+              reconnectUsingProjectProfile
             }
           />
 
