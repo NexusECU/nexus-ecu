@@ -100,6 +100,18 @@ import {
 } from "./DiagnosticRecoveryCenter";
 
 import {
+  SafetyPolicyPanel,
+} from "./SafetyPolicyPanel";
+
+import {
+  buildSafetyPolicySummary,
+} from "./safetyPolicyService";
+
+import {
+  buildDiagnosticHealthSummary,
+} from "./diagnosticEventService";
+
+import {
   createDiagnosticEvent,
 } from "./diagnosticEventService";
 
@@ -487,6 +499,45 @@ export function UnifiedEcuWorkspace({
   );
 
 
+
+  const diagnosticHealthSummary =
+    buildDiagnosticHealthSummary(
+      diagnosticEvents,
+    );
+
+  const safetyPolicySummary =
+    buildSafetyPolicySummary({
+      adapterDetected,
+      linkConnected:
+        connection.connected,
+      networkEvidence:
+        frames.length > 0,
+      diagnosticResponderReady,
+      identityReady,
+      definitionMatched:
+        Boolean(
+          definitionMatchSummary.bestMatch &&
+          definitionMatchSummary.bestMatch.score >=
+            50,
+        ),
+      bindingVerified:
+        calibrationBindingSummary.status ===
+        "verified",
+      preflightReady:
+        preflightSummary.verdict !==
+        "blocked",
+      activeSession:
+        Boolean(
+          connection.connected &&
+          identityReady,
+        ),
+      diagnosticCriticalCount:
+        diagnosticHealthSummary.criticalCount,
+      diagnosticErrorCount:
+        diagnosticHealthSummary.errorCount,
+    });
+
+
   return (
     <section className="unified-ecu-workspace">
       <div className="unified-ecu-header">
@@ -674,6 +725,12 @@ export function UnifiedEcuWorkspace({
             <CalibrationBindingPanel
               summary={
                 calibrationBindingSummary
+              }
+            />
+
+            <SafetyPolicyPanel
+              summary={
+                safetyPolicySummary
               }
             />
 
