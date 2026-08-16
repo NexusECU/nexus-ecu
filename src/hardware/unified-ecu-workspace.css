@@ -20,3 +20,14 @@
 .unified-session-stack > section {
   margin-top: 0;
 }
+
+
+.unified-diagnostics-stack {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 7px;
+}
+
+.unified-diagnostics-stack > section {
+  margin-top: 0;
+}

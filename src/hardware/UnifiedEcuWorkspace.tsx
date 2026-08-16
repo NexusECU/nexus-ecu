@@ -59,6 +59,10 @@ import {
 } from "./EcuSessionLifecyclePanel";
 
 import {
+  ProtocolChannelManagerPanel,
+} from "./ProtocolChannelManagerPanel";
+
+import {
   EcuIdentificationPanel,
 } from "./EcuIdentificationPanel";
 
@@ -78,6 +82,7 @@ import "./unified-ecu-workspace.css";
 import "./guided-vehicle-connection-flow.css";
 import "./live-identification-pipeline.css";
 import "./ecu-session-lifecycle.css";
+import "./protocol-channel-manager.css";
 
 type WorkspaceTab =
   | "overview"
@@ -421,16 +426,36 @@ export function UnifiedEcuWorkspace({
         )}
 
         {activeTab === "diagnostics" && (
-          <HardwareDiagnosticsPanel
-            connection={connection}
-            frames={frames}
-            adapterDetected={adapterDetected}
-            canMonitorActive={canMonitorActive}
-            bitrateKbps={bitrateKbps}
-            vin={vin}
-            calibrationIds={calibrationIds}
-            lastError={lastError}
-          />
+          <div className="unified-diagnostics-stack">
+            <ProtocolChannelManagerPanel
+              providerId={
+                providerId
+              }
+              transportConnected={
+                connection.connected
+              }
+              frames={
+                frames
+              }
+              bitrateKbps={
+                bitrateKbps
+              }
+              error={
+                lastError
+              }
+            />
+
+            <HardwareDiagnosticsPanel
+              connection={connection}
+              frames={frames}
+              adapterDetected={adapterDetected}
+              canMonitorActive={canMonitorActive}
+              bitrateKbps={bitrateKbps}
+              vin={vin}
+              calibrationIds={calibrationIds}
+              lastError={lastError}
+            />
+          </div>
         )}
 
         {activeTab === "read-backup" && (
