@@ -37,11 +37,17 @@ type Props = {
     project:
       VehicleProjectProfile,
   ) => void;
+
+  onActiveProjectChange?: (
+    project:
+      VehicleProjectProfile | null,
+  ) => void;
 };
 
 export function VehicleProjectProfilesPanel({
   currentSession,
   onOpenProject,
+  onActiveProjectChange,
 }: Props) {
   const [
     projects,
@@ -122,6 +128,10 @@ export function VehicleProjectProfilesPanel({
       onOpenProject(
         project,
       );
+
+      onActiveProjectChange?.(
+        project,
+      );
     };
 
   const saveCurrent =
@@ -168,6 +178,10 @@ export function VehicleProjectProfilesPanel({
         onOpenProject(
           active,
         );
+
+        onActiveProjectChange?.(
+          active,
+        );
       }
     };
 
@@ -192,6 +206,11 @@ export function VehicleProjectProfilesPanel({
 
       setSelectedId(
         next[0]?.id ??
+        null,
+      );
+
+      onActiveProjectChange?.(
+        next[0] ??
         null,
       );
     };

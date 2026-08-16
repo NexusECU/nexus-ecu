@@ -119,6 +119,10 @@ import type {
 } from "../desktop/vehicleProjectTypes";
 
 import {
+  ProjectHistoryPanel,
+} from "../desktop/ProjectHistoryPanel";
+
+import {
   clearProjectSessionState,
   loadProjectSessionState,
   saveProjectSessionState,
@@ -154,6 +158,7 @@ import "./unified-ecu-workspace.css";
 import "../desktop/session-persistence.css";
 import "../desktop/project-restore-card.css";
 import "../desktop/vehicle-project-profiles.css";
+import "../desktop/project-history.css";
 
 type HardwareManagerProps = {
   loadedRomImage?: import("../rom/romTypes").RomImageInfo | null;
@@ -819,6 +824,15 @@ export function HardwareManager({
     false,
   );
 
+  const [
+    activeVehicleProject,
+    setActiveVehicleProject,
+  ] = useState<
+    VehicleProjectProfile | null
+  >(
+    null,
+  );
+
   const currentPersistedState:
     NexusProjectSessionState = {
       schemaVersion:
@@ -936,7 +950,6 @@ export function HardwareManager({
       );
     };
 
-
   const openVehicleProject =
     (
       project:
@@ -972,8 +985,11 @@ export function HardwareManager({
       setRestorePromptDismissed(
         true,
       );
-    };
 
+      setActiveVehicleProject(
+        project,
+      );
+    };
 
   return (
     <section className="hardware-manager">
@@ -1050,7 +1066,7 @@ export function HardwareManager({
           <div className="hardware-live-header">
             <div>
               <span className="eyebrow">
-                HARDWARE COMMUNICATION / V8.5
+                HARDWARE COMMUNICATION / V8.6
               </span>
 
               <h2>
@@ -1100,6 +1116,45 @@ export function HardwareManager({
             onOpenProject={
               openVehicleProject
             }
+            onActiveProjectChange={
+              setActiveVehicleProject
+            }
+          />
+
+          <ProjectHistoryPanel
+            activeProject={
+              activeVehicleProject
+            }
+            currentSession={
+              currentPersistedState
+            }
+            onRestoreSession={(
+              restored,
+            ) => {
+              setPersistedSession(
+                restored,
+              );
+
+              setActiveTransportProvider(
+                restored.hardware.providerId,
+              );
+
+              setSelectedPort(
+                restored.hardware.selectedPort,
+              );
+
+              setBaudRate(
+                restored.hardware.serialBaud,
+              );
+
+              setCanBitrateKbps(
+                restored.hardware.canBitrateKbps,
+              );
+
+              setWorkspaceTab(
+                restored.hardware.workspaceTab,
+              );
+            }}
           />
 
           {persistedSession &&
