@@ -83,6 +83,26 @@ import {
 } from "./EcuCompatibilityIntelligencePanel";
 
 import {
+  EcuConnectionPreflightPanel,
+} from "./EcuConnectionPreflightPanel";
+
+import {
+  buildEcuPreflightSummary,
+} from "./ecuPreflightService";
+
+import {
+  getAdapterProfile,
+} from "./adapterProfiles";
+
+import {
+  buildEcuCapabilityMatrix,
+} from "./ecuCapabilityService";
+
+import {
+  buildEcuCapabilityMatchSummary,
+} from "./ecuMatchService";
+
+import {
   decodeLiveEcuIdentification,
 } from "./liveEcuIdentificationService";
 
@@ -233,6 +253,56 @@ export function UnifiedEcuWorkspace({
       ecuNames.length ||
       cvns.length,
     );
+
+
+  const adapterProfile =
+    getAdapterProfile(
+      providerId,
+    );
+
+  const capabilityMatrix =
+    buildEcuCapabilityMatrix(
+      adapterProfile,
+      adapterDetected,
+      connection.connected,
+      diagnosticResponderReady,
+      identityReady,
+      Boolean(
+        loadedRomImage,
+      ),
+    );
+
+  const definitionMatchSummary =
+    buildEcuCapabilityMatchSummary(
+      vin,
+      calibrationIds,
+      ecuNames,
+    );
+
+  const preflightSummary =
+    buildEcuPreflightSummary({
+      adapterDetected,
+      linkConnected:
+        connection.connected,
+      canMonitorActive,
+      framesObserved:
+        frames.length,
+      diagnosticResponderReady,
+      identityReady,
+      definitionMatched:
+        Boolean(
+          definitionMatchSummary.bestMatch &&
+          definitionMatchSummary.bestMatch.score >=
+            50,
+        ),
+      availableCapabilities:
+        capabilityMatrix.availableCount,
+      romLoaded:
+        Boolean(
+          loadedRomImage,
+        ),
+    });
+
 
   return (
     <section className="unified-ecu-workspace">
@@ -409,6 +479,12 @@ export function UnifiedEcuWorkspace({
                 Boolean(
                   loadedRomImage,
                 )
+              }
+            />
+
+            <EcuConnectionPreflightPanel
+              summary={
+                preflightSummary
               }
             />
 
