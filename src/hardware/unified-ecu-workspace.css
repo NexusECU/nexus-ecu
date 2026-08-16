@@ -9,3 +9,14 @@
 .unified-identification-stack > section {
   margin-top: 0;
 }
+
+
+.unified-session-stack {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 7px;
+}
+
+.unified-session-stack > section {
+  margin-top: 0;
+}

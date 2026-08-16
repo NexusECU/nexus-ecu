@@ -55,6 +55,10 @@ import {
 } from "./EcuSessionManager";
 
 import {
+  EcuSessionLifecyclePanel,
+} from "./EcuSessionLifecyclePanel";
+
+import {
   EcuIdentificationPanel,
 } from "./EcuIdentificationPanel";
 
@@ -73,6 +77,7 @@ import {
 import "./unified-ecu-workspace.css";
 import "./guided-vehicle-connection-flow.css";
 import "./live-identification-pipeline.css";
+import "./ecu-session-lifecycle.css";
 
 type WorkspaceTab =
   | "overview"
@@ -459,14 +464,34 @@ export function UnifiedEcuWorkspace({
         )}
 
         {activeTab === "session" && (
-          <EcuSessionManager
-            frames={frames}
-            adapterReady={adapterDetected}
-            linkReady={connection.connected}
-            bitrateKbps={bitrateKbps}
-            vin={vin}
-            calibrationIds={calibrationIds}
-          />
+          <div className="unified-session-stack">
+            <EcuSessionLifecyclePanel
+              transportConnected={
+                connection.connected
+              }
+              ecuResponderDetected={
+                diagnosticResponderReady
+              }
+              identityConfirmed={
+                identityReady
+              }
+              lastActivityMs={
+                lastActivityMs
+              }
+              error={
+                lastError
+              }
+            />
+
+            <EcuSessionManager
+              frames={frames}
+              adapterReady={adapterDetected}
+              linkReady={connection.connected}
+              bitrateKbps={bitrateKbps}
+              vin={vin}
+              calibrationIds={calibrationIds}
+            />
+          </div>
         )}
       </div>
 
