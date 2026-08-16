@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 
 import {
+  useEffect,
   useState,
 } from "react";
 
@@ -93,6 +94,18 @@ import {
 import {
   CalibrationBindingPanel,
 } from "./CalibrationBindingPanel";
+
+import {
+  DiagnosticRecoveryCenter,
+} from "./DiagnosticRecoveryCenter";
+
+import {
+  createDiagnosticEvent,
+} from "./diagnosticEventService";
+
+import type {
+  DiagnosticEvent,
+} from "./diagnosticEventTypes";
 
 import {
   buildCalibrationBindingSummary,
@@ -324,6 +337,154 @@ export function UnifiedEcuWorkspace({
       loadedRomImage ??
       null,
     );
+
+
+
+  const [
+    diagnosticEvents,
+    setDiagnosticEvents,
+  ] = useState<
+    DiagnosticEvent[]
+  >([]);
+
+  useEffect(
+    () => {
+      const next:
+        DiagnosticEvent[] =
+        [];
+
+      if (
+        lastError
+      ) {
+        next.push(
+          createDiagnosticEvent(
+            "error",
+            "transport",
+            "Hardware / transport error",
+            lastError,
+            "Reset the connection state and reconnect the selected provider.",
+          ),
+        );
+      }
+
+      if (
+        connection.connected &&
+        frames.length ===
+          0
+      ) {
+        next.push(
+          createDiagnosticEvent(
+            "warning",
+            "network",
+            "Connected with no network traffic",
+            "The hardware transport is connected but no CAN frames have been observed.",
+            "Verify bitrate, ignition state, adapter mode, and vehicle-network wiring.",
+          ),
+        );
+      }
+
+      if (
+        frames.length >
+          0 &&
+        !diagnosticResponderReady
+      ) {
+        next.push(
+          createDiagnosticEvent(
+            "warning",
+            "ecu",
+            "Vehicle network detected without ECU responder",
+            `${frames.length} frame(s) have been observed, but no standard diagnostic responder is confirmed.`,
+            "Keep monitoring traffic and verify the selected protocol/provider.",
+          ),
+        );
+      }
+
+      if (
+        identityReady &&
+        !definitionMatchSummary.bestMatch
+      ) {
+        next.push(
+          createDiagnosticEvent(
+            "warning",
+            "identity",
+            "ECU identity has no matching definition",
+            "Identity evidence is available, but NEXUS could not match it to a known calibration definition.",
+            "Verify Calibration ID or add/select an appropriate definition.",
+          ),
+        );
+      }
+
+      if (
+        preflightSummary.verdict ===
+          "blocked"
+      ) {
+        next.push(
+          createDiagnosticEvent(
+            "warning",
+            "preflight",
+            "ECU session preflight is blocked",
+            preflightSummary.summaryText,
+            "Resolve required preflight blockers before proceeding.",
+          ),
+        );
+      }
+
+      if (
+        calibrationBindingSummary.status ===
+          "mismatch"
+      ) {
+        next.push(
+          createDiagnosticEvent(
+            "critical",
+            "binding",
+            "Calibration binding mismatch",
+            calibrationBindingSummary.summaryText,
+            "Stop definition-specific work and verify ECU Calibration ID, definition ROM ID, and loaded ROM.",
+          ),
+        );
+      }
+
+      setDiagnosticEvents(
+        previous => {
+          const signatures =
+            new Set(
+              previous.map(
+                event =>
+                  `${event.category}:${event.title}:${event.detail}`,
+              ),
+            );
+
+          const fresh =
+            next.filter(
+              event =>
+                !signatures.has(
+                  `${event.category}:${event.title}:${event.detail}`,
+                ),
+            );
+
+          return [
+            ...fresh,
+            ...previous,
+          ].slice(
+            0,
+            100,
+          );
+        },
+      );
+    },
+    [
+      lastError,
+      connection.connected,
+      frames.length,
+      diagnosticResponderReady,
+      identityReady,
+      definitionMatchSummary.bestMatch,
+      preflightSummary.verdict,
+      preflightSummary.summaryText,
+      calibrationBindingSummary.status,
+      calibrationBindingSummary.summaryText,
+    ],
+  );
 
 
   return (
@@ -627,6 +788,34 @@ export function UnifiedEcuWorkspace({
               error={
                 lastError
               }
+            />
+
+            <DiagnosticRecoveryCenter
+              events={
+                diagnosticEvents
+              }
+              onClear={() =>
+                setDiagnosticEvents(
+                  [],
+                )
+              }
+              onRecoveryAction={() => {
+                setDiagnosticEvents(
+                  previous => [
+                    createDiagnosticEvent(
+                      "info",
+                      "recovery",
+                      "Recovery action requested",
+                      "Local diagnostic recovery was requested by the user.",
+                      null,
+                    ),
+                    ...previous,
+                  ].slice(
+                    0,
+                    100,
+                  ),
+                );
+              }}
             />
 
             <HardwareDiagnosticsPanel

@@ -2,7 +2,7 @@ export const APP_NAME =
   "NEXUS ECU";
 
 export const APP_VERSION =
-  "9.7.0";
+  "9.8.0";
 
 export const RELEASE_CHANNEL =
   "STABLE";
