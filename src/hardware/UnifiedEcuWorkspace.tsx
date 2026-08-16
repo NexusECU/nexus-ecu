@@ -62,8 +62,17 @@ import {
   GuidedVehicleConnectionFlow,
 } from "./GuidedVehicleConnectionFlow";
 
+import {
+  LiveIdentificationPipelinePanel,
+} from "./LiveIdentificationPipelinePanel";
+
+import {
+  decodeLiveEcuIdentification,
+} from "./liveEcuIdentificationService";
+
 import "./unified-ecu-workspace.css";
 import "./guided-vehicle-connection-flow.css";
+import "./live-identification-pipeline.css";
 
 type WorkspaceTab =
   | "overview"
@@ -170,8 +179,30 @@ export function UnifiedEcuWorkspace({
         frame.id <= 0x7ef,
     );
 
+  const liveIdentification =
+    decodeLiveEcuIdentification(
+      frames,
+    );
+
+  const vin =
+    liveIdentification.identity.vin;
+
+  const calibrationIds =
+    liveIdentification.identity.calibrationIds;
+
+  const cvns =
+    liveIdentification.identity.cvns;
+
+  const ecuNames =
+    liveIdentification.identity.ecuNames;
+
   const identityReady =
-    false;
+    Boolean(
+      vin ||
+      calibrationIds.length ||
+      ecuNames.length ||
+      cvns.length,
+    );
 
   return (
     <section className="unified-ecu-workspace">
@@ -315,28 +346,36 @@ export function UnifiedEcuWorkspace({
               adapterDetected={adapterDetected}
               canMonitorActive={canMonitorActive}
               bitrateKbps={bitrateKbps}
-              vin={null}
-              calibrationIds={[]}
+              vin={vin}
+              calibrationIds={calibrationIds}
               lastError={lastError}
               lastActivityMs={lastActivityMs}
             />
 
             <VehicleEcuDetectionWorkspace
               frames={frames}
-              vin={null}
-              calibrationIds={[]}
-              cvns={[]}
-              ecuNames={[]}
+              vin={vin}
+              calibrationIds={calibrationIds}
+              cvns={cvns}
+              ecuNames={ecuNames}
               bitrateKbps={bitrateKbps}
             />
           </div>
         )}
 
         {activeTab === "identification" && (
-          <EcuIdentificationPanel
-            adapterDetected={adapterDetected}
-            linkConnected={connection.connected}
-          />
+          <div className="unified-identification-stack">
+            <LiveIdentificationPipelinePanel
+              frames={
+                frames
+              }
+            />
+
+            <EcuIdentificationPanel
+              adapterDetected={adapterDetected}
+              linkConnected={connection.connected}
+            />
+          </div>
         )}
 
         {activeTab === "live" && (
@@ -346,8 +385,8 @@ export function UnifiedEcuWorkspace({
             adapterDetected={adapterDetected}
             canMonitorActive={canMonitorActive}
             bitrateKbps={bitrateKbps}
-            vin={null}
-            calibrationIds={[]}
+            vin={vin}
+            calibrationIds={calibrationIds}
             lastError={lastError}
             lastActivityMs={lastActivityMs}
           />
@@ -360,8 +399,8 @@ export function UnifiedEcuWorkspace({
             adapterDetected={adapterDetected}
             canMonitorActive={canMonitorActive}
             bitrateKbps={bitrateKbps}
-            vin={null}
-            calibrationIds={[]}
+            vin={vin}
+            calibrationIds={calibrationIds}
             lastError={lastError}
           />
         )}
@@ -402,8 +441,8 @@ export function UnifiedEcuWorkspace({
             adapterReady={adapterDetected}
             linkReady={connection.connected}
             bitrateKbps={bitrateKbps}
-            vin={null}
-            calibrationIds={[]}
+            vin={vin}
+            calibrationIds={calibrationIds}
           />
         )}
       </div>
