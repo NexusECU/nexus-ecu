@@ -1,0 +1,213 @@
+/* NEXUS ECU v3.2 passive CAN signal decoder */
+
+.can-signals {
+  margin-top: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(34,197,94,.1);
+  border-radius: 9px;
+  background: #080b0f;
+}
+
+.can-signals-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px;
+  border-bottom: 1px solid rgba(255,255,255,.055);
+}
+
+.can-signals-header h3 {
+  margin: 2px 0 0;
+  font-size: 13px;
+}
+
+.can-signals-header p {
+  margin: 5px 0 0;
+  color: rgba(255,255,255,.38);
+  font-size: 9px;
+}
+
+.can-signals-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 5px;
+  color: rgba(255,255,255,.38);
+  font-size: 8px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.can-signals-state.active {
+  border-color: rgba(34,197,94,.34);
+  background: rgba(34,197,94,.07);
+  color: #86efac;
+}
+
+.can-signals-summary {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(90px,1fr));
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+
+.can-signals-summary > div {
+  padding: 9px 10px;
+  border-right: 1px solid rgba(255,255,255,.05);
+}
+
+.can-signals-summary > div:last-child {
+  border-right: 0;
+}
+
+.can-signals-summary span {
+  display: block;
+  color: rgba(255,255,255,.33);
+  font-size: 7px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+.can-signals-summary strong {
+  display: block;
+  margin-top: 3px;
+  font-size: 9px;
+}
+
+.can-signals-search {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 9px;
+  padding: 0 8px;
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 5px;
+  background: #0a0e13;
+}
+
+.can-signals-search input {
+  flex: 1;
+  min-height: 31px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: white;
+  font: inherit;
+  font-size: 9px;
+}
+
+.can-signals-grid {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(140px,1fr));
+  gap: 7px;
+  padding: 0 9px 9px;
+}
+
+.can-signal-card {
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 7px;
+  background: rgba(255,255,255,.018);
+}
+
+.can-signal-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: rgba(255,255,255,.42);
+  font-size: 7px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+.can-signal-value {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.can-signal-value strong {
+  font-size: 21px;
+  font-variant-numeric: tabular-nums;
+}
+
+.can-signal-value span {
+  color: #7dd3fc;
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.can-signal-name {
+  margin-top: 5px;
+  overflow: hidden;
+  color: rgba(255,255,255,.42);
+  font-size: 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.can-signal-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255,255,255,.045);
+  color: rgba(255,255,255,.28);
+  font-size: 7px;
+  font-weight: 800;
+}
+
+.can-signals-empty {
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 18px;
+  color: rgba(255,255,255,.3);
+  text-align: center;
+}
+
+.can-signals-empty strong {
+  color: rgba(255,255,255,.55);
+  font-size: 10px;
+}
+
+.can-signals-empty span {
+  max-width: 560px;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.can-signals-note {
+  margin: 0 9px 9px;
+  padding: 8px 9px;
+  border: 1px solid rgba(59,130,246,.08);
+  border-radius: 6px;
+  color: rgba(255,255,255,.36);
+  font-size: 8px;
+  line-height: 1.45;
+}
+
+@media (max-width: 1050px) {
+  .can-signals-grid {
+    grid-template-columns: repeat(3,minmax(130px,1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .can-signals-header {
+    flex-direction: column;
+  }
+
+  .can-signals-summary,
+  .can-signals-grid {
+    grid-template-columns: repeat(2,minmax(120px,1fr));
+  }
+}

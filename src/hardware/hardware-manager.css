@@ -1,0 +1,418 @@
+/* NEXUS ECU v3.0 Hardware Communication Foundation */
+
+.hardware-manager {
+  margin-bottom: 12px;
+}
+
+.hardware-mode-bar {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 10px;
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 8px;
+  background: #090d12;
+}
+
+.hardware-mode-bar > div:first-child strong {
+  display: block;
+  margin-top: 2px;
+  font-size: 10px;
+}
+
+.hardware-mode-buttons {
+  display: flex;
+  gap: 5px;
+}
+
+.hardware-mode-buttons button,
+.hardware-connect-grid button {
+  min-height: 31px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 10px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 6px;
+  background: rgba(255,255,255,.025);
+  color: rgba(255,255,255,.55);
+  font: inherit;
+  font-size: 8px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.hardware-mode-buttons button.active,
+.hardware-connect-grid button.primary {
+  border-color: rgba(34,197,94,.4);
+  background: rgba(34,197,94,.09);
+  color: white;
+}
+
+.hardware-connect-grid button.danger {
+  border-color: rgba(239,68,68,.38);
+  background: rgba(239,68,68,.08);
+}
+
+.hardware-mode-buttons button:disabled,
+.hardware-connect-grid button:disabled {
+  opacity: .3;
+  cursor: default;
+}
+
+.hardware-readonly {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #86efac;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+.hardware-live-panel {
+  margin-top: 8px;
+  padding: 14px;
+  border: 1px solid rgba(34,197,94,.12);
+  border-radius: 9px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(34,197,94,.025),
+      rgba(255,255,255,.01)
+    );
+}
+
+.hardware-live-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.hardware-link-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 9px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 6px;
+  color: rgba(255,255,255,.45);
+  font-size: 8px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.hardware-link-state.online {
+  border-color: rgba(34,197,94,.35);
+  background: rgba(34,197,94,.07);
+  color: #86efac;
+}
+
+.hardware-desktop-required {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 12px;
+  padding: 18px;
+  border: 1px dashed rgba(255,255,255,.1);
+  border-radius: 8px;
+  color: rgba(255,255,255,.48);
+  font-size: 10px;
+}
+
+.hardware-connect-grid {
+  display: grid;
+  grid-template-columns:
+    minmax(280px, 2fr)
+    minmax(140px, .7fr)
+    auto
+    auto;
+  gap: 8px;
+  align-items: end;
+  margin-top: 12px;
+  padding: 10px;
+  border: 1px solid rgba(255,255,255,.065);
+  border-radius: 8px;
+  background: rgba(0,0,0,.14);
+}
+
+.hardware-connect-grid label span {
+  display: block;
+  margin-bottom: 5px;
+  color: rgba(255,255,255,.38);
+  font-size: 7px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+.hardware-connect-grid select {
+  width: 100%;
+  min-height: 32px;
+  padding: 0 8px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 5px;
+  background: #0a0e13;
+  color: rgba(255,255,255,.72);
+  font: inherit;
+  font-size: 9px;
+}
+
+.hardware-stats {
+  display: grid;
+  grid-template-columns: repeat(6,minmax(90px,1fr));
+  margin-top: 9px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 8px;
+}
+
+.hardware-stats > div {
+  padding: 9px 10px;
+  border-right: 1px solid rgba(255,255,255,.05);
+}
+
+.hardware-stats > div:last-child {
+  border-right: 0;
+}
+
+.hardware-stats span {
+  display: block;
+  color: rgba(255,255,255,.35);
+  font-size: 7px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+.hardware-stats strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 9px;
+}
+
+.hardware-device-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 9px;
+  padding: 9px 10px;
+  border: 1px solid rgba(255,255,255,.055);
+  border-radius: 7px;
+}
+
+.hardware-device-info strong,
+.hardware-device-info span {
+  display: block;
+}
+
+.hardware-device-info strong {
+  font-size: 9px;
+}
+
+.hardware-device-info span {
+  margin-top: 2px;
+  color: rgba(255,255,255,.38);
+  font-size: 8px;
+}
+
+.hardware-error {
+  margin-top: 9px;
+  padding: 9px;
+  border: 1px solid rgba(239,68,68,.25);
+  border-radius: 6px;
+  background: rgba(239,68,68,.06);
+  color: #fca5a5;
+  font-size: 9px;
+}
+
+.hardware-terminal-grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 8px;
+  margin-top: 9px;
+}
+
+.hardware-terminal {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 8px;
+  background: #05080b;
+}
+
+.hardware-terminal-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 9px;
+  border-bottom: 1px solid rgba(255,255,255,.055);
+  color: rgba(255,255,255,.45);
+  font-size: 8px;
+  font-weight: 900;
+}
+
+.hardware-terminal pre {
+  height: 170px;
+  margin: 0;
+  padding: 10px;
+  overflow: auto;
+  color: #8ad9ff;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 9px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.hardware-safety-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  margin-top: 9px;
+  padding: 9px 10px;
+  border: 1px solid rgba(34,197,94,.1);
+  border-radius: 7px;
+  color: rgba(255,255,255,.4);
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+@media (max-width: 1000px) {
+  .hardware-connect-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hardware-stats {
+    grid-template-columns: repeat(3,minmax(90px,1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .hardware-mode-bar,
+  .hardware-live-header {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+
+  .hardware-terminal-grid,
+  .hardware-connect-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hardware-stats {
+    grid-template-columns: repeat(2,minmax(90px,1fr));
+  }
+}
+
+
+.hardware-can-config {
+  display: grid;
+  grid-template-columns: minmax(160px,.6fr) auto 1fr;
+  align-items: end;
+  gap: 8px;
+  margin-top: 9px;
+  padding: 9px 10px;
+  border: 1px solid rgba(59,130,246,.1);
+  border-radius: 7px;
+  background: rgba(59,130,246,.025);
+}
+
+.hardware-can-config label span {
+  display: block;
+  margin-bottom: 5px;
+  color: rgba(255,255,255,.38);
+  font-size: 7px;
+  font-weight: 900;
+}
+
+.hardware-can-config select {
+  width: 100%;
+  min-height: 31px;
+  padding: 0 8px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 5px;
+  background: #0a0e13;
+  color: white;
+  font: inherit;
+  font-size: 9px;
+}
+
+.hardware-can-config button {
+  min-height: 31px;
+  padding: 0 10px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 5px;
+  background: rgba(255,255,255,.025);
+  color: rgba(255,255,255,.65);
+  font: inherit;
+  font-size: 8px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.hardware-can-config button.primary {
+  border-color: rgba(34,197,94,.35);
+  background: rgba(34,197,94,.08);
+}
+
+.hardware-can-config button.danger {
+  border-color: rgba(239,68,68,.35);
+  background: rgba(239,68,68,.08);
+}
+
+.hardware-can-config button:disabled {
+  opacity: .3;
+  cursor: default;
+}
+
+.hardware-can-warning {
+  align-self: center;
+  color: #fbbf24;
+  font-size: 7px;
+  font-weight: 900;
+  letter-spacing: .06em;
+}
+
+@media (max-width: 900px) {
+  .hardware-can-config {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.hardware-provider-placeholder {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 18px;
+  border: 1px dashed rgba(245,158,11,.16);
+  border-radius: 8px;
+  background: rgba(245,158,11,.025);
+}
+
+.hardware-provider-placeholder strong,
+.hardware-provider-placeholder span {
+  display: block;
+}
+
+.hardware-provider-placeholder strong {
+  color: #fbbf24;
+  font-size: 9px;
+}
+
+.hardware-provider-placeholder span {
+  margin-top: 5px;
+  color: rgba(255,255,255,.38);
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+
+/* v8.0: legacy ECU panels remain mounted in source but are hidden
+   because UnifiedEcuWorkspace now presents them via tabs. */
+.legacy-hardware-panels-v8 {
+  display: none !important;
+}

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+  <title>NEXUS ECU</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 40%, #0c2033 0, #05080d 50%, #020304 100%);
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    body {
+      display: grid;
+      place-items: center;
+    }
+    .shell {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      border: 1px solid rgba(70, 190, 255, .18);
+    }
+    .brand {
+      text-align: center;
+    }
+    img {
+      width: 220px;
+      height: 220px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 24px rgba(0, 180, 255, .18));
+    }
+    h1 {
+      margin: 12px 0 0;
+      font-size: 22px;
+      letter-spacing: .14em;
+    }
+    .sub {
+      margin-top: 7px;
+      color: rgba(255,255,255,.48);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .18em;
+    }
+    .loading {
+      width: 260px;
+      height: 3px;
+      margin: 26px auto 0;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+    }
+    .loading::after {
+      content: "";
+      display: block;
+      width: 40%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, transparent, #20b8ff, #6ee7ff, transparent);
+      animation: load 1.1s ease-in-out infinite;
+    }
+    .version {
+      margin-top: 10px;
+      color: rgba(255,255,255,.3);
+      font-size: 8px;
+      letter-spacing: .12em;
+    }
+    @keyframes load {
+      from { transform: translateX(-110%); }
+      to { transform: translateX(350%); }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="brand">
+      <img src="/nexus-logo.png" alt="NEXUS ECU" />
+      <h1>NEXUS ECU</h1>
+      <div class="sub">ENGINE MANAGEMENT PLATFORM</div>
+      <div class="loading"></div>
+      <div class="version">DESKTOP APPLICATION · V2.1</div>
+    </div>
+  </div>
+</body>
+</html>

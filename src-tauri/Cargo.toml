@@ -1,0 +1,23 @@
+[package]
+name = "nexus-ecu"
+version = "4.4.0"
+description = "NEXUS ECU Engine Management Platform"
+authors = ["NEXUS ECU"]
+edition = "2021"
+
+[lib]
+name = "nexus_ecu_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-dialog = "2"
+
+serialport = "4.9"
+serde = { version = "1", features = ["derive"] }
+
+libloading = "0.9"
+winreg = "0.55"

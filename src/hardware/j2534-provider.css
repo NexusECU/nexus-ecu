@@ -1,0 +1,330 @@
+/* NEXUS ECU v4.2 J2534 provider discovery */
+
+.j2534-provider {
+  margin-top: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(59,130,246,.12);
+  border-radius: 8px;
+  background: #080b0f;
+}
+
+.j2534-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 11px 12px;
+  border-bottom: 1px solid rgba(255,255,255,.055);
+}
+
+.j2534-header h3 {
+  margin: 2px 0 0;
+  font-size: 12px;
+}
+
+.j2534-header p {
+  max-width: 650px;
+  margin: 5px 0 0;
+  color: rgba(255,255,255,.38);
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+.j2534-header button {
+  min-height: 31px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 9px;
+  border: 1px solid rgba(59,130,246,.28);
+  border-radius: 5px;
+  background: rgba(59,130,246,.07);
+  color: white;
+  font: inherit;
+  font-size: 8px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.j2534-header button:disabled {
+  opacity: .35;
+  cursor: default;
+}
+
+.j2534-safety {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+  color: #86efac;
+  font-size: 7px;
+  font-weight: 900;
+  letter-spacing: .06em;
+}
+
+.j2534-empty {
+  min-height: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 20px;
+  color: rgba(255,255,255,.32);
+  text-align: center;
+}
+
+.j2534-empty strong {
+  color: rgba(255,255,255,.58);
+  font-size: 9px;
+}
+
+.j2534-empty span {
+  max-width: 520px;
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+.j2534-error,
+.j2534-device-error {
+  margin: 9px;
+  padding: 8px 9px;
+  border: 1px solid rgba(239,68,68,.22);
+  border-radius: 5px;
+  background: rgba(239,68,68,.05);
+  color: #fca5a5;
+  font-size: 8px;
+}
+
+.j2534-device-list {
+  display: grid;
+  gap: 8px;
+  padding: 9px;
+}
+
+.j2534-device-card {
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 7px;
+  background: rgba(255,255,255,.015);
+}
+
+.j2534-device-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px;
+}
+
+.j2534-device-title > div:first-child {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.j2534-device-title strong,
+.j2534-device-title span {
+  display: block;
+}
+
+.j2534-device-title strong {
+  font-size: 9px;
+}
+
+.j2534-device-title span {
+  margin-top: 2px;
+  color: rgba(255,255,255,.34);
+  font-size: 7px;
+}
+
+.j2534-health {
+  padding: 4px 6px;
+  border-radius: 4px;
+  background: rgba(245,158,11,.07);
+  color: #fbbf24 !important;
+  font-size: 7px !important;
+  font-weight: 900;
+}
+
+.j2534-health.healthy {
+  background: rgba(34,197,94,.07);
+  color: #86efac !important;
+}
+
+.j2534-device-meta {
+  display: grid;
+  grid-template-columns: 2fr .5fr .5fr;
+  border-top: 1px solid rgba(255,255,255,.045);
+}
+
+.j2534-device-meta > div {
+  min-width: 0;
+  padding: 8px 9px;
+  border-right: 1px solid rgba(255,255,255,.045);
+}
+
+.j2534-device-meta > div:last-child {
+  border-right: 0;
+}
+
+.j2534-device-meta span,
+.j2534-symbol-grid span {
+  display: block;
+  color: rgba(255,255,255,.3);
+  font-size: 7px;
+  font-weight: 900;
+}
+
+.j2534-device-meta strong {
+  display: block;
+  margin-top: 3px;
+  overflow: hidden;
+  font-size: 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.j2534-symbol-grid {
+  display: grid;
+  grid-template-columns: repeat(6,minmax(95px,1fr));
+  border-top: 1px solid rgba(255,255,255,.045);
+}
+
+.j2534-symbol-grid > div {
+  padding: 8px 9px;
+  border-right: 1px solid rgba(255,255,255,.045);
+}
+
+.j2534-symbol-grid > div:last-child {
+  border-right: 0;
+}
+
+.j2534-symbol-grid strong {
+  display: block;
+  margin-top: 3px;
+  color: #fca5a5;
+  font-size: 7px;
+}
+
+.j2534-symbol-grid strong.ok {
+  color: #86efac;
+}
+
+.j2534-config-app {
+  padding: 8px 9px;
+  border-top: 1px solid rgba(255,255,255,.045);
+  color: rgba(255,255,255,.34);
+  font-size: 7px;
+}
+
+@media (max-width: 900px) {
+  .j2534-device-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .j2534-symbol-grid {
+    grid-template-columns: repeat(2,minmax(95px,1fr));
+  }
+
+  .j2534-header {
+    flex-direction: column;
+  }
+}
+
+
+.j2534-bridge-controls {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: end;
+  padding: 10px;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+
+.j2534-bridge-controls label span {
+  display: block;
+  margin-bottom: 5px;
+  color: rgba(255,255,255,.34);
+  font-size: 7px;
+  font-weight: 900;
+  letter-spacing: .07em;
+}
+
+.j2534-bridge-controls select,
+.j2534-bridge-controls button {
+  min-height: 32px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 5px;
+  background: #0a0e13;
+  color: white;
+  font: inherit;
+  font-size: 8px;
+}
+
+.j2534-bridge-controls select {
+  width: 100%;
+  padding: 0 8px;
+}
+
+.j2534-bridge-controls button {
+  padding: 0 10px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.j2534-bridge-controls button.primary {
+  border-color: rgba(34,197,94,.3);
+  background: rgba(34,197,94,.07);
+}
+
+.j2534-bridge-controls button.danger {
+  border-color: rgba(239,68,68,.3);
+  background: rgba(239,68,68,.07);
+}
+
+.j2534-bridge-controls button:disabled {
+  opacity: .3;
+  cursor: default;
+}
+
+.j2534-connection-status {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(90px,1fr));
+  border-bottom: 1px solid rgba(255,255,255,.045);
+}
+
+.j2534-connection-status > div {
+  min-width: 0;
+  padding: 8px 9px;
+  border-right: 1px solid rgba(255,255,255,.045);
+}
+
+.j2534-connection-status > div:last-child {
+  border-right: 0;
+}
+
+.j2534-connection-status span {
+  display: block;
+  color: rgba(255,255,255,.3);
+  font-size: 7px;
+  font-weight: 900;
+}
+
+.j2534-connection-status strong {
+  display: block;
+  margin-top: 3px;
+  overflow: hidden;
+  font-size: 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+  .j2534-bridge-controls,
+  .j2534-connection-status {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "NEXUS ECU",
+  "version": "3.0.0",
+  "identifier": "com.nexusecu.app",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:5173",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "NEXUS ECU",
+        "width": 1600,
+        "height": 1000,
+        "minWidth": 1200,
+        "minHeight": 760,
+        "resizable": true,
+        "fullscreen": false,
+        "center": true,
+        "visible": true
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "publisher": "NEXUS ECU",
+    "copyright": "Copyright \u00a9 2026 NEXUS ECU",
+    "shortDescription": "NEXUS ECU Engine Management Platform",
+    "longDescription": "NEXUS ECU desktop engine-management, calibration, data-analysis and ECU development platform."
+  }
+}

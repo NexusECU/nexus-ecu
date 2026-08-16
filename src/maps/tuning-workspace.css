@@ -1,0 +1,1695 @@
+/* NEXUS ECU v1.2 - professional calibration workspace */
+
+.tuning-workspace {
+  display: grid;
+  grid-template-columns: 245px minmax(0, 1fr);
+  min-height: 680px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 12px;
+  background: #090c10;
+}
+
+.tune-browser {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  background: #0b0e13;
+}
+
+.tune-browser-header {
+  padding: 18px 16px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.tune-browser-kicker,
+.tune-map-meta span,
+.tune-statusbar span,
+.tune-browser-footer span,
+.tune-path {
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.tune-browser-header strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 14px;
+}
+
+.tune-browser-tree {
+  flex: 1;
+  padding: 10px;
+}
+
+.tune-tree-group + .tune-tree-group {
+  margin-top: 8px;
+}
+
+.tune-tree-folder {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 8px;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.tune-tree-map {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 22px 1fr 16px;
+  gap: 6px;
+  align-items: center;
+  padding: 10px 9px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.66);
+  text-align: left;
+  cursor: pointer;
+}
+
+.tune-tree-map:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.tune-tree-map.active {
+  border-color: rgba(34, 197, 94, 0.34);
+  background: rgba(34, 197, 94, 0.09);
+  color: white;
+}
+
+.tune-tree-map-icon {
+  display: grid;
+  place-items: center;
+}
+
+.tune-tree-map-copy {
+  min-width: 0;
+}
+
+.tune-tree-map-copy strong,
+.tune-tree-map-copy small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tune-tree-map-copy strong {
+  font-size: 11px;
+}
+
+.tune-tree-map-copy small {
+  margin-top: 3px;
+  color: rgba(255, 255, 255, 0.36);
+  font-size: 9px;
+}
+
+.tune-browser-footer {
+  padding: 12px 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.tune-browser-footer strong {
+  display: block;
+  margin-top: 3px;
+  font-size: 10px;
+}
+
+.tune-editor {
+  min-width: 0;
+  background: #0a0d11;
+}
+
+.tune-editor-titlebar {
+  min-height: 66px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.tune-editor-titlebar h3 {
+  margin: 3px 0 0;
+  font-size: 17px;
+}
+
+.tune-map-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.tune-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 46px;
+  padding: 7px 10px;
+  overflow-x: auto;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  background: #0d1116;
+}
+
+.tune-toolbar-group {
+  display: flex;
+  gap: 4px;
+  padding-right: 6px;
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.tune-toolbar-group:last-child {
+  border-right: 0;
+}
+
+.tune-toolbar-spacer {
+  flex: 1;
+}
+
+.tune-toolbar button {
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0 9px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 5px;
+  background: #141920;
+  color: rgba(255, 255, 255, 0.72);
+  font: inherit;
+  font-size: 9px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.tune-toolbar button:hover:not(:disabled),
+.tune-toolbar button.active {
+  border-color: rgba(34, 197, 94, 0.4);
+  background: rgba(34, 197, 94, 0.1);
+  color: white;
+}
+
+.tune-toolbar button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.tune-map-meta {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(90px, 1fr));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.tune-map-meta > div {
+  padding: 9px 11px;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.tune-map-meta > div:last-child {
+  border-right: 0;
+}
+
+.tune-map-meta strong {
+  display: block;
+  margin-top: 2px;
+  font-size: 10px;
+}
+
+.tune-table-shell {
+  min-height: 470px;
+  overflow: auto;
+  padding: 12px;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    #080b0f;
+  background-size: 22px 22px;
+}
+
+.tune-table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: separate;
+  border-spacing: 1px;
+  table-layout: fixed;
+  font-variant-numeric: tabular-nums;
+}
+
+.tune-table th {
+  height: 34px;
+  padding: 4px;
+  background: #161b22;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 9px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.tune-axis-corner {
+  position: sticky;
+  left: 0;
+  z-index: 4;
+  width: 88px;
+}
+
+.tune-row-axis {
+  position: sticky;
+  left: 0;
+  z-index: 3;
+  width: 88px;
+  box-shadow: 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.tune-cell {
+  position: relative;
+  height: 48px;
+  overflow: hidden;
+  outline: 1px solid rgba(255, 255, 255, 0.035);
+  background:
+    color-mix(
+      in srgb,
+      rgb(34, 197, 94) calc(var(--heat) * 34%),
+      rgb(21, 27, 35)
+    );
+}
+
+.tune-cell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(59, 130, 246, calc((1 - var(--heat)) * 0.12)),
+      rgba(239, 68, 68, calc(var(--heat) * 0.16))
+    );
+}
+
+.tune-cell.selected {
+  z-index: 2;
+  outline: 2px solid #f5c542;
+  box-shadow: inset 0 0 0 1px rgba(245, 197, 66, 0.35);
+}
+
+.tune-cell.modified::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  z-index: 3;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #f5c542;
+}
+
+.tune-cell input {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  padding: 0 3px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: white;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  text-align: center;
+  appearance: textfield;
+}
+
+.tune-cell input::-webkit-outer-spin-button,
+.tune-cell input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.tune-delta {
+  position: absolute;
+  right: 3px;
+  bottom: 2px;
+  z-index: 3;
+  color: #f5c542;
+  font-size: 7px;
+  font-weight: 800;
+}
+
+.tune-surface {
+  min-height: 470px;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 50% 100%, rgba(34, 197, 94, 0.08), transparent 50%),
+    #080b0f;
+}
+
+.tune-surface-grid {
+  height: 390px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(16px, 1fr));
+  align-items: end;
+  gap: 5px;
+  padding: 20px;
+  transform: perspective(900px) rotateX(12deg);
+  transform-origin: center bottom;
+}
+
+.tune-surface-bar {
+  position: relative;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.tune-surface-bar span {
+  position: absolute;
+  right: 2px;
+  bottom: 0;
+  left: 2px;
+  height: var(--height);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(239, 68, 68, calc(var(--heat) * 0.55)),
+      rgba(34, 197, 94, 0.28),
+      rgba(59, 130, 246, 0.22)
+    );
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.04);
+}
+
+.tune-surface-bar.selected span {
+  border-color: #f5c542;
+  box-shadow: 0 0 0 1px #f5c542;
+}
+
+.tune-surface-caption {
+  color: rgba(255, 255, 255, 0.34);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-align: center;
+}
+
+.tune-statusbar {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(120px, 1fr));
+  min-height: 52px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: #0e1218;
+}
+
+.tune-statusbar > div {
+  padding: 9px 11px;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.tune-statusbar > div:last-child {
+  border-right: 0;
+}
+
+.tune-statusbar strong {
+  display: block;
+  margin-top: 2px;
+  font-size: 10px;
+}
+
+@media (max-width: 1050px) {
+  .tuning-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .tune-browser {
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .tune-browser-tree {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .tune-browser-footer {
+    display: none;
+  }
+
+  .tune-map-meta,
+  .tune-statusbar {
+    grid-template-columns: repeat(3, minmax(100px, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .tune-browser-tree {
+    grid-template-columns: 1fr;
+  }
+
+  .tune-map-meta,
+  .tune-statusbar {
+    grid-template-columns: repeat(2, minmax(90px, 1fr));
+  }
+
+  .tune-editor-titlebar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+
+/* NEXUS ECU v1.6 - live cell tracing + log overlay */
+
+.tune-trace-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(120px, 1fr));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(59, 130, 246, 0.025);
+}
+
+.tune-trace-strip > div {
+  padding: 9px 11px;
+  border-right: 1px solid rgba(255, 255, 255, 0.055);
+}
+
+.tune-trace-strip > div:last-child {
+  border-right: 0;
+}
+
+.tune-trace-strip span {
+  display: block;
+  color: rgba(255, 255, 255, 0.38);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.tune-trace-strip strong {
+  display: block;
+  margin-top: 3px;
+  font-size: 9px;
+}
+
+.tune-cell.interpolation-cell {
+  box-shadow:
+    inset 0 0 0 1px rgba(59, 130, 246, 0.33);
+}
+
+.tune-cell.live-cell {
+  z-index: 5;
+  outline: 2px solid #22c55e !important;
+  box-shadow:
+    inset 0 0 0 2px rgba(34, 197, 94, 0.28),
+    0 0 14px rgba(34, 197, 94, 0.17);
+}
+
+.tune-cell.live-cell::before {
+  content: "LIVE";
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  z-index: 6;
+  color: #86efac;
+  font-size: 6px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+}
+
+.tune-cell.trace-cell {
+  z-index: 4;
+  outline: 2px solid #60a5fa !important;
+  box-shadow:
+    inset 0 0 0 2px rgba(96, 165, 250, 0.24);
+}
+
+.tune-cell.trace-cell::after {
+  content: "LOG";
+  position: absolute;
+  top: 2px;
+  right: 3px;
+  z-index: 6;
+  width: auto;
+  height: auto;
+  background: transparent;
+  color: #93c5fd;
+  font-size: 6px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+}
+
+.tune-log-overlay {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
+  z-index: 5;
+  display: flex;
+  justify-content: space-between;
+  gap: 2px;
+  pointer-events: none;
+}
+
+.tune-log-overlay span {
+  padding: 1px 2px;
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.56);
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 6px;
+  font-weight: 800;
+}
+
+@media (max-width: 900px) {
+  .tune-trace-strip {
+    grid-template-columns: repeat(2, minmax(110px, 1fr));
+  }
+}
+
+
+/* NEXUS ECU v5.1 - professional table interaction */
+.tune-editor:focus {
+  outline: none;
+}
+
+.tune-shortcut-strip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 34px;
+  padding: 5px 10px;
+  overflow-x: auto;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  background: #090d12;
+  color: rgba(255,255,255,.42);
+  font-size: 7px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.tune-shortcut-strip span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.tune-shortcut-strip kbd {
+  padding: 2px 4px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-bottom-color: rgba(255,255,255,.2);
+  border-radius: 3px;
+  background: #151b22;
+  color: rgba(255,255,255,.78);
+  font: inherit;
+  font-size: 7px;
+}
+
+.tune-cell {
+  user-select: none;
+  cursor: cell;
+}
+
+.tune-cell.selected {
+  z-index: 2;
+  outline: 2px solid #f5c542;
+  background:
+    linear-gradient(rgba(245,197,66,.12), rgba(245,197,66,.12)),
+    color-mix(
+      in srgb,
+      rgb(34, 197, 94) calc(var(--heat) * 34%),
+      rgb(21, 27, 35)
+    );
+  box-shadow:
+    inset 0 0 0 1px rgba(245,197,66,.35),
+    0 0 0 1px rgba(0,0,0,.5);
+}
+
+.tune-cell input {
+  cursor: cell;
+}
+
+.tune-cell.selected input {
+  color: #fff7cc;
+  font-weight: 900;
+}
+
+.tune-table-shell {
+  user-select: none;
+}
+
+
+/* NEXUS ECU v5.2 — ECU calibration worksheet appearance */
+
+.tune-table-shell {
+  min-height: 520px;
+  padding: 0;
+  border-top: 1px solid #252b31;
+  border-bottom: 1px solid #252b31;
+  background: #0b0e11;
+  scrollbar-color: #3b424a #101419;
+}
+
+.tune-table {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  background: #0b0e11;
+  font-family:
+    "Cascadia Mono",
+    "Consolas",
+    "Courier New",
+    monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.tune-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 6;
+  height: 30px;
+  min-width: 76px;
+  padding: 0 7px;
+  border-right: 1px solid #343a41;
+  border-bottom: 1px solid #40474f;
+  background:
+    linear-gradient(
+      180deg,
+      #30363d 0%,
+      #20262c 48%,
+      #181d22 100%
+    );
+  box-shadow:
+    inset 0 1px rgba(255,255,255,.06),
+    inset 0 -1px rgba(0,0,0,.8);
+  color: #d7dce2;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .02em;
+  text-shadow: 0 1px #000;
+}
+
+.tune-axis-corner {
+  top: 0;
+  left: 0;
+  z-index: 10 !important;
+  width: 100px !important;
+  min-width: 100px !important;
+  background:
+    linear-gradient(
+      180deg,
+      #3a424a 0%,
+      #262d34 50%,
+      #1b2025 100%
+    ) !important;
+  color: #f4f6f8 !important;
+}
+
+.tune-row-axis {
+  position: sticky;
+  left: 0;
+  z-index: 5;
+  width: 100px !important;
+  min-width: 100px !important;
+  height: 34px !important;
+  padding: 0 8px !important;
+  border-right: 1px solid #40474f !important;
+  border-bottom: 1px solid #30363d;
+  background:
+    linear-gradient(
+      90deg,
+      #252b31,
+      #191e23
+    ) !important;
+  color: #d7dce2 !important;
+  font-family:
+    "Cascadia Mono",
+    "Consolas",
+    monospace;
+  font-size: 9px !important;
+  font-weight: 800 !important;
+  text-align: right !important;
+  box-shadow:
+    inset -1px 0 rgba(255,255,255,.03),
+    2px 0 4px rgba(0,0,0,.35);
+}
+
+.tune-cell {
+  width: 76px;
+  min-width: 76px;
+  height: 34px !important;
+  padding: 0;
+  overflow: visible;
+  border-right: 1px solid #242a30;
+  border-bottom: 1px solid #242a30;
+  outline: none !important;
+  background:
+    hsl(
+      calc(220 - (var(--heat) * 220))
+      64%
+      calc(12% + (var(--heat) * 14%))
+    ) !important;
+  box-shadow:
+    inset 0 1px rgba(255,255,255,.025),
+    inset 1px 0 rgba(255,255,255,.015);
+}
+
+.tune-cell::after {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.035),
+      rgba(0,0,0,.10)
+    ) !important;
+}
+
+.tune-cell:hover {
+  z-index: 3;
+  box-shadow:
+    inset 0 0 0 1px rgba(130,180,255,.55),
+    inset 0 1px rgba(255,255,255,.06);
+}
+
+.tune-cell.selected {
+  z-index: 4;
+  outline: none !important;
+  background:
+    linear-gradient(
+      rgba(36,104,175,.26),
+      rgba(36,104,175,.26)
+    ),
+    hsl(
+      calc(220 - (var(--heat) * 220))
+      64%
+      calc(12% + (var(--heat) * 14%))
+    ) !important;
+  box-shadow:
+    inset 0 0 0 1px #63a8ef,
+    inset 0 0 0 2px rgba(0,0,0,.28) !important;
+}
+
+.tune-cell.active-cell {
+  z-index: 5;
+  box-shadow:
+    inset 0 0 0 2px #f5c542,
+    inset 0 0 0 3px #111 !important;
+}
+
+.tune-cell.modified::before {
+  top: 1px;
+  right: 1px;
+  width: 0;
+  height: 0;
+  border-radius: 0;
+  border-top: 7px solid #f5c542;
+  border-left: 7px solid transparent;
+  background: transparent;
+}
+
+.tune-cell input {
+  width: 100%;
+  height: 100%;
+  padding: 0 5px;
+  color: #f1f4f6;
+  font-family:
+    "Cascadia Mono",
+    "Consolas",
+    "Courier New",
+    monospace;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 34px;
+  text-align: right;
+  text-shadow: 0 1px 1px #000;
+}
+
+.tune-cell.selected input {
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.tune-cell.active-cell input {
+  color: #fff5bf;
+}
+
+.tune-delta {
+  right: 2px;
+  bottom: 1px;
+  padding: 0 2px;
+  background: rgba(0,0,0,.48);
+  color: #ffd45f;
+  font-family:
+    "Cascadia Mono",
+    "Consolas",
+    monospace;
+  font-size: 6px;
+  line-height: 9px;
+}
+
+.tune-log-overlay {
+  top: 1px;
+  left: 1px;
+  right: auto;
+  bottom: auto;
+  gap: 2px;
+  font-size: 5px;
+}
+
+.tune-shortcut-strip {
+  min-height: 30px;
+  padding: 4px 8px;
+  border-top: 1px solid #30363d;
+  border-bottom: 1px solid #30363d;
+  background:
+    linear-gradient(
+      180deg,
+      #1c2228,
+      #12171c
+    );
+  color: rgba(225,230,236,.62);
+}
+
+.tune-shortcut-strip kbd {
+  border-color: #454d55;
+  border-bottom-color: #59636d;
+  background: #252c33;
+  color: #f0f3f6;
+  box-shadow: inset 0 1px rgba(255,255,255,.05);
+}
+
+.tune-statusbar {
+  display: grid;
+  grid-template-columns:
+    minmax(210px,1.4fr)
+    minmax(110px,.7fr)
+    minmax(150px,1fr)
+    minmax(145px,.9fr)
+    minmax(120px,.8fr)
+    minmax(150px,1fr);
+  min-height: 42px;
+  padding: 0;
+  overflow-x: auto;
+  border-top: 1px solid #414850;
+  background:
+    linear-gradient(
+      180deg,
+      #1a2026,
+      #101419
+    );
+}
+
+.tune-statusbar > div {
+  min-width: 110px;
+  padding: 7px 10px;
+  border-right: 1px solid #30363d;
+}
+
+.tune-statusbar span {
+  display: block;
+  color: #7f8994;
+  font-size: 6px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+.tune-statusbar strong {
+  display: block;
+  margin-top: 3px;
+  color: #dce2e8;
+  font-family:
+    "Cascadia Mono",
+    "Consolas",
+    monospace;
+  font-size: 8px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.tune-map-meta {
+  border-bottom: 1px solid #343a41;
+  background:
+    linear-gradient(
+      180deg,
+      #151a1f,
+      #0e1216
+    );
+}
+
+.tune-map-meta > div {
+  border-right-color: #2a3036;
+}
+
+@media (max-width: 900px) {
+  .tune-table thead th,
+  .tune-cell {
+    min-width: 68px;
+    width: 68px;
+  }
+
+  .tune-statusbar {
+    grid-template-columns:
+      repeat(6,minmax(135px,1fr));
+  }
+}
+
+
+/* ============================================================
+   NEXUS ECU v5.3 — ECUFlash-inspired calibration workspace
+   Classic Windows-style layout for Tuning only.
+   ============================================================ */
+
+.tuning-workspace {
+  grid-template-columns: 250px minmax(0, 1fr) !important;
+  min-height: 690px;
+  border: 1px solid #7f7f7f !important;
+  border-radius: 0 !important;
+  background: #d4d0c8 !important;
+  box-shadow:
+    inset 1px 1px #ffffff,
+    inset -1px -1px #404040;
+  color: #111;
+  font-family:
+    Tahoma,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+}
+
+.tune-browser {
+  border-right: 1px solid #808080 !important;
+  background: #efefef !important;
+  color: #111 !important;
+}
+
+.ecuflash-pane-title {
+  min-height: 23px;
+  display: flex;
+  align-items: center;
+  padding: 0 7px;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #808080;
+  background:
+    linear-gradient(
+      180deg,
+      #f7f7f7,
+      #c9c9c9
+    );
+  color: #333;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.ecuflash-rom-document {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 0 7px;
+  border-bottom: 1px solid #aaa;
+  background: #fff;
+  color: #222;
+  font-size: 10px;
+}
+
+.ecuflash-rom-document svg {
+  color: #356fa8;
+}
+
+.tune-browser-tree {
+  flex: 1;
+  padding: 3px 2px 8px !important;
+  overflow: auto;
+  background: #fff !important;
+}
+
+.ecuflash-tree-root,
+.tune-tree-folder,
+.ecuflash-static-tree > div {
+  display: flex !important;
+  align-items: center;
+  gap: 3px !important;
+  min-height: 21px;
+  padding: 1px 4px !important;
+  color: #111 !important;
+  font-size: 10px !important;
+  font-weight: 400 !important;
+  text-transform: none !important;
+}
+
+.ecuflash-tree-root {
+  font-weight: 700 !important;
+}
+
+.tune-tree-group + .tune-tree-group {
+  margin-top: 0 !important;
+}
+
+.tune-tree-map {
+  grid-template-columns: 12px 15px minmax(0, 1fr) 12px !important;
+  gap: 2px !important;
+  min-height: 24px;
+  padding: 2px 4px !important;
+  border: 1px solid transparent !important;
+  border-radius: 0 !important;
+  background: #fff !important;
+  color: #111 !important;
+}
+
+.tune-tree-map:hover {
+  border-color: #b6cde5 !important;
+  background: #e9f2fb !important;
+}
+
+.tune-tree-map.active {
+  border-color: #2b66a1 !important;
+  background: #3b78b5 !important;
+  color: #fff !important;
+}
+
+.tune-tree-indent {
+  width: 12px;
+}
+
+.tune-tree-map-icon {
+  color: inherit !important;
+}
+
+.tune-tree-map-copy strong {
+  font-size: 10px !important;
+  font-weight: 400 !important;
+}
+
+.tune-tree-map-copy small {
+  display: none !important;
+}
+
+.tune-browser-footer {
+  padding: 5px 7px !important;
+  border-top: 1px solid #808080 !important;
+  background:
+    linear-gradient(
+      180deg,
+      #e9e9e9,
+      #c8c8c8
+    ) !important;
+}
+
+.tune-browser-footer span {
+  color: #555 !important;
+  font-size: 7px !important;
+}
+
+.tune-browser-footer strong {
+  color: #222 !important;
+  font-size: 8px !important;
+}
+
+.tune-editor {
+  min-width: 0;
+  border-left: 1px solid #fff;
+  background: #d4d0c8 !important;
+  color: #111;
+}
+
+.tune-editor-titlebar {
+  min-height: 31px !important;
+  padding: 3px 7px !important;
+  border-bottom: 1px solid #6f6f6f !important;
+  background:
+    linear-gradient(
+      90deg,
+      #0a4c9a 0%,
+      #3b80c7 62%,
+      #86b7df 100%
+    ) !important;
+  color: #fff !important;
+}
+
+.tune-editor-titlebar > div:first-child {
+  min-width: 0;
+}
+
+.tune-path {
+  display: none !important;
+}
+
+.tune-editor-titlebar h3 {
+  margin: 0 !important;
+  overflow: hidden;
+  color: #fff !important;
+  font-family:
+    Tahoma,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tune-map-state {
+  min-height: 19px;
+  padding: 2px 6px !important;
+  border: 1px solid rgba(255,255,255,.55) !important;
+  border-radius: 0 !important;
+  background: rgba(0,0,0,.12) !important;
+  color: #fff !important;
+  font-size: 7px !important;
+  letter-spacing: 0 !important;
+}
+
+.ecuflash-editor-menu {
+  min-height: 23px;
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  padding: 1px 3px;
+  border-bottom: 1px solid #808080;
+  background: #d4d0c8;
+}
+
+.ecuflash-editor-menu button {
+  min-height: 19px;
+  padding: 0 7px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #111;
+  font:
+    10px Tahoma,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+  cursor: default;
+}
+
+.ecuflash-editor-menu button:hover {
+  border-color: #808080;
+  background: #e9e9e9;
+}
+
+.ecuflash-editor-menu-spacer {
+  flex: 1;
+}
+
+.ecuflash-editor-menu > span:last-child {
+  padding-right: 5px;
+  color: #555;
+  font-size: 8px;
+}
+
+.tune-toolbar {
+  min-height: 35px !important;
+  padding: 3px 4px !important;
+  gap: 2px !important;
+  border-bottom: 1px solid #808080 !important;
+  background:
+    linear-gradient(
+      180deg,
+      #eeeeee,
+      #c7c7c7
+    ) !important;
+}
+
+.tune-toolbar-group {
+  gap: 2px !important;
+  padding-right: 4px !important;
+  border-right: 1px solid #9b9b9b !important;
+}
+
+.tune-toolbar button {
+  min-width: 27px;
+  height: 27px !important;
+  padding: 0 5px !important;
+  border: 1px solid transparent !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #111 !important;
+}
+
+.tune-toolbar button:hover:not(:disabled) {
+  border-color: #7b7b7b !important;
+  background:
+    linear-gradient(
+      180deg,
+      #fff,
+      #dcdcdc
+    ) !important;
+}
+
+.tune-toolbar button.active {
+  border-color: #666 !important;
+  background: #b9d4ef !important;
+}
+
+.tune-toolbar button:disabled {
+  color: #999 !important;
+}
+
+.tune-map-meta {
+  min-height: 34px !important;
+  border-bottom: 1px solid #808080 !important;
+  background: #ececec !important;
+}
+
+.tune-map-meta > div {
+  padding: 5px 8px !important;
+  border-right: 1px solid #aaa !important;
+}
+
+.tune-map-meta span {
+  color: #666 !important;
+  font-size: 7px !important;
+  letter-spacing: 0 !important;
+}
+
+.tune-map-meta strong {
+  color: #111 !important;
+  font-size: 9px !important;
+}
+
+.tune-shortcut-strip {
+  min-height: 25px !important;
+  padding: 2px 5px !important;
+  gap: 8px !important;
+  border-top: 0 !important;
+  border-bottom: 1px solid #808080 !important;
+  background: #e5e5e5 !important;
+  color: #444 !important;
+}
+
+.tune-shortcut-strip kbd {
+  padding: 1px 3px !important;
+  border: 1px solid #aaa !important;
+  border-radius: 0 !important;
+  background: #fff !important;
+  color: #111 !important;
+  box-shadow: none !important;
+}
+
+.tune-table-shell {
+  min-height: 520px !important;
+  padding: 7px !important;
+  border: 0 !important;
+  background: #efefef !important;
+}
+
+.tune-table {
+  width: max-content;
+  min-width: 0 !important;
+  border-collapse: collapse !important;
+  border: 1px solid #555;
+  background: #fff !important;
+  color: #111;
+  font-family:
+    Tahoma,
+    Arial,
+    sans-serif !important;
+}
+
+.tune-table thead th,
+.tune-row-axis {
+  height: 23px !important;
+  min-width: 54px !important;
+  padding: 0 3px !important;
+  border: 1px solid #777 !important;
+  background: #ddd !important;
+  box-shadow:
+    inset 1px 1px rgba(255,255,255,.75),
+    inset -1px -1px rgba(0,0,0,.12) !important;
+  color: #111 !important;
+  font-family:
+    Tahoma,
+    Arial,
+    sans-serif !important;
+  font-size: 8px !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  text-shadow: none !important;
+}
+
+.tune-axis-corner {
+  width: 66px !important;
+  min-width: 66px !important;
+  background:
+    linear-gradient(
+      180deg,
+      #f5f5f5,
+      #c9c9c9
+    ) !important;
+  color: #111 !important;
+}
+
+.ecuflash-column-axis,
+.tune-row-axis {
+  background:
+    hsl(
+      calc(245 - (var(--axis-heat) * 190))
+      72%
+      70%
+    ) !important;
+}
+
+.tune-row-axis {
+  width: 66px !important;
+  min-width: 66px !important;
+}
+
+.tune-cell {
+  width: 55px !important;
+  min-width: 55px !important;
+  height: 23px !important;
+  padding: 0 !important;
+  border: 1px solid rgba(35,35,35,.72) !important;
+  background:
+    hsl(
+      calc(250 - (var(--heat) * 210))
+      80%
+      calc(55% + (var(--heat) * 10%))
+    ) !important;
+  box-shadow: none !important;
+}
+
+.tune-cell::after {
+  display: none !important;
+}
+
+.tune-cell:hover {
+  z-index: 3;
+  box-shadow:
+    inset 0 0 0 1px #fff,
+    inset 0 0 0 2px #2b66a1 !important;
+}
+
+.tune-cell.selected {
+  z-index: 4;
+  outline: 2px solid #001dff !important;
+  outline-offset: -2px !important;
+  background:
+    linear-gradient(
+      rgba(75,132,255,.22),
+      rgba(75,132,255,.22)
+    ),
+    hsl(
+      calc(250 - (var(--heat) * 210))
+      80%
+      calc(55% + (var(--heat) * 10%))
+    ) !important;
+  box-shadow: none !important;
+}
+
+.tune-cell.active-cell {
+  z-index: 5;
+  outline: 2px solid #0000d8 !important;
+  outline-offset: -2px !important;
+  box-shadow:
+    inset 0 0 0 1px #fff !important;
+}
+
+.tune-cell.modified::before {
+  top: 0 !important;
+  right: 0 !important;
+  border-top: 6px solid #ff2b2b !important;
+  border-left: 6px solid transparent !important;
+}
+
+.tune-cell input {
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 2px !important;
+  color: #111 !important;
+  font:
+    8px Tahoma,
+    Arial,
+    sans-serif !important;
+  font-weight: 600 !important;
+  line-height: 22px !important;
+  text-align: center !important;
+  text-shadow: none !important;
+}
+
+.tune-cell.selected input,
+.tune-cell.active-cell input {
+  color: #000 !important;
+  font-weight: 800 !important;
+}
+
+.tune-delta {
+  right: 0 !important;
+  bottom: 0 !important;
+  padding: 0 1px !important;
+  background: rgba(255,255,255,.7) !important;
+  color: #a00000 !important;
+  font-size: 5px !important;
+}
+
+.tune-statusbar {
+  min-height: 30px !important;
+  border-top: 1px solid #808080 !important;
+  background: #d4d0c8 !important;
+}
+
+.tune-statusbar > div {
+  padding: 3px 6px !important;
+  border-right: 1px solid #999 !important;
+  box-shadow:
+    inset 1px 1px #fff,
+    inset -1px -1px #aaa;
+}
+
+.tune-statusbar span {
+  color: #666 !important;
+  font-size: 6px !important;
+}
+
+.tune-statusbar strong {
+  margin-top: 1px !important;
+  color: #111 !important;
+  font:
+    7px Tahoma,
+    Arial,
+    sans-serif !important;
+}
+
+.tune-surface-shell {
+  padding: 8px !important;
+  background: #efefef !important;
+}
+
+.tune-surface-card {
+  border: 1px solid #777 !important;
+  border-radius: 0 !important;
+  background: #fff !important;
+}
+
+@media (max-width: 900px) {
+  .tuning-workspace {
+    grid-template-columns: 210px minmax(0, 1fr) !important;
+  }
+
+  .tune-cell,
+  .tune-table thead th {
+    min-width: 50px !important;
+    width: 50px !important;
+  }
+}
+
+
+/* NEXUS ECU v5.4 — advanced ECUFlash-style editing */
+
+.ecuflash-command-bar {
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 4px;
+  overflow-x: auto;
+  border-bottom: 1px solid #808080;
+  background:
+    linear-gradient(
+      180deg,
+      #ededed,
+      #c7c7c7
+    );
+  color: #111;
+  white-space: nowrap;
+}
+
+.ecuflash-command-bar label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ecuflash-command-bar label > span {
+  color: #444;
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.ecuflash-command-bar input {
+  width: 78px;
+  height: 23px;
+  box-sizing: border-box;
+  border: 1px solid #777;
+  border-radius: 0;
+  background: #fff;
+  color: #111;
+  font:
+    9px Tahoma,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+  padding: 0 4px;
+}
+
+.ecuflash-command-bar label:nth-child(2) input {
+  width: 58px;
+}
+
+.ecuflash-command-bar button {
+  height: 23px;
+  padding: 0 7px;
+  border: 1px solid #7b7b7b;
+  border-radius: 0;
+  background:
+    linear-gradient(
+      180deg,
+      #fff,
+      #d6d6d6
+    );
+  color: #111;
+  font:
+    8px Tahoma,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ecuflash-command-bar button:hover {
+  background:
+    linear-gradient(
+      180deg,
+      #fff,
+      #c8ddf3
+    );
+}
+
+.ecuflash-command-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding-left: 4px;
+  border-left: 1px solid #9b9b9b;
+}
+
+.ecuflash-column-axis,
+.tune-row-axis {
+  cursor: cell;
+}
+
+.ecuflash-column-axis:hover,
+.tune-row-axis:hover {
+  outline: 2px solid #245f9e;
+  outline-offset: -2px;
+  filter: brightness(1.05);
+}
+
+
+/* NEXUS ECU v5.5 — axis editing + compare mode */
+
+.ecuflash-command-bar button.active {
+  border-color: #1f5f9e;
+  background:
+    linear-gradient(
+      180deg,
+      #dcefff,
+      #9fc7ed
+    );
+}
+
+.ecuflash-axis-input {
+  width: 100%;
+  height: 20px;
+  box-sizing: border-box;
+  border: 1px solid #1f5f9e;
+  outline: 0;
+  background: #fff;
+  color: #000;
+  font:
+    8px Tahoma,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+  text-align: center;
+  padding: 0 2px;
+}
+
+.tune-cell.changed-from-baseline {
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.75),
+    inset 0 0 0 2px #d51515 !important;
+}
+
+.tune-cell.changed-from-baseline.selected {
+  box-shadow:
+    inset 0 0 0 1px #fff,
+    inset 0 0 0 3px #001dff !important;
+}
+
+.tune-cell.unchanged-hidden {
+  opacity: .18;
+  filter: grayscale(1);
+}
+
+.tune-cell.unchanged-hidden:hover,
+.tune-cell.unchanged-hidden.selected,
+.tune-cell.unchanged-hidden.active-cell {
+  opacity: 1;
+  filter: none;
+}
+
+.tune-baseline-value {
+  position: absolute;
+  left: 1px;
+  top: 0;
+  z-index: 2;
+  padding: 0 1px;
+  background: rgba(255,255,255,.72);
+  color: #444;
+  font:
+    5px Tahoma,
+    Arial,
+    sans-serif;
+  line-height: 8px;
+  pointer-events: none;
+}
+
+.tune-cell.changed-from-baseline .tune-delta {
+  color: #b00000 !important;
+}
+
+.tune-cell.changed-from-baseline input {
+  font-weight: 800 !important;
+}

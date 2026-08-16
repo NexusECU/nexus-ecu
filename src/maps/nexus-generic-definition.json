@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "nexus-generic-demo",
+  "name": "NEXUS Generic Demo ECU",
+  "vendor": "NEXUS",
+  "ecuFamily": "Development ECU",
+  "romId": "NEXUS-DEMO-001",
+  "description": "Example external ROM definition for NEXUS ECU v5.8.",
+  "createdAt": "2026-08-17T00:00:00+10:00",
+  "updatedAt": "2026-08-17T00:00:00+10:00",
+  "definitions": [
+    {
+      "id": "rev-limit",
+      "name": "Engine Speed Limiter",
+      "category": "Limits",
+      "type": "limit",
+      "mapKind": null,
+      "description": "Maximum engine speed limit.",
+      "unit": "rpm",
+      "address": "0x004010",
+      "dataType": "uint16",
+      "readOnly": false,
+      "value": 7500
+    },
+    {
+      "id": "closed-loop-fuel",
+      "name": "Closed Loop Fuel Enable",
+      "category": "Switches",
+      "type": "boolean",
+      "mapKind": null,
+      "description": "Enable or disable closed-loop fuel control.",
+      "unit": "",
+      "address": "0x004030",
+      "dataType": "boolean",
+      "readOnly": false,
+      "value": true
+    }
+  ]
+}

@@ -1,0 +1,233 @@
+/* NEXUS ECU v1.5 Auto-Tune */
+
+.autotune-panel {
+  overflow: hidden;
+}
+
+.autotune-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.autotune-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 10px;
+  border: 1px solid rgba(34,197,94,.34);
+  border-radius: 7px;
+  background: rgba(34,197,94,.07);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .07em;
+}
+
+.autotune-summary {
+  display: grid;
+  grid-template-columns: repeat(6,minmax(90px,1fr));
+  margin-top: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 8px;
+}
+
+.autotune-summary > div {
+  min-height: 58px;
+  padding: 10px;
+  border-right: 1px solid rgba(255,255,255,.055);
+}
+
+.autotune-summary > div:last-child {
+  border-right: 0;
+}
+
+.autotune-summary span,
+.autotune-controls span {
+  display: block;
+  color: rgba(255,255,255,.4);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .07em;
+}
+
+.autotune-summary strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+}
+
+.autotune-controls {
+  display: flex;
+  align-items: end;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 10px;
+  overflow-x: auto;
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 8px;
+}
+
+.autotune-controls label {
+  min-width: 120px;
+}
+
+.autotune-controls input {
+  width: 100%;
+  margin-top: 5px;
+  padding: 7px 8px;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 5px;
+  background: #0c1015;
+  color: white;
+  font: inherit;
+  font-size: 10px;
+}
+
+.autotune-controls button,
+.autotune-actions button {
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0 9px;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 6px;
+  background: rgba(255,255,255,.035);
+  color: rgba(255,255,255,.7);
+  font: inherit;
+  font-size: 9px;
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.autotune-controls button:hover:not(:disabled),
+.autotune-actions button:hover:not(:disabled) {
+  border-color: rgba(34,197,94,.4);
+  color: white;
+}
+
+.autotune-controls button:disabled,
+.autotune-actions button:disabled {
+  opacity: .3;
+  cursor: default;
+}
+
+.autotune-table-shell {
+  max-height: 430px;
+  margin-top: 10px;
+  overflow: auto;
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 8px;
+}
+
+.autotune-table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.autotune-table th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 8px;
+  background: #12171e;
+  color: rgba(255,255,255,.45);
+  font-size: 8px;
+  letter-spacing: .07em;
+  text-align: right;
+}
+
+.autotune-table td {
+  padding: 8px;
+  border-top: 1px solid rgba(255,255,255,.045);
+  color: rgba(255,255,255,.68);
+  font-size: 9px;
+  text-align: right;
+}
+
+.autotune-table tr.ready td {
+  background: rgba(34,197,94,.035);
+}
+
+.autotune-table tr.locked td {
+  background: rgba(239,68,68,.035);
+}
+
+.autotune-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  background: rgba(255,255,255,.04);
+  color: rgba(255,255,255,.5);
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.autotune-badge.ready {
+  color: #86efac;
+  background: rgba(34,197,94,.08);
+}
+
+.autotune-badge.unsafe {
+  color: #fca5a5;
+  background: rgba(239,68,68,.08);
+}
+
+.autotune-badge.rejected {
+  color: #fdba74;
+  background: rgba(249,115,22,.08);
+}
+
+.autotune-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.autotune-empty {
+  height: 110px;
+  color: rgba(255,255,255,.35) !important;
+  text-align: center !important;
+}
+
+.autotune-note {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 7px;
+  color: rgba(255,255,255,.45);
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+@media (max-width: 1000px) {
+  .autotune-summary {
+    grid-template-columns: repeat(3,minmax(90px,1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .autotune-header {
+    flex-direction: column;
+  }
+
+  .autotune-summary {
+    grid-template-columns: repeat(2,minmax(90px,1fr));
+  }
+
+  .autotune-controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

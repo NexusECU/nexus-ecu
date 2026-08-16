@@ -1,0 +1,130 @@
+.advanced-calibration-tools{border-bottom:1px solid #777;background:#d4d0c8;font-family:Tahoma,"Segoe UI",Arial,sans-serif;color:#111}.advanced-calibration-title{display:flex;align-items:center;gap:6px;padding:5px 7px;border-bottom:1px solid #999;background:linear-gradient(180deg,#f1f1f1,#cecece);font-size:7px}.advanced-calibration-title strong{font-size:8px}.advanced-calibration-title span{margin-left:auto;color:#555}.advanced-calibration-row{display:flex;align-items:center;gap:7px;padding:5px 7px;border-bottom:1px solid #aaa}.advanced-calibration-row.secondary{border-bottom:0}.advanced-calibration-group{display:flex;align-items:center;gap:4px}.advanced-label{font-size:7px;font-weight:700;color:#555}.advanced-calibration-group input{width:72px;height:23px;box-sizing:border-box;border:1px solid #888;border-radius:0;background:#fff;padding:2px 4px;font:8px Consolas,monospace}.advanced-calibration-group input.small{width:42px}.advanced-calibration-tools button{display:inline-flex;align-items:center;gap:4px;height:23px;padding:0 7px;border:1px solid #777;border-radius:0;background:linear-gradient(180deg,#fff,#d5d5d5);color:#111;font:7px Tahoma,"Segoe UI",Arial,sans-serif;font-weight:700}.advanced-calibration-tools button:active{background:#c7dcef}.advanced-calibration-spacer{flex:1}.advanced-calibration-stats{font:7px Consolas,monospace;color:#555}.advanced-calibration-stats strong{color:#111}.advanced-calibration-tools button.restore{border-color:#8b6d45}.advanced-shortcuts{padding:4px 7px;border-top:1px solid #aaa;background:#eee;color:#555;font-size:7px}.advanced-shortcuts strong{margin-right:7px;color:#222}@media(max-width:950px){.advanced-calibration-row{flex-wrap:wrap}.advanced-calibration-spacer{display:none}.advanced-calibration-stats{width:100%}}
+
+/* v6.3 visibility fix */
+.advanced-calibration-visible-banner {
+  min-height: 24px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  border-top: 1px solid #1e5f99;
+  border-bottom: 1px solid #123d66;
+  background: linear-gradient(180deg, #4b8fc8, #2e6ea6);
+  color: #fff;
+  font: 700 9px Tahoma, "Segoe UI", Arial, sans-serif;
+  letter-spacing: .04em;
+  text-shadow: 0 1px rgba(0,0,0,.4);
+}
+
+.advanced-calibration-tools {
+  display: block !important;
+  visibility: visible !important;
+  min-height: 92px;
+  position: relative;
+  z-index: 5;
+}
+
+.advanced-calibration-row {
+  min-height: 31px;
+}
+
+.advanced-calibration-title {
+  min-height: 25px;
+}
+
+
+/* Functional ECUFlash-style Edit / View / Help menus */
+.ecuflash-editor-menu {
+  position: relative;
+  overflow: visible !important;
+  z-index: 50;
+}
+
+.ecuflash-menu-root {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.ecuflash-editor-menu > .ecuflash-menu-root > button.active {
+  border-color: #777 !important;
+  background: #f4f4f4 !important;
+}
+
+.ecuflash-menu-dropdown {
+  position: absolute;
+  top: 21px;
+  left: 0;
+  z-index: 200;
+  width: 225px;
+  padding: 2px;
+  border: 1px solid #666;
+  background: #f1f1f1;
+  box-shadow:
+    2px 2px 5px rgba(0,0,0,.35);
+}
+
+.ecuflash-menu-dropdown button {
+  width: 100%;
+  min-height: 23px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 2px 7px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #111;
+  font: 9px Tahoma, "Segoe UI", Arial, sans-serif;
+  text-align: left;
+}
+
+.ecuflash-menu-dropdown button:hover:not(:disabled) {
+  border-color: #7da2ce;
+  background: #dcecff;
+}
+
+.ecuflash-menu-dropdown button:disabled {
+  color: #999;
+}
+
+.ecuflash-menu-dropdown kbd,
+.ecuflash-help-row kbd {
+  border: 0;
+  background: transparent;
+  color: #555;
+  font: 8px Tahoma, "Segoe UI", Arial, sans-serif;
+}
+
+.ecuflash-menu-separator {
+  height: 1px;
+  margin: 3px 5px;
+  background: #bbb;
+}
+
+.menu-check {
+  min-width: 12px;
+  color: #174d8c;
+  font-weight: 700;
+  text-align: center;
+}
+
+.help-menu {
+  width: 280px;
+  padding: 7px;
+}
+
+.ecuflash-help-title {
+  padding: 2px 3px 6px;
+  border-bottom: 1px solid #bbb;
+  color: #333;
+  font: 700 8px Tahoma, "Segoe UI", Arial, sans-serif;
+}
+
+.ecuflash-help-row {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) auto;
+  gap: 14px;
+  padding: 4px 3px;
+  color: #222;
+  font: 8px Tahoma, "Segoe UI", Arial, sans-serif;
+}

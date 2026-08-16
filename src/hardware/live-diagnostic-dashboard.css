@@ -1,0 +1,27 @@
+.live-diagnostic-dashboard{margin-top:8px;border:1px solid rgba(59,130,246,.14);border-radius:6px;background:#080c11;color:#fff}.live-diagnostic-dashboard-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.055)}.live-diagnostic-dashboard-header>div:first-child{display:flex;align-items:center;gap:7px}.live-diagnostic-dashboard-header h3{margin:2px 0 0;font-size:11px}.live-health{display:flex;align-items:center;gap:5px;padding:5px 7px;border-radius:4px;font-size:7px;font-weight:900}.live-health.green{border:1px solid rgba(34,197,94,.22);background:rgba(34,197,94,.06);color:#86efac}.live-health.yellow{border:1px solid rgba(245,158,11,.22);background:rgba(245,158,11,.06);color:#fde68a}.live-health.red{border:1px solid rgba(239,68,68,.22);background:rgba(239,68,68,.06);color:#fca5a5}.live-health.gray{border:1px solid rgba(148,163,184,.18);background:rgba(148,163,184,.04);color:#94a3b8}.live-diagnostic-metrics{display:grid;grid-template-columns:repeat(6,minmax(90px,1fr));border-bottom:1px solid rgba(255,255,255,.05)}.live-diagnostic-metrics>div{padding:7px 8px;border-right:1px solid rgba(255,255,255,.045)}.live-diagnostic-metrics span{display:flex;align-items:center;gap:4px;color:rgba(255,255,255,.3);font-size:6px;font-weight:900}.live-diagnostic-metrics strong{display:block;margin-top:4px;color:rgba(255,255,255,.78);font:9px Consolas,monospace}.live-diagnostic-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:7px}.live-diagnostic-card{border:1px solid rgba(255,255,255,.055);background:#0b1016}.live-diagnostic-card-title{padding:6px 7px;border-bottom:1px solid rgba(255,255,255,.045);color:rgba(255,255,255,.45);font-size:7px;font-weight:900}.live-diagnostic-id-list{display:flex;flex-wrap:wrap;gap:4px;padding:7px}.live-diagnostic-id-list span{padding:4px 6px;border:1px solid rgba(255,255,255,.055);border-radius:3px;background:rgba(255,255,255,.02);color:#cbd5e1;font:7px Consolas,monospace}.live-diagnostic-id-list span.diagnostic{border-color:rgba(34,197,94,.2);background:rgba(34,197,94,.06);color:#86efac}.live-diagnostic-id-list em{color:rgba(255,255,255,.3);font-size:7px;font-style:normal}.live-diagnostic-identity{display:grid;grid-template-columns:120px minmax(0,1fr);gap:8px;padding:6px 7px;border-bottom:1px solid rgba(255,255,255,.035)}.live-diagnostic-identity span{color:rgba(255,255,255,.3);font-size:6px;font-weight:900}.live-diagnostic-identity strong{overflow:hidden;color:rgba(255,255,255,.75);font:8px Consolas,monospace;text-overflow:ellipsis;white-space:nowrap}.live-diagnostic-events{margin:0 7px 7px;border:1px solid rgba(255,255,255,.055);background:#0b1016}.live-diagnostic-events>div:not(.live-diagnostic-card-title):not(.live-diagnostic-empty){display:grid;grid-template-columns:30px minmax(0,1fr);gap:7px;padding:6px 7px;border-bottom:1px solid rgba(255,255,255,.035)}.live-diagnostic-events span{color:#60a5fa;font:7px Consolas,monospace}.live-diagnostic-events strong{color:rgba(255,255,255,.55);font-size:7px;font-weight:500}.live-diagnostic-empty{padding:9px;color:rgba(255,255,255,.28);font-size:7px}@media(max-width:900px){.live-diagnostic-metrics{grid-template-columns:repeat(3,1fr)}.live-diagnostic-grid{grid-template-columns:1fr}}
+
+/* v7.4 visibility fix */
+.v74-dashboard-visible-banner {
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  padding: 0 10px;
+  border: 1px solid rgba(59,130,246,.35);
+  border-bottom: 0;
+  border-radius: 6px 6px 0 0;
+  background: linear-gradient(180deg, #2868a8, #184978);
+  color: #fff;
+  font: 800 9px "Segoe UI", Arial, sans-serif;
+  letter-spacing: .06em;
+}
+
+.live-diagnostic-dashboard {
+  display: block !important;
+  visibility: visible !important;
+  min-height: 280px;
+  margin-top: 0 !important;
+  border-radius: 0 0 6px 6px !important;
+  position: relative;
+  z-index: 2;
+}

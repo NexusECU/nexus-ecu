@@ -1,0 +1,309 @@
+/* NEXUS ECU v1.4 Flash Manager */
+
+.flash-manager {
+  overflow: hidden;
+}
+
+.flash-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.flash-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 7px;
+  color: rgba(255,255,255,.68);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .07em;
+}
+
+.flash-state.writing,
+.flash-state.reading,
+.flash-state.verifying,
+.flash-state.recovering {
+  border-color: rgba(59,130,246,.42);
+  background: rgba(59,130,246,.09);
+}
+
+.flash-state.failed {
+  border-color: rgba(239,68,68,.5);
+  background: rgba(239,68,68,.12);
+}
+
+.flash-state.complete {
+  border-color: rgba(34,197,94,.42);
+  background: rgba(34,197,94,.09);
+}
+
+.flash-ecu-card {
+  display: grid;
+  grid-template-columns: repeat(6,minmax(100px,1fr));
+  margin-top: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 8px;
+}
+
+.flash-ecu-card > div {
+  min-height: 60px;
+  padding: 10px;
+  border-right: 1px solid rgba(255,255,255,.055);
+}
+
+.flash-ecu-card > div:last-child {
+  border-right: 0;
+}
+
+.flash-ecu-card span,
+.flash-progress-header span,
+.flash-progress-footer,
+.flash-list-item span {
+  color: rgba(255,255,255,.4);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .07em;
+}
+
+.flash-ecu-card strong {
+  display: block;
+  margin-top: 5px;
+  font-size: 10px;
+}
+
+.flash-toolbar {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 8px;
+  overflow-x: auto;
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 8px;
+  background: rgba(0,0,0,.16);
+}
+
+.flash-toolbar button,
+.flash-list-item button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 6px;
+  background: rgba(255,255,255,.035);
+  color: rgba(255,255,255,.72);
+  font: inherit;
+  font-size: 9px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.flash-toolbar button:hover:not(:disabled),
+.flash-list-item button:hover:not(:disabled) {
+  border-color: rgba(34,197,94,.4);
+  color: white;
+}
+
+.flash-toolbar button.primary {
+  border-color: rgba(59,130,246,.42);
+  background: rgba(59,130,246,.11);
+}
+
+.flash-toolbar button.recovery {
+  border-color: rgba(239,68,68,.48);
+  background: rgba(239,68,68,.12);
+}
+
+.flash-toolbar button:disabled,
+.flash-list-item button:disabled {
+  opacity: .35;
+  cursor: default;
+}
+
+.flash-progress-area {
+  margin-top: 10px;
+  padding: 12px;
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 8px;
+}
+
+.flash-progress-header,
+.flash-progress-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.flash-progress-header strong {
+  font-size: 10px;
+}
+
+.flash-progress-track {
+  height: 10px;
+  margin: 8px 0;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255,255,255,.055);
+}
+
+.flash-progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg,#2563eb,#22c55e);
+  transition: width 80ms linear;
+}
+
+.flash-warning-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 10px;
+  padding: 9px 10px;
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 7px;
+}
+
+.flash-warning-row label,
+.flash-failure {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.flash-failure {
+  color: #fca5a5;
+}
+
+.flash-columns {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.flash-subpanel {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 8px;
+  background: rgba(255,255,255,.018);
+}
+
+.flash-subpanel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.flash-subpanel-header h3 {
+  margin: 2px 0 0;
+  font-size: 13px;
+}
+
+.flash-empty {
+  margin-top: 10px;
+  padding: 24px 10px;
+  border: 1px dashed rgba(255,255,255,.08);
+  border-radius: 7px;
+  color: rgba(255,255,255,.35);
+  font-size: 10px;
+  text-align: center;
+}
+
+.flash-list {
+  max-height: 260px;
+  margin-top: 10px;
+  overflow: auto;
+}
+
+.flash-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 0;
+  border-top: 1px solid rgba(255,255,255,.055);
+}
+
+.flash-list-item:first-child {
+  border-top: 0;
+}
+
+.flash-list-item > div {
+  min-width: 0;
+}
+
+.flash-list-item strong,
+.flash-list-item span {
+  display: block;
+}
+
+.flash-list-item strong {
+  font-size: 10px;
+}
+
+.flash-list-item span {
+  margin-top: 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.flash-result {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 4px;
+  margin: 0 !important;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+
+.flash-result.success {
+  color: #86efac;
+  background: rgba(34,197,94,.08);
+}
+
+.flash-result.failed {
+  color: #fca5a5;
+  background: rgba(239,68,68,.08);
+}
+
+.flash-result.backup {
+  color: #93c5fd;
+  background: rgba(59,130,246,.08);
+}
+
+@media (max-width: 1050px) {
+  .flash-ecu-card {
+    grid-template-columns: repeat(3,minmax(100px,1fr));
+  }
+
+  .flash-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 650px) {
+  .flash-header,
+  .flash-warning-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .flash-ecu-card {
+    grid-template-columns: repeat(2,minmax(90px,1fr));
+  }
+}

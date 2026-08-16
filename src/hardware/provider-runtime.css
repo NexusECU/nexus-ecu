@@ -1,0 +1,126 @@
+/* NEXUS ECU v4.1 provider runtime status */
+
+.provider-runtime {
+  margin-top: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 8px;
+  background: #080b0f;
+}
+
+.provider-runtime-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 11px;
+  border-bottom: 1px solid rgba(255,255,255,.055);
+}
+
+.provider-runtime-heading > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.provider-runtime-heading h3 {
+  margin: 2px 0 0;
+  font-size: 11px;
+}
+
+.provider-runtime-status {
+  padding: 5px 7px;
+  border: 1px solid rgba(245,158,11,.25);
+  border-radius: 4px;
+  background: rgba(245,158,11,.06);
+  color: #fbbf24;
+  font-size: 7px;
+  font-weight: 900;
+  letter-spacing: .06em;
+}
+
+.provider-runtime-status.implemented {
+  border-color: rgba(34,197,94,.28);
+  background: rgba(34,197,94,.07);
+  color: #86efac;
+}
+
+.provider-runtime-ready,
+.provider-runtime-unavailable {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 12px;
+}
+
+.provider-runtime-ready strong,
+.provider-runtime-unavailable strong,
+.provider-runtime-ready span,
+.provider-runtime-unavailable span {
+  display: block;
+}
+
+.provider-runtime-ready strong,
+.provider-runtime-unavailable strong {
+  font-size: 9px;
+}
+
+.provider-runtime-ready span,
+.provider-runtime-unavailable span {
+  margin-top: 4px;
+  color: rgba(255,255,255,.38);
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+.provider-runtime-meta {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(100px,1fr));
+  border-top: 1px solid rgba(255,255,255,.045);
+}
+
+.provider-runtime-meta > div {
+  padding: 9px 10px;
+  border-right: 1px solid rgba(255,255,255,.045);
+}
+
+.provider-runtime-meta > div:last-child {
+  border-right: 0;
+}
+
+.provider-runtime-meta span {
+  display: block;
+  color: rgba(255,255,255,.3);
+  font-size: 7px;
+  font-weight: 900;
+}
+
+.provider-runtime-meta strong {
+  display: block;
+  margin-top: 3px;
+  font-size: 8px;
+}
+
+.provider-runtime-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  margin: 9px;
+  padding: 8px 9px;
+  border: 1px solid rgba(59,130,246,.08);
+  border-radius: 6px;
+  color: rgba(255,255,255,.34);
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+@media (max-width: 700px) {
+  .provider-runtime-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .provider-runtime-meta {
+    grid-template-columns: 1fr;
+  }
+}

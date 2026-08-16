@@ -1,0 +1,149 @@
+/* NEXUS ECU v2.0 desktop project bar */
+
+.project-bar {
+  display: grid;
+  grid-template-columns:
+    minmax(250px, 1.25fr)
+    auto
+    minmax(190px, .75fr)
+    auto;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding: 9px 10px;
+  border: 1px solid rgba(255,255,255,.075);
+  border-radius: 9px;
+  background: rgba(7,10,14,.92);
+}
+
+.project-identity {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.project-icon {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(59,130,246,.28);
+  border-radius: 7px;
+  background: rgba(59,130,246,.08);
+}
+
+.project-identity > div:last-child {
+  min-width: 0;
+}
+
+.project-identity span,
+.project-recent span {
+  display: block;
+  color: rgba(255,255,255,.36);
+  font-size: 7px;
+  font-weight: 900;
+  letter-spacing: .09em;
+}
+
+.project-identity strong {
+  display: block;
+  margin-top: 1px;
+  font-size: 10px;
+}
+
+.project-identity small {
+  display: block;
+  max-width: 430px;
+  margin-top: 2px;
+  overflow: hidden;
+  color: rgba(255,255,255,.34);
+  font-size: 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.project-actions {
+  display: flex;
+  gap: 5px;
+}
+
+.project-actions button {
+  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0 8px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 5px;
+  background: rgba(255,255,255,.025);
+  color: rgba(255,255,255,.65);
+  font: inherit;
+  font-size: 8px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.project-actions button:hover:not(:disabled) {
+  border-color: rgba(59,130,246,.4);
+  background: rgba(59,130,246,.08);
+  color: white;
+}
+
+.project-actions button:disabled {
+  opacity: .3;
+  cursor: default;
+}
+
+.project-recent select {
+  width: 100%;
+  margin-top: 3px;
+  padding: 6px 7px;
+  border: 1px solid rgba(255,255,255,.075);
+  border-radius: 5px;
+  background: #0c1015;
+  color: rgba(255,255,255,.62);
+  font: inherit;
+  font-size: 8px;
+}
+
+.project-platform {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255,255,255,.42);
+  font-size: 8px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.project-error {
+  margin-bottom: 10px;
+  padding: 9px 11px;
+  border: 1px solid rgba(239,68,68,.28);
+  border-radius: 7px;
+  background: rgba(239,68,68,.07);
+  color: #fca5a5;
+  font-size: 9px;
+}
+
+@media (max-width: 1100px) {
+  .project-bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .project-recent {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 700px) {
+  .project-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .project-actions {
+    overflow-x: auto;
+  }
+}

@@ -1,0 +1,1 @@
+{"main-capability":{"identifier":"main-capability","description":"Desktop permissions for the NEXUS ECU main window","local":true,"windows":["main"],"permissions":["core:default","dialog:default","core:menu:default","core:window:default"]}}
