@@ -111,6 +111,14 @@ import {
 } from "../desktop/ProjectRestoreCard";
 
 import {
+  VehicleProjectProfilesPanel,
+} from "../desktop/VehicleProjectProfilesPanel";
+
+import type {
+  VehicleProjectProfile,
+} from "../desktop/vehicleProjectTypes";
+
+import {
   clearProjectSessionState,
   loadProjectSessionState,
   saveProjectSessionState,
@@ -145,6 +153,7 @@ import "./ecu-capability-matrix.css";
 import "./unified-ecu-workspace.css";
 import "../desktop/session-persistence.css";
 import "../desktop/project-restore-card.css";
+import "../desktop/vehicle-project-profiles.css";
 
 type HardwareManagerProps = {
   loadedRomImage?: import("../rom/romTypes").RomImageInfo | null;
@@ -928,6 +937,44 @@ export function HardwareManager({
     };
 
 
+  const openVehicleProject =
+    (
+      project:
+        VehicleProjectProfile,
+    ) => {
+      const saved =
+        project.session;
+
+      setPersistedSession(
+        saved,
+      );
+
+      setActiveTransportProvider(
+        saved.hardware.providerId,
+      );
+
+      setSelectedPort(
+        saved.hardware.selectedPort,
+      );
+
+      setBaudRate(
+        saved.hardware.serialBaud,
+      );
+
+      setCanBitrateKbps(
+        saved.hardware.canBitrateKbps,
+      );
+
+      setWorkspaceTab(
+        saved.hardware.workspaceTab,
+      );
+
+      setRestorePromptDismissed(
+        true,
+      );
+    };
+
+
   return (
     <section className="hardware-manager">
       <div className="hardware-mode-bar">
@@ -1003,7 +1050,7 @@ export function HardwareManager({
           <div className="hardware-live-header">
             <div>
               <span className="eyebrow">
-                HARDWARE COMMUNICATION / V8.4
+                HARDWARE COMMUNICATION / V8.5
               </span>
 
               <h2>
@@ -1046,7 +1093,16 @@ export function HardwareManager({
             }
           />
 
-                    {persistedSession &&
+                    <VehicleProjectProfilesPanel
+            currentSession={
+              currentPersistedState
+            }
+            onOpenProject={
+              openVehicleProject
+            }
+          />
+
+          {persistedSession &&
           !restorePromptDismissed && (
             <ProjectRestoreCard
               savedState={
