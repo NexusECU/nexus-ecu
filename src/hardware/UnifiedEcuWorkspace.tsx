@@ -79,6 +79,10 @@ import {
 } from "./EcuIdentificationMatchPanel";
 
 import {
+  EcuCompatibilityIntelligencePanel,
+} from "./EcuCompatibilityIntelligencePanel";
+
+import {
   decodeLiveEcuIdentification,
 } from "./liveEcuIdentificationService";
 
@@ -86,6 +90,7 @@ import "./unified-ecu-workspace.css";
 import "./guided-vehicle-connection-flow.css";
 import "./live-identification-pipeline.css";
 import "./ecu-identification-match.css";
+import "./ecu-compatibility-intelligence.css";
 import "./ecu-session-lifecycle.css";
 import "./protocol-channel-manager.css";
 
@@ -378,6 +383,35 @@ export function UnifiedEcuWorkspace({
               }}
             />
 
+            <EcuCompatibilityIntelligencePanel
+              providerId={
+                providerId
+              }
+              adapterReady={
+                adapterDetected
+              }
+              linkReady={
+                connection.connected
+              }
+              diagnosticResponderReady={
+                diagnosticResponderReady
+              }
+              vin={
+                vin
+              }
+              calibrationIds={
+                calibrationIds
+              }
+              ecuNames={
+                ecuNames
+              }
+              romImageLoaded={
+                Boolean(
+                  loadedRomImage,
+                )
+              }
+            />
+
             <LiveDiagnosticDashboard
               connection={connection}
               frames={frames}
@@ -418,6 +452,35 @@ export function UnifiedEcuWorkspace({
               }
               ecuNames={
                 ecuNames
+              }
+            />
+
+            <EcuCompatibilityIntelligencePanel
+              providerId={
+                providerId
+              }
+              adapterReady={
+                adapterDetected
+              }
+              linkReady={
+                connection.connected
+              }
+              diagnosticResponderReady={
+                diagnosticResponderReady
+              }
+              vin={
+                vin
+              }
+              calibrationIds={
+                calibrationIds
+              }
+              ecuNames={
+                ecuNames
+              }
+              romImageLoaded={
+                Boolean(
+                  loadedRomImage,
+                )
               }
             />
 
