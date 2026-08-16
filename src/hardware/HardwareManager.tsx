@@ -123,6 +123,10 @@ import {
 } from "../desktop/ProjectHistoryPanel";
 
 import {
+  ProjectFileStoragePanel,
+} from "../desktop/ProjectFileStoragePanel";
+
+import {
   clearProjectSessionState,
   loadProjectSessionState,
   saveProjectSessionState,
@@ -159,6 +163,7 @@ import "../desktop/session-persistence.css";
 import "../desktop/project-restore-card.css";
 import "../desktop/vehicle-project-profiles.css";
 import "../desktop/project-history.css";
+import "../desktop/project-file-storage.css";
 
 type HardwareManagerProps = {
   loadedRomImage?: import("../rom/romTypes").RomImageInfo | null;
@@ -1066,7 +1071,7 @@ export function HardwareManager({
           <div className="hardware-live-header">
             <div>
               <span className="eyebrow">
-                HARDWARE COMMUNICATION / V8.6
+                HARDWARE COMMUNICATION / V8.7
               </span>
 
               <h2>
@@ -1155,6 +1160,15 @@ export function HardwareManager({
                 restored.hardware.workspaceTab,
               );
             }}
+          />
+
+          <ProjectFileStoragePanel
+            activeProject={
+              activeVehicleProject
+            }
+            currentSession={
+              currentPersistedState
+            }
           />
 
           {persistedSession &&

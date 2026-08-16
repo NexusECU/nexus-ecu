@@ -1,3 +1,5 @@
+mod project_storage;
+
 use std::{
     fs,
     io::{
@@ -685,14 +687,6 @@ fn configure_slcan_monitor(
             bitrate_kbps,
         )?;
 
-    /*
-     * These are adapter-control commands only:
-     * clear stale command state, close CAN,
-     * set bitrate, then open CAN.
-     *
-     * There is intentionally no command here for
-     * transmitting a CAN data/RTR frame.
-     */
     write_adapter_command(
         port.as_mut(),
         "\r",
@@ -754,7 +748,6 @@ fn close_slcan_monitor(
 
     Ok(true)
 }
-
 
 #[derive(Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -1198,7 +1191,6 @@ fn discover_j2534_devices()
     }
 }
 
-
 #[cfg(target_os = "windows")]
 type PassThruOpenFn =
     unsafe extern "system" fn(
@@ -1339,11 +1331,6 @@ fn open_j2534_device(
                 result,
             );
 
-        /*
-         * Keep the DLL loaded for the lifetime of the open
-         * J2534 device. Vendor DLLs may own threads/resources
-         * created by PassThruOpen.
-         */
         state.library =
             Some(
                 library,
@@ -1470,10 +1457,6 @@ fn close_j2534_device(
         state.opened_at =
             None;
 
-        /*
-         * Drop the vendor DLL only after a successful
-         * PassThruClose.
-         */
         state.library =
             None;
 
@@ -1591,6 +1574,10 @@ pub fn run() {
                 open_j2534_device,
                 close_j2534_device,
                 j2534_connection_status,
+                project_storage::get_project_storage_root,
+                project_storage::write_project_manifest,
+                project_storage::write_project_restore_point,
+                project_storage::write_project_rom_backup,
             ],
         )
         .run(
