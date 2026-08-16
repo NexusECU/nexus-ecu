@@ -107,6 +107,10 @@ import {
 } from "../desktop/SessionPersistencePanel";
 
 import {
+  ProjectRestoreCard,
+} from "../desktop/ProjectRestoreCard";
+
+import {
   clearProjectSessionState,
   loadProjectSessionState,
   saveProjectSessionState,
@@ -140,6 +144,7 @@ import "./ecu-session-manager.css";
 import "./ecu-capability-matrix.css";
 import "./unified-ecu-workspace.css";
 import "../desktop/session-persistence.css";
+import "../desktop/project-restore-card.css";
 
 type HardwareManagerProps = {
   loadedRomImage?: import("../rom/romTypes").RomImageInfo | null;
@@ -797,6 +802,14 @@ export function HardwareManager({
     "overview",
   );
 
+
+  const [
+    restorePromptDismissed,
+    setRestorePromptDismissed,
+  ] = useState(
+    false,
+  );
+
   const currentPersistedState:
     NexusProjectSessionState = {
       schemaVersion:
@@ -895,6 +908,10 @@ export function HardwareManager({
       setWorkspaceTab(
         persistedSession.hardware.workspaceTab,
       );
+
+      setRestorePromptDismissed(
+        true,
+      );
     };
 
   const clearSavedSession =
@@ -903,6 +920,10 @@ export function HardwareManager({
 
       setPersistedSession(
         null,
+      );
+
+      setRestorePromptDismissed(
+        true,
       );
     };
 
@@ -982,7 +1003,7 @@ export function HardwareManager({
           <div className="hardware-live-header">
             <div>
               <span className="eyebrow">
-                HARDWARE COMMUNICATION / V8.3
+                HARDWARE COMMUNICATION / V8.4
               </span>
 
               <h2>
@@ -1025,7 +1046,27 @@ export function HardwareManager({
             }
           />
 
-                    <SessionPersistencePanel
+                    {persistedSession &&
+          !restorePromptDismissed && (
+            <ProjectRestoreCard
+              savedState={
+                persistedSession
+              }
+              onRestore={
+                restoreSavedSession
+              }
+              onDismiss={() =>
+                setRestorePromptDismissed(
+                  true,
+                )
+              }
+              onClear={
+                clearSavedSession
+              }
+            />
+          )}
+
+          <SessionPersistencePanel
             currentState={
               currentPersistedState
             }
