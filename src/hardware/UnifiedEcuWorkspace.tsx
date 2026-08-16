@@ -87,6 +87,14 @@ type Props = {
   providerId:
     TransportProviderId;
 
+  initialTab?:
+    WorkspaceTab;
+
+  onTabChange?: (
+    tab:
+      WorkspaceTab,
+  ) => void;
+
   connection:
     HardwareConnectionInfo;
 
@@ -164,12 +172,14 @@ export function UnifiedEcuWorkspace({
   lastActivityMs,
   lastError,
   loadedRomImage,
+  initialTab = "overview",
+  onTabChange,
 }: Props) {
   const [
     activeTab,
     setActiveTab,
   ] = useState<WorkspaceTab>(
-    "overview",
+    initialTab,
   );
 
   const diagnosticResponderReady =
@@ -288,11 +298,15 @@ export function UnifiedEcuWorkspace({
                   ? "active"
                   : ""
               }
-              onClick={() =>
+              onClick={() => {
                 setActiveTab(
                   tab.id,
-                )
-              }
+                );
+
+                onTabChange?.(
+                  tab.id,
+                );
+              }}
             >
               {tab.icon}
               {tab.label}
@@ -323,21 +337,30 @@ export function UnifiedEcuWorkspace({
               identityReady={
                 identityReady
               }
-              onOpenIdentification={() =>
+              onOpenIdentification={() => {
                 setActiveTab(
                   "identification",
-                )
-              }
-              onOpenDiagnostics={() =>
+                );
+                onTabChange?.(
+                  "identification",
+                );
+              }}
+              onOpenDiagnostics={() => {
                 setActiveTab(
                   "diagnostics",
-                )
-              }
-              onOpenSession={() =>
+                );
+                onTabChange?.(
+                  "diagnostics",
+                );
+              }}
+              onOpenSession={() => {
                 setActiveTab(
                   "session",
-                )
-              }
+                );
+                onTabChange?.(
+                  "session",
+                );
+              }}
             />
 
             <LiveDiagnosticDashboard

@@ -102,6 +102,21 @@ import {
   UnifiedEcuWorkspace,
 } from "./UnifiedEcuWorkspace";
 
+import {
+  SessionPersistencePanel,
+} from "../desktop/SessionPersistencePanel";
+
+import {
+  clearProjectSessionState,
+  loadProjectSessionState,
+  saveProjectSessionState,
+} from "../desktop/sessionPersistenceService";
+
+import type {
+  NexusProjectSessionState,
+  PersistedWorkspaceTab,
+} from "../desktop/sessionPersistenceTypes";
+
 import type {
   TransportProviderId,
 } from "./transportTypes";
@@ -124,6 +139,7 @@ import "./vehicle-ecu-detection.css";
 import "./ecu-session-manager.css";
 import "./ecu-capability-matrix.css";
 import "./unified-ecu-workspace.css";
+import "../desktop/session-persistence.css";
 
 type HardwareManagerProps = {
   loadedRomImage?: import("../rom/romTypes").RomImageInfo | null;
@@ -761,6 +777,136 @@ export function HardwareManager({
           ? "DATA ACTIVE"
           : "CONNECTED · IDLE";
 
+  const [
+    persistedSession,
+    setPersistedSession,
+  ] = useState<
+    NexusProjectSessionState | null
+  >(
+    () =>
+      loadProjectSessionState(),
+  );
+
+  const [
+    workspaceTab,
+    setWorkspaceTab,
+  ] = useState<
+    PersistedWorkspaceTab
+  >(
+    persistedSession?.hardware.workspaceTab ??
+    "overview",
+  );
+
+  const currentPersistedState:
+    NexusProjectSessionState = {
+      schemaVersion:
+        1,
+
+      updatedAt:
+        new Date()
+          .toISOString(),
+
+      hardware: {
+        providerId:
+          activeTransportProvider,
+
+        selectedPort:
+          selectedPort,
+
+        serialBaud:
+          baudRate,
+
+        canBitrateKbps:
+          canBitrateKbps,
+
+        workspaceTab,
+
+        selectedEcuAddress:
+          "AUTO",
+
+        identity: {
+          vin:
+            null,
+
+          calibrationIds:
+            [],
+
+          cvns:
+            [],
+
+          ecuNames:
+            [],
+        },
+      },
+
+      rom:
+        loadedRomImage
+          ? {
+              fileName:
+                loadedRomImage.fileName,
+
+              sizeBytes:
+                loadedRomImage.bytes.length,
+
+              sha256:
+                loadedRomImage.sha256,
+            }
+          : null,
+
+      definition:
+        null,
+    };
+
+  const saveCurrentSession =
+    () => {
+      saveProjectSessionState(
+        currentPersistedState,
+      );
+
+      setPersistedSession(
+        currentPersistedState,
+      );
+    };
+
+  const restoreSavedSession =
+    () => {
+      if (
+        !persistedSession
+      ) {
+        return;
+      }
+
+      setActiveTransportProvider(
+        persistedSession.hardware.providerId,
+      );
+
+      setSelectedPort(
+        persistedSession.hardware.selectedPort,
+      );
+
+      setBaudRate(
+        persistedSession.hardware.serialBaud,
+      );
+
+      setCanBitrateKbps(
+        persistedSession.hardware.canBitrateKbps,
+      );
+
+      setWorkspaceTab(
+        persistedSession.hardware.workspaceTab,
+      );
+    };
+
+  const clearSavedSession =
+    () => {
+      clearProjectSessionState();
+
+      setPersistedSession(
+        null,
+      );
+    };
+
+
   return (
     <section className="hardware-manager">
       <div className="hardware-mode-bar">
@@ -836,7 +982,7 @@ export function HardwareManager({
           <div className="hardware-live-header">
             <div>
               <span className="eyebrow">
-                HARDWARE COMMUNICATION / V8.0
+                HARDWARE COMMUNICATION / V8.3
               </span>
 
               <h2>
@@ -879,9 +1025,33 @@ export function HardwareManager({
             }
           />
 
-                    <UnifiedEcuWorkspace
+                    <SessionPersistencePanel
+            currentState={
+              currentPersistedState
+            }
+            restoredState={
+              persistedSession
+            }
+            onSave={
+              saveCurrentSession
+            }
+            onRestore={
+              restoreSavedSession
+            }
+            onClear={
+              clearSavedSession
+            }
+          />
+
+          <UnifiedEcuWorkspace
             providerId={
               activeTransportProvider
+            }
+            initialTab={
+              workspaceTab
+            }
+            onTabChange={
+              setWorkspaceTab
             }
             connection={
               connection
