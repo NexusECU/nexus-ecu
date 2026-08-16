@@ -75,12 +75,17 @@ import {
 } from "./LiveIdentificationPipelinePanel";
 
 import {
+  EcuIdentificationMatchPanel,
+} from "./EcuIdentificationMatchPanel";
+
+import {
   decodeLiveEcuIdentification,
 } from "./liveEcuIdentificationService";
 
 import "./unified-ecu-workspace.css";
 import "./guided-vehicle-connection-flow.css";
 import "./live-identification-pipeline.css";
+import "./ecu-identification-match.css";
 import "./ecu-session-lifecycle.css";
 import "./protocol-channel-manager.css";
 
@@ -401,6 +406,18 @@ export function UnifiedEcuWorkspace({
             <LiveIdentificationPipelinePanel
               frames={
                 frames
+              }
+            />
+
+            <EcuIdentificationMatchPanel
+              vin={
+                vin
+              }
+              calibrationIds={
+                calibrationIds
+              }
+              ecuNames={
+                ecuNames
               }
             />
 
