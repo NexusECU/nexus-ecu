@@ -119,3 +119,98 @@ export async function getProjectStorageRoot():
     "get_project_storage_root",
   );
 }
+
+
+export async function writeRomBackupAndSyncManifest(
+  projectId:
+    string,
+  projectName:
+    string,
+  vehicleLabel:
+    string,
+  session:
+    NexusProjectSessionState,
+  fileName:
+    string,
+  bytes:
+    Uint8Array,
+): Promise<{
+  backup:
+    ProjectDiskBackupResult;
+
+  manifest:
+    ProjectDiskWriteResult;
+}> {
+  const backup =
+    await writeRomBackupToDisk(
+      projectId,
+      fileName,
+      bytes,
+    );
+
+  const manifest:
+    ProjectDiskManifest = {
+      schemaVersion:
+        1,
+
+      projectId,
+
+      projectName,
+
+      vehicleLabel,
+
+      createdAt:
+        new Date()
+          .toISOString(),
+
+      updatedAt:
+        new Date()
+          .toISOString(),
+
+      session,
+
+      romBackups: [
+        {
+          fileName:
+            backup.fileName,
+
+          relativePath:
+            `rom-backups/${backup.fileName}`,
+
+          sizeBytes:
+            backup.sizeBytes,
+
+          sha256:
+            backup.sha256,
+
+          createdAt:
+            new Date()
+              .toISOString(),
+        },
+      ],
+
+      restorePoints:
+        [],
+    };
+
+  const manifestResult =
+    await invoke<ProjectDiskWriteResult>(
+      "write_project_manifest",
+      {
+        projectId,
+
+        manifestJson:
+          JSON.stringify(
+            manifest,
+            null,
+            2,
+          ),
+      },
+    );
+
+  return {
+    backup,
+    manifest:
+      manifestResult,
+  };
+}

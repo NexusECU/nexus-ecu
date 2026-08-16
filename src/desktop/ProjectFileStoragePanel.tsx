@@ -18,10 +18,15 @@ import type {
   VehicleProjectProfile,
 } from "./vehicleProjectTypes";
 
+import type {
+  RomImageInfo,
+} from "../rom/romTypes";
+
 import {
   getProjectStorageRoot,
   writeProjectManifestToDisk,
   writeRestorePointToDisk,
+  writeRomBackupAndSyncManifest,
 } from "./projectFileStorageService";
 
 import "./project-file-storage.css";
@@ -32,11 +37,15 @@ type Props = {
 
   currentSession:
     NexusProjectSessionState;
+
+  loadedRomImage:
+    RomImageInfo | null;
 };
 
 export function ProjectFileStoragePanel({
   activeProject,
   currentSession,
+  loadedRomImage,
 }: Props) {
   const [
     storageRoot,
@@ -66,6 +75,25 @@ export function ProjectFileStoragePanel({
   const [
     error,
     setError,
+  ] = useState<
+    string | null
+  >(
+    null,
+  );
+
+
+  const [
+    lastRomBackupPath,
+    setLastRomBackupPath,
+  ] = useState<
+    string | null
+  >(
+    null,
+  );
+
+  const [
+    lastRomBackupHash,
+    setLastRomBackupHash,
   ] = useState<
     string | null
   >(
@@ -173,6 +201,57 @@ export function ProjectFileStoragePanel({
       }
     };
 
+  const writeCurrentRomBackup =
+    async () => {
+      if (
+        !activeProject ||
+        !loadedRomImage
+      ) {
+        return;
+      }
+
+      setError(
+        null,
+      );
+
+      try {
+        const result =
+          await writeRomBackupAndSyncManifest(
+            activeProject.id,
+            activeProject.name,
+            activeProject.vehicleLabel,
+            currentSession,
+            loadedRomImage.fileName,
+            new Uint8Array(
+              loadedRomImage.bytes,
+            ),
+          );
+
+        setLastRomBackupPath(
+          result.backup.filePath,
+        );
+
+        setLastRomBackupHash(
+          result.backup.sha256,
+        );
+
+        setLastManifestPath(
+          result.manifest.manifestPath,
+        );
+      } catch (
+        caught
+      ) {
+        setError(
+          caught instanceof
+          Error
+            ? caught.message
+            : String(
+                caught,
+              ),
+        );
+      }
+    };
+
   return (
     <section className="project-file-storage">
       <div className="project-file-storage-header">
@@ -228,6 +307,22 @@ export function ProjectFileStoragePanel({
             "NOT WRITTEN"
           }
         />
+
+        <Info
+          label="ROM BACKUP"
+          value={
+            lastRomBackupPath ??
+            "NOT WRITTEN"
+          }
+        />
+
+        <Info
+          label="ROM SHA-256"
+          value={
+            lastRomBackupHash ??
+            "NONE"
+          }
+        />
       </div>
 
       <div className="project-file-storage-actions">
@@ -262,6 +357,23 @@ export function ProjectFileStoragePanel({
 
           WRITE RESTORE POINT FILE
         </button>
+
+        <button
+          type="button"
+          disabled={
+            !activeProject ||
+            !loadedRomImage
+          }
+          onClick={() =>
+            void writeCurrentRomBackup()
+          }
+        >
+          <HardDrive
+            size={12}
+          />
+
+          WRITE ROM BACKUP TO DISK
+        </button>
       </div>
 
       {error && (
@@ -290,10 +402,11 @@ export function ProjectFileStoragePanel({
       </div>
 
       <div className="project-file-storage-note">
-        v8.7 writes project metadata and restore points to real
-        files through Tauri. ROM backup binaries can now be
-        written to the project folder by the file backend, but
-        this does not add ECU memory-read or write commands.
+        v8.8 writes the currently loaded ROM image to the
+        active project’s rom-backups folder, hashes it with
+        SHA-256 in the Rust backend, and updates the project
+        manifest. ECU memory-read, security access and write/
+        flash commands remain unavailable.
       </div>
     </section>
   );

@@ -1071,7 +1071,7 @@ export function HardwareManager({
           <div className="hardware-live-header">
             <div>
               <span className="eyebrow">
-                HARDWARE COMMUNICATION / V8.7
+                HARDWARE COMMUNICATION / V8.8
               </span>
 
               <h2>
@@ -1168,6 +1168,10 @@ export function HardwareManager({
             }
             currentSession={
               currentPersistedState
+            }
+            loadedRomImage={
+              loadedRomImage ??
+              null
             }
           />
 
