@@ -95,11 +95,12 @@ import { FlashManager } from "./flashing/FlashManager";
 import { AutoTunePanel } from "./tuning/AutoTunePanel";
 
 import { ProjectBar } from "./desktop/ProjectBar";
-import { ProjectManager } from "./desktop/ProjectManager";
+import {
+  ProjectOverviewPage,
+} from "./desktop/ProjectOverviewPage";
 
-import type {
-  RevisionCompareCell,
-} from "./desktop/RevisionComparePanel";
+import "./desktop/project-overview-page.css";
+
 import {
   DesktopShell,
   type NexusHeaderWorkspace,
@@ -110,8 +111,10 @@ import {
 } from "./hardware/HardwareOverviewWorkspace";
 
 import {
-  EcuWorkspace,
-} from "./hardware/EcuWorkspace";
+  EcuControlCenter,
+} from "./hardware/EcuControlCenter";
+
+import "./hardware/ecu-control-center.css";
 
 import {
   DiagnosticsWorkspace,
@@ -127,7 +130,6 @@ import type { DesktopSettings } from "./desktop/desktopSettings";
 
 import {
   createNexusProject,
-  createRevision,
   getRecentProjects,
   openProject,
   openRecentProject,
@@ -152,8 +154,7 @@ import type {
 
 import type {
   EcuMap,
-  MapKind,
-} from "./maps/mapTypes";
+  } from "./maps/mapTypes";
 
 import type {
   DtcRecord,
@@ -192,6 +193,16 @@ import {
 } from "./desktop/SimplifiedHomePage";
 
 import "./desktop/simplified-mode.css";
+
+import {
+  AdvancedHomeDashboard,
+} from "./desktop/AdvancedHomeDashboard";
+
+import {
+  NexusGlobalStatusBar,
+} from "./desktop/NexusGlobalStatusBar";
+
+import "./desktop/v10-dashboard.css";
 
 import "./desktop/access-mode-settings.css";
 import "./desktop/nexus-settings-workspace.css";
@@ -2089,12 +2100,6 @@ function App() {
       );
     };
 
-  const updateProjectMetadata = (
-    project: NexusProject,
-  ) => {
-    setCurrentProject(project);
-    setProjectDirty(true);
-  };
 
   const toggleMapFavourite = (
     mapId: string,
@@ -2111,153 +2116,8 @@ function App() {
     setProjectDirty(true);
   };
 
-  const createProjectRevision = (
-    name: string,
-  ) => {
-    setCurrentProject(
-      (previous) => ({
-        ...previous,
-        revisions: [
-          ...previous.revisions,
-          createRevision(
-            name || `Revision ${previous.revisions.length + 1}`,
-            calibrationMaps,
-          ),
-        ].slice(-50),
-      }),
-    );
-    setProjectDirty(true);
-  };
 
-  const applyRevisionCells = (
-    mapKind: MapKind,
-    sourceRevisionId: string,
-    cells: RevisionCompareCell[],
-  ) => {
-    const sourceRevision =
-      currentProject.revisions.find(
-        (revision) =>
-          revision.id ===
-          sourceRevisionId,
-      );
 
-    if (
-      !sourceRevision ||
-      cells.length ===
-        0
-    ) {
-      return;
-    }
-
-    const currentMap =
-      calibrationMaps[
-        mapKind
-      ];
-
-    const sourceMap =
-      sourceRevision.maps[
-        mapKind
-      ];
-
-    const nextMap: EcuMap = {
-      ...currentMap,
-      xAxis: {
-        ...currentMap.xAxis,
-        values: [
-          ...currentMap.xAxis.values,
-        ],
-      },
-      yAxis: {
-        ...currentMap.yAxis,
-        values: [
-          ...currentMap.yAxis.values,
-        ],
-      },
-      values:
-        currentMap.values.map(
-          (row: number[]) => [
-            ...row,
-          ],
-        ),
-    };
-
-    let changedCells = 0;
-
-    cells.forEach(
-      (cell) => {
-        const sourceValue =
-          sourceMap.values[
-            cell.row
-          ]?.[
-            cell.column
-          ];
-
-        const currentValue =
-          nextMap.values[
-            cell.row
-          ]?.[
-            cell.column
-          ];
-
-        if (
-          sourceValue ===
-            undefined ||
-          currentValue ===
-            undefined ||
-          Math.abs(
-            sourceValue -
-            currentValue,
-          ) <=
-            0.000001
-        ) {
-          return;
-        }
-
-        nextMap.values[
-          cell.row
-        ][
-          cell.column
-        ] =
-          sourceValue;
-
-        changedCells++;
-      },
-    );
-
-    if (
-      changedCells ===
-      0
-    ) {
-      return;
-    }
-
-    handleMapChange(
-      nextMap,
-    );
-
-    setProjectDirty(
-      true,
-    );
-  };
-
-  const restoreProjectRevision = (
-    revisionId: string,
-  ) => {
-    const revision =
-      currentProject.revisions.find(
-        (item) => item.id === revisionId,
-      );
-
-    if (!revision) {
-      return;
-    }
-
-    loadCalibrationMaps(
-      revision.maps,
-    );
-
-    setProjectDirty(true);
-  };
 
   const handleRomDecodedMap = (
     decodedMap: EcuMap,
@@ -2847,6 +2707,87 @@ function App() {
           />
         )}
 
+        {!simplifiedMode &&
+        primaryWorkspace ===
+          "home" && (
+          <AdvancedHomeDashboard
+            projectName={
+              currentProject.name
+            }
+            projectSaved={
+              !projectDirty
+            }
+            liveMode={
+              operatingMode ===
+              "live"
+            }
+            engineRunning={
+              engineRunning
+            }
+            rpm={
+              state.sensors.rpm
+            }
+            batteryVoltage={
+              state.sensors.batteryVoltage
+            }
+            coolantC={
+              state.sensors.coolantTemperatureC
+            }
+            romLoaded={
+              Boolean(
+                loadedRomImage,
+              )
+            }
+            logging={
+              logging
+            }
+            logSamples={
+              logSamples.length
+            }
+            onOpenProject={() =>
+              setPrimaryWorkspace(
+                "project",
+              )
+            }
+            onOpenHardware={() =>
+              setPrimaryWorkspace(
+                "hardware",
+              )
+            }
+            onOpenEcu={() =>
+              setPrimaryWorkspace(
+                "ecu",
+              )
+            }
+            onOpenDiagnostics={() =>
+              setPrimaryWorkspace(
+                "diagnostics",
+              )
+            }
+            onOpenTuning={() =>
+              setPrimaryWorkspace(
+                "tuning",
+              )
+            }
+            onOpenLogging={() =>
+              setPrimaryWorkspace(
+                "logging",
+              )
+            }
+            onOpenSafety={() =>
+              setPrimaryWorkspace(
+                "safety",
+              )
+            }
+            onOpenSettings={() =>
+              setPrimaryWorkspace(
+                "settings",
+              )
+            }
+          />
+        )}
+
+
 
         <DesktopShell
           dirty={
@@ -2885,6 +2826,39 @@ function App() {
           }
           onHeaderWorkspace={
             setPrimaryWorkspace
+          }
+          simplifiedMode={
+            simplifiedMode
+          }
+        />
+
+        <NexusGlobalStatusBar
+          projectName={
+            currentProject.name
+          }
+          projectSaved={
+            !projectDirty
+          }
+          liveMode={
+            operatingMode ===
+            "live"
+          }
+          engineRunning={
+            engineRunning
+          }
+          romLoaded={
+            Boolean(
+              loadedRomImage,
+            )
+          }
+          logging={
+            logging
+          }
+          logSamples={
+            logSamples.length
+          }
+          activeWorkspace={
+            primaryWorkspace
           }
           simplifiedMode={
             simplifiedMode
@@ -2938,29 +2912,64 @@ function App() {
         )}
 
         <div className="nexus-primary-project-section">
-        <ProjectManager
-          project={
-            currentProject
-          }
-          maps={
-            calibrationMaps
-          }
-          dirty={
-            projectDirty
-          }
-          onProjectChange={
-            updateProjectMetadata
-          }
-          onCreateRevision={
-            createProjectRevision
-          }
-          onRestoreRevision={
-            restoreProjectRevision
-          }
-          onApplyRevisionCells={
-            applyRevisionCells
-          }
-        />
+          <ProjectOverviewPage
+            projectName={
+              currentProject.name
+            }
+            projectSaved={
+              !projectDirty
+            }
+            vin={
+              currentProject.vehicle.vin
+            }
+            make={
+              currentProject.vehicle.make
+            }
+            model={
+              currentProject.vehicle.model
+            }
+            year={
+              currentProject.vehicle.year
+            }
+            engine={
+              currentProject.vehicle.engine
+            }
+            ecu={
+              currentProject.vehicle.ecu
+            }
+            transmission={
+              currentProject.vehicle.transmission
+            }
+            fuel={
+              currentProject.vehicle.fuel
+            }
+            romLoaded={
+              Boolean(
+                loadedRomImage,
+              )
+            }
+            revisionCount={
+              currentProject.revisions.length
+            }
+            editCount={
+              currentProject.editHistory.length
+            }
+            hasProject={
+              currentProject.name !==
+              "Untitled Project"
+            }
+            onNew={
+              newProject
+            }
+            onOpen={
+              openProjectFile
+            }
+            onSave={() =>
+              saveCurrentProject(
+                false,
+              )
+            }
+          />
         </div>
 
         <div className="nexus-primary-hardware-section">
@@ -2978,15 +2987,32 @@ function App() {
         </div>
 
         <div className="nexus-primary-ecu-section">
-          <EcuWorkspace
-            loadedRomImage={
-              loadedRomImage
+          <EcuControlCenter
+            vin={
+              currentProject.vehicle.vin
             }
-            operatingMode={
-              operatingMode
+            ecuName={
+              currentProject.vehicle.ecu
             }
-            onOperatingModeChange={
-              setOperatingMode
+            romLoaded={
+              Boolean(
+                loadedRomImage,
+              )
+            }
+            onOpenHardware={() =>
+              setPrimaryWorkspace(
+                "hardware",
+              )
+            }
+            onOpenDiagnostics={() =>
+              setPrimaryWorkspace(
+                "diagnostics",
+              )
+            }
+            onOpenSafety={() =>
+              setPrimaryWorkspace(
+                "safety",
+              )
             }
           />
         </div>

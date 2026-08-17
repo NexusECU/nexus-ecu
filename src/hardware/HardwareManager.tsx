@@ -87,6 +87,10 @@ import {
 } from "./AdapterConnectionWizard";
 
 import {
+  HardwareConnectionCentre,
+} from "./HardwareConnectionCentre";
+
+import {
   VehicleEcuDetectionWorkspace,
 } from "./VehicleEcuDetectionWorkspace";
 
@@ -1165,6 +1169,72 @@ export function HardwareManager({
 
   if (
     forcedWorkspaceTab ===
+    "overview"
+  ) {
+    const diagnosticResponderReady =
+      canFrames.some(
+        frame =>
+          frame.id >=
+            0x7e8 &&
+          frame.id <=
+            0x7ef,
+      );
+
+    return (
+      <section className="hardware-manager hardware-manager-overview-v10-4">
+        <HardwareConnectionCentre
+          activeProvider={activeTransportProvider}
+          onSelectProvider={setActiveTransportProvider}
+          availablePorts={devices.map(device => device.portName)}
+          selectedPort={selectedPort}
+          onSelectPort={setSelectedPort}
+          selectedBaud={baudRate}
+          onSelectBaud={setBaudRate}
+          selectedCanBitrateKbps={canBitrateKbps}
+          onSelectCanBitrateKbps={setCanBitrateKbps}
+          connection={connection}
+          canActive={canActive}
+          framesObserved={canFrames.length}
+          diagnosticResponderReady={diagnosticResponderReady}
+          error={error}
+          busy={busy}
+          onRefresh={() => { void refreshDevices(); }}
+          onConnect={() => { void connect(); }}
+          onDisconnect={() => { void disconnect(); }}
+          onOpenCan={() => { void openCanMonitor(); }}
+          onCloseCan={() => { void closeCan(); }}
+          advancedDetails={
+            <>
+              <AdapterConnectionWizard
+                activeProvider={activeTransportProvider}
+                onSelectProvider={setActiveTransportProvider}
+                availablePorts={devices.map(device => device.portName)}
+                selectedPort={selectedPort}
+                onSelectPort={setSelectedPort}
+                selectedBaud={baudRate}
+                onSelectBaud={setBaudRate}
+                selectedCanBitrateKbps={canBitrateKbps}
+                onSelectCanBitrateKbps={setCanBitrateKbps}
+                connection={connection}
+                error={error}
+                framesObserved={canFrames.length}
+              />
+
+              <CanMonitor
+                frames={canFrames}
+                active={canActive}
+                bitrateKbps={canActive ? canBitrateKbps : null}
+                onClear={() => setCanFrames([])}
+              />
+            </>
+          }
+        />
+      </section>
+    );
+  }
+
+  if (
+    forcedWorkspaceTab ===
     "identification"
   ) {
     return (
@@ -1546,8 +1616,6 @@ export function HardwareManager({
   return (
     <section className="hardware-manager">
 
-      {forcedWorkspaceTab !==
-        "overview" && (
       <div className="hardware-mode-bar">
         <div>
           <span className="eyebrow">
@@ -1614,12 +1682,9 @@ export function HardwareManager({
           READ ONLY
         </div>
       </div>
-      )}
 
-      {(operatingMode ===
-        "live" ||
-        forcedWorkspaceTab ===
-          "overview") && (
+      {operatingMode ===
+        "live" && (
         <div className="hardware-live-panel">
           <div className="hardware-live-header">
             <div>

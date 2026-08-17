@@ -1,0 +1,5 @@
+[33mfcece7b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/v10.0-production-baseline[m[33m, [m[1;33mtag: [m[1;33mv10.2.0[m[33m)[m NEXUS ECU v10.2 - workspace routing, simplified mode and UI improvements
+[33m2915aa4[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/feature/v9.9-safety-hardening[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m, [m[1;32mfeature/v9.9-safety-hardening[m[33m)[m NEXUS ECU v9.9 - Safety Gates and Production Hardening
+[33mc789921[m[33m ([m[1;31morigin/feature/v9.8-diagnostics-recovery[m[33m, [m[1;32mfeature/v9.8-diagnostics-recovery[m[33m)[m NEXUS ECU v9.8 - Diagnostics Logging and Recovery Hardening
+[33ma8f42d2[m[33m ([m[1;31morigin/feature/v9.7-binding-hardening[m[33m, [m[1;32mfeature/v9.7-binding-hardening[m[33m)[m NEXUS ECU v9.7 - ROM and Definition Binding Hardening
+[33m41b6408[m[33m ([m[1;31morigin/feature/v9.6-ecu-preflight[m[33m, [m[1;32mfeature/v9.6-ecu-preflight[m[33m)[m NEXUS ECU v9.6 - ECU Connection Readiness and Preflight
